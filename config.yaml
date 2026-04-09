@@ -1,0 +1,25 @@
+coordinates:
+  b: null
+  coord_sys: C
+  dec: 2.8
+  l: null
+  ra: 284.333
+  roi_x: 2.0
+  roi_y: 5.0
+fitting:
+  bins: null
+  estimator: P5_nhit
+  plugin: hal
+likelihood_thresholds:
+  extension_test: 25
+  point_source_detection: 16
+  spectrum_test: 16
+paths:
+  detector_response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+  use_dbe: false # Set to true if you want to use the DBE template for fitting. If false, the code will look for a template specified in 'hermes_template' (which can be null if not needed).
+  hermes_template: null #Optional path to a DBE template file
+  main_dir: ./outputs
+  map_tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+  roi_template: null
+  significance_map: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/legacy/1857/aerie_apps_HpixSigFluxMap_HESSJ1857_r0.0_p1.0_i2.5_p5_gp_2d.fits.gz
+  # significance_map: /Users/rishi/Documents/Analysis/data/aligned-ml-wholesky-neg-ext0.0.fits.gz

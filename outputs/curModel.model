@@ -1,0 +1,143 @@
+##################################BEGINSOURCE##################################
+source_name = "Source0"
+source_ra  = 284.323362993651
+source_dec = 2.829916658541726
+
+spectrum = threeML.Powerlaw()
+source0 = threeML.PointSource(source_name, ra=source_ra, dec=source_dec, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+spectrum.K = 1.000e-24 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26 * fluxUnit, 1e-20 * fluxUnit)
+
+spectrum.piv = 2 * threeML.u.TeV
+spectrum.piv.fix = True
+
+spectrum.index = -2.5
+spectrum.index.fix = False
+spectrum.index.bounds = (-3., -1.)
+
+source0.position.ra.free = True
+source0.position.ra.bounds = ((284.323362993651 - 1.0), (284.323362993651 + 1.0)) * threeML.u.degree
+source0.position.dec.free = True
+source0.position.dec.bounds = ((2.829916658541726 - 1.0), (2.829916658541726 + 1.0)) * threeML.u.degree
+###################################ENDSOURCE###################################
+
+##################################BEGINSOURCE##################################
+source_name = "Source1"
+source_ra  = 284.51925345123027
+source_dec = 2.0675420188405425
+
+spectrum = threeML.Powerlaw()
+source1 = threeML.PointSource(source_name, ra=source_ra, dec=source_dec, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+spectrum.K = 1.000e-24 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26 * fluxUnit, 1e-20 * fluxUnit)
+
+spectrum.piv = 2 * threeML.u.TeV
+spectrum.piv.fix = True
+
+spectrum.index = -2.5
+spectrum.index.fix = False
+spectrum.index.bounds = (-3., -1.)
+
+source1.position.ra.free = True
+source1.position.ra.bounds = ((284.51925345123027 - 1.0), (284.51925345123027 + 1.0)) * threeML.u.degree
+source1.position.dec.free = True
+source1.position.dec.bounds = ((2.0675420188405425 - 1.0), (2.0675420188405425 + 1.0)) * threeML.u.degree
+###################################ENDSOURCE###################################
+
+##################################BEGINSOURCE##################################
+source_name = "Source2"
+source_ra  = 285.26283747139166
+source_dec = 4.059520842776649
+
+spectrum = threeML.Powerlaw()
+source2 = threeML.PointSource(source_name, ra=source_ra, dec=source_dec, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+spectrum.K = 1.000e-24 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26 * fluxUnit, 1e-20 * fluxUnit)
+
+spectrum.piv = 2 * threeML.u.TeV
+spectrum.piv.fix = True
+
+spectrum.index = -2.5
+spectrum.index.fix = False
+spectrum.index.bounds = (-3., -1.)
+
+source2.position.ra.free = True
+source2.position.ra.bounds = ((285.26283747139166 - 1.0), (285.26283747139166 + 1.0)) * threeML.u.degree
+source2.position.dec.free = True
+source2.position.dec.bounds = ((4.059520842776649 - 1.0), (4.059520842776649 + 1.0)) * threeML.u.degree
+###################################ENDSOURCE###################################
+
+##################################BEGINSOURCE##################################
+source_name = "Source3"
+
+spectrum = threeML.Powerlaw()
+shape = threeML.Gaussian_on_sphere()
+source3 = threeML.ExtendedSource(source_name, spatial_shape=shape, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+shape.lon0 = 284.6819182974375 * threeML.u.degree
+shape.lon0.fix = False
+shape.lon0.bounds = ((284.6819182974375 - 1) * threeML.u.degree, (284.6819182974375 + 1) * threeML.u.degree)
+
+shape.lat0 = 3.3205588953881247 * threeML.u.degree
+shape.lat0.fix = False
+shape.lat0.bounds = ((3.3205588953881247 - 1) * threeML.u.degree, (3.3205588953881247 + 1) * threeML.u.degree)
+
+shape.sigma = 0.3299905815368999
+shape.sigma.fix = False
+shape.sigma.bounds = (0.01, 2.0)
+
+spectrum.K = 1.000e-24 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26 * fluxUnit, 1e-20 * fluxUnit)
+
+spectrum.piv = 2 * threeML.u.TeV
+spectrum.piv.fix = True
+
+spectrum.index = -2.5
+spectrum.index.fix = False
+spectrum.index.bounds = (-3., -1.)
+###################################ENDSOURCE###################################
+
+##################################BEGINSOURCE##################################
+source_name = "Source4"
+
+spectrum = threeML.Powerlaw()
+shape = threeML.Gaussian_on_sphere()
+source4 = threeML.ExtendedSource(source_name, spatial_shape=shape, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+shape.lon0 = 283.4701361528909 * threeML.u.degree
+shape.lon0.fix = False
+shape.lon0.bounds = ((283.4701361528909 - 1) * threeML.u.degree, (283.4701361528909 + 1) * threeML.u.degree)
+
+shape.lat0 = 1.325426240798359 * threeML.u.degree
+shape.lat0.fix = False
+shape.lat0.bounds = ((1.325426240798359 - 1) * threeML.u.degree, (1.325426240798359 + 1) * threeML.u.degree)
+
+shape.sigma = 0.5279849304590399
+shape.sigma.fix = False
+shape.sigma.bounds = (0.01, 2.0)
+
+spectrum.K = 1.000e-24 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26 * fluxUnit, 1e-20 * fluxUnit)
+
+spectrum.piv = 2 * threeML.u.TeV
+spectrum.piv.fix = True
+
+spectrum.index = -2.5
+spectrum.index.fix = False
+spectrum.index.bounds = (-3., -1.)
+###################################ENDSOURCE###################################
+
+model = threeML.Model(source0, source1, source2, source3, source4)
