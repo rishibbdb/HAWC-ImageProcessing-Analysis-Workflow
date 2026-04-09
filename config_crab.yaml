@@ -1,0 +1,78 @@
+coordinates:
+  coord_sys: C
+  ra: 83.5
+  dec: 22
+  l: null
+  b: null
+  roi_x: 4.0
+  roi_y: 4.0
+
+fitting:
+  bins: [B2C0, B3C0, B4C0, B5C0, B6C0, B7C0, B8C0, B9C0, B10C0]
+  estimator: P5_nhit
+  plugin: hal
+  errors: False
+  TS: True
+
+likelihood_thresholds:
+  extension_test: 25
+  point_source_detection: 16
+  spectrum_test: 16
+
+paths:
+  step: 'SeedModelFit'
+  detector_response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+  main_dir: ./Crab_Fit
+  map_tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+  roi_template: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/legacy/1857/roi_HESSJ1857.fits.gz
+  generate_roi_template: false
+  # significance_map: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/legacy/1857/aerie_apps_HpixSigFluxMap_HESSJ1857_r0.0_p1.0_i2.5_p5_gp_2d.fits.gz
+  significance_map: null
+  data_dir: /Users/rishi/Documents/Analysis/data/count_maps
+
+  
+diffuse:
+  use_dbe: true  # Include Diffuse Background Emission
+  diffuse_template: null #Optional path to a DBE template file
+
+# Initial Model Setup
+initial_model:
+  create_map: true  # Create initial map if not provided
+
+spectral_models:
+  point_source_initial: 'PowerLaw'  # Initial spectral model for point sources
+  extension_test_model: 'PowerLaw'  # Model to use when testing extension
+  curvature_test_model: 'LogParabola'  # Model to test for spectral curvature
+
+morphology_models:
+  point_source: 'PointSource'  # Initial morphology
+  extension_options: ['Disk', 'Gaussian', 'GeneralizedGaussian']  # Available morphologies for testing
+
+logging:
+  log_level: 'INFO'  # DEBUG, INFO, WARNING, ERROR
+  save_intermediate_results: true  # Save results after each step
+  save_frequency: 5  # Save checkpoint every N iterations
+  plot_results: true  # Generate plots during pipeline
+
+# Testing Flags (can disable steps)
+testing:
+  run_point_source_fit: true
+  run_extension_test: true
+  run_spectrum_test: true
+  run_final_refit: true
+  run_final_source_detection: true
+
+# Resume Configuration
+resume:
+  enabled: true  # Enable resume functionality
+  checkpoint_dir: null  # Directory with checkpoint data (null = create new)
+  resume_from_step: null  # Step to resume from (null = start from beginning)
+  # Available steps: 'initial_map', 'source_detection_1', 'initial_fit', 
+  #                 'ps_add_1', 'ps_test_1', ..., 'ext_test_1', ..., 
+  #       
+
+advanced:
+  freeze_background: false  # Freeze background parameters after initial fit
+  freeze_spatial_params_after_first_fit: true  # Freeze spatial params in source tests
+  use_profile_likelihood: false  # Use profile likelihood for parameter estimation
+  significance_map_smoothing: 2  # Smoothing kernel for significance maps

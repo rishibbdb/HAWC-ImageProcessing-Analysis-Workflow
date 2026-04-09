@@ -1509,3 +1509,19 @@ def threeML_model_from_sources(filtered_df):
 
     return allmodel, sources
 
+def hdf_to_fits(hdf_path, fits_path):
+    """Convert HDF5 blob data to FITS format for 3ML."""
+    with h5py.File(hdf_path, 'r') as hdf:
+        blobs = hdf['blobs'][:]
+        ra    = hdf['ra'][:]
+        dec   = hdf['dec'][:]
+        sigma = hdf['sigma'][:]
+
+    col1 = fits.Column(name='RA',  format='E', array=ra)
+    col2 = fits.Column(name='DEC', format='E', array=dec)
+    col3 = fits.Column(name='Sigma', format='E', array=sigma)
+    col4 = fits.Column(name='Blob_Radius_PX', format='E', array=blobs[:, 2])
+
+    cols = fits.ColDefs([col1, col2, col3, col4])
+    hdu  = fits.BinTableHDU.from_columns(cols)
+    hdu.writeto(fits_path, overwrite=True)

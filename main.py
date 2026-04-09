@@ -6,6 +6,7 @@ import logging
 import argparse
 import traceback
 from pathlib import Path
+import subprocess
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import numpy as np
@@ -200,17 +201,25 @@ class SourceSearchPipeline:
         """Initialize pipeline with configuration and logging"""
         self.config = PipelineConfig(config_file)
         
-        # Get step name from config
+        # Get step name and iteration from config
         self.step_name = self.config.get('paths.step', 'DefaultStep')
+        self.step_iteration = self.config.get('paths.step_iteration', 0)
         
-        # Setup directories
-        main_dir = Path(self.config.get('paths.main_dir')) / self.step_name
+        # Setup directories - hierarchical structure
+        main_dir = Path(self.config.get('paths.main_dir'))
         main_dir.mkdir(parents=True, exist_ok=True)
+        self.main_dir = main_dir
         
-        log_dir = main_dir / 'logs'
+        # Create step-specific subdirectory with iteration number
+        step_dir = main_dir / f'step{self.step_iteration}.{self.step_name}'
+        step_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create logs and results subdirectories within step directory
+        log_dir = step_dir / 'logs'
         checkpoint_dir = main_dir / 'checkpoints'
-        output_dir = main_dir / 'results'
+        output_dir = step_dir / 'results'
         
+        log_dir.mkdir(parents=True, exist_ok=True)
         output_dir.mkdir(parents=True, exist_ok=True)
         
         # Initialize logger and checkpoint manager
@@ -218,52 +227,31 @@ class SourceSearchPipeline:
         self.checkpoint_mgr = CheckpointManager(str(checkpoint_dir))
         
         # Store paths
-        self.main_dir = main_dir
+        self.step_dir = step_dir
         self.log_dir = log_dir
         self.checkpoint_dir = checkpoint_dir
         self.output_dir = output_dir
-        
-        # Log initialization
-    #     self._log_initialization(config_file)
+
     
-    # def _log_initialization(self, config_file: str):
-    #     """Log pipeline initialization details"""
-    #     self.logger.info("="*80)
-    #     self.logger.info("PIPELINE INITIALIZED")
-    #     self.logger.info("="*80)
-    #     self.logger.info(f"Config file: {config_file}")
-    #     self.logger.info(f"Step: {self.step_name}")
-    #     self.logger.info(f"Main directory: {self.main_dir}")
-    #     self.logger.info(f"Log directory: {self.log_dir}")
-    #     self.logger.info(f"Checkpoint directory: {self.checkpoint_dir}")
-    #     self.logger.info(f"Output directory: {self.output_dir}")
-    #     self.logger.info("="*80)
+    def run_fit(self):
+        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
+        self.hal_fit.run()
+        self.logger.info(f"{self.step_name} completed successfully")
+
+    def run_fit_witherrors(self):
+        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
+        self.hal_fit.run()
+        self.logger.info(f"{self.step_name} completed successfully")
     
-    def run(self):
-        """Execute the pipeline based on step configuration"""
-        try:
-            self.logger.info(f"Starting {self.step_name} step...")
-            
-            if self.step_name == 'SeedModelFit':
-                # self._run_seed_model()
-                self.model = self.output_dir / 'curModel.model'
-                if os.path.exists(self.model):
-                    self.logger.info(f"Model file already exists at {self.model}, skipping seed model fitting")
-                else:
-                    self._run_seed_model()
-            elif self.step_name == 'SourceDetection':
-                self._run_source_detection()
-            else:
-                self.logger.error(f"Unknown step: {self.step_name}")
-                raise ValueError(f"Unknown step: {self.step_name}")
-            hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
-            hal_fit.run()
-            self.logger.info(f"{self.step_name} completed successfully")
-            
-        except Exception as e:
-            self.logger.error(f"Pipeline failed: {str(e)}")
-            self.logger.error(traceback.format_exc())
-            raise
+    def run_fit_withTS(self):
+        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
+        self.hal_fit.run()
+        self.logger.info(f"{self.step_name} completed successfully")
+
+    def run_fit_withTS_errors(self):
+        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
+        self.hal_fit.run()
+        self.logger.info(f"{self.step_name} completed successfully")               
     
     def _run_seed_model(self):
         """Run the seed model fitting step"""
@@ -279,8 +267,14 @@ class SourceSearchPipeline:
             },
             metadata={'step_type': 'seed_model_fitting'}
         )
+
+        detector = SourceSeedDetector(str(self.config.config_file), step_path=str(self.step_dir))
         
-        detector = SourceSeedDetector(str(self.config.config_file))
+        # Update detector to use the newly created significance map
+        significance_map_path = self.output_dir / 'skymap.fits'
+        if significance_map_path.exists():
+            detector.initialmap = str(significance_map_path)
+            self.logger.info(f"Updated detector to use significance map at {significance_map_path}")
         
         detector.save_dir = str(self.output_dir)
         
@@ -359,22 +353,119 @@ class SourceSearchPipeline:
         self.logger.info("="*80)
         self.logger.info(f"Step: {self.step_name}")
         self.logger.info(f"Status: {self.checkpoint_mgr.history.get('status', 'unknown')}")
-        self.logger.info(f"Output directory: {self.output_dir}")
+        self.logger.info(f"Main output directory: {self.main_dir}")
+        self.logger.info(f"Step output directory: {self.output_dir}")
         self.logger.info("="*80 + "\n")
         
         self.checkpoint_mgr.print_history()
  
-config_file = '/Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/config.yaml'
-pipeline = SourceSearchPipeline(config_file)
-pipeline.run()
-# Access params and statistics
-params = pipeline.hal_fit.params
-stats = pipeline.hal_fit.statistics
+    def make_maps(self):
+        self.logger.info("Running HealpixSigFluxMap...")
+        bins = self.config["fitting"]["bins"]
+        det_res = self.config["paths"]["detector_response"]
+        output_file = self.output_dir / "sky_map.fits"
 
-# Print results
-print("\nFit Parameters:")
-for name, value in params.items():
-    print(f"{name}: {value}")
+        data_dir = Path(self.config["paths"]["data_dir"])
 
-print("\nFit Statistics:")
-print(stats)
+        input_files = []
+        for b in bins:
+            matched_files = list(data_dir.glob(f"*{b}*"))
+            if not matched_files:
+                self.logger.warning(f"No files found for bin {b} in {data_dir}")
+            input_files.extend(matched_files)
+
+        # Convert Path objects to strings for subprocess
+        input_files = [str(f) for f in input_files]
+
+        # Coordinates
+        ra = self.config["coordinates"]["ra"]
+        dec = self.config["coordinates"]["dec"]
+        roi_x = self.config["coordinates"]["roi_x"]
+        roi_y = self.config["coordinates"]["roi_y"]
+
+        # Build the command
+        cmd = (
+            ["pixi", "run", "aerie-apps-HealpixSigFluxMap"]
+            + ["-i"] + input_files
+            + ["-b"] + bins
+            + ["-d", str(det_res)]
+            + ["--index", "2.6"]
+            + ["--pivot", "7"]
+            + ["--window", str(ra), str(dec), str(roi_x+5), str(roi_y+5)]
+            + ["--negFlux", "--negSignif"]
+            + ["-o", str(output_file)]
+        )
+
+        self.logger.info("Executing command:")
+        self.logger.info(" ".join(cmd))
+
+        subprocess.run(cmd, check=True)
+
+        self.logger.info(f"Model map created at {output_file}")
+
+    def check_residual(self):
+        """Check residuals after fitting"""
+        self.logger.info("Checking residuals...")
+
+        self.logger.info("Residual check completed (placeholder)")
+
+    def create_residualmaps(self):
+        """Create residual maps after fitting"""
+        self.logger.info("Creating residual maps...")
+
+        self.logger.info("Residual map creation completed (placeholder)")
+
+    def create_modelmaps(self):
+        """Create model maps after fitting"""
+        self.logger.info("Creating model maps...")
+
+        self.logger.info("Model map creation completed (placeholder)")
+
+    def run(self):
+        """Execute the pipeline based on step configuration"""
+        self.logger.info(f"Starting {self.step_name} step...")
+        if self.step_name == 'SeedModelFit':
+            print(f"Seed model directory: {self.step_dir}")
+            self.model = self.output_dir / 'curModel.model'
+            if os.path.exists(self.model):
+                self.logger.info(f"Model file already exists at {self.model}, skipping seed model fitting")
+            else:
+                self.logger.info(f"Model file not found at {self.model}, running seed model fitting")
+                
+                significance_map_path = self.config.get('paths.significance_map')
+                signif_map_path = self.output_dir / 'skymap.fits'
+                
+                # Check if either significance map exists
+                if (significance_map_path and os.path.exists(significance_map_path)) or os.path.exists(signif_map_path):
+                    self.logger.info(f"Significance map found at {significance_map_path}, skipping map creation")
+                else:
+                    self.logger.info("Significance map not found, creating it now...")
+                    self.make_maps()
+                
+                self._run_seed_model()
+            self.run_fit_withTS()
+            self.create_modelmaps()
+            self.create_residualmaps()
+            self.check_residual()
+
+def main():
+    config_file = '/Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/config_crab.yaml'
+    # pipeline = SourceSearchPipeline(config_file)
+    # pipeline.run()
+    pipeline = SourceSearchPipeline(config_file)
+    pipeline.run()
+    params = pipeline.hal_fit.params
+    stats = pipeline.hal_fit.statistics
+
+    # Print results
+    print("\nFit Parameters:")
+    for name, value in params.items():
+        print(f"{name}: {value}")
+
+    print("\nFit Statistics:")
+    print(stats)
+
+
+
+if __name__ == "__main__":
+    main()

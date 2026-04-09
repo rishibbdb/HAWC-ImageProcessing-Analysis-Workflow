@@ -58,7 +58,7 @@ class PipelineConfig:
     
 class threeMLFit:
 
-    def __init__(self, config_path, model):
+    def __init__(self, config_path, model, save_dir):
         self.config = PipelineConfig(config_file=config_path)
         self.map_tree = str(self.config.get('paths.map_tree', None))
         self.det_res = str(self.config.get('paths.detector_response', None))
@@ -72,16 +72,17 @@ class threeMLFit:
         self.error_samples = 5000
         roiTemplate = self.config.get('paths.roi_template', None)
         print(f"Model file: {model}")
+
         namespace = {"threeML": threeML}
         exec(open(model).read(), namespace)
-
         if "model" not in namespace:
             raise ValueError("Model file did not define 'model'")
-
         self.model_obj = namespace["model"]
 
+        self.errors = str(self.config.get('fitting.errors', 'all'))
+        self.TS = self.config.get('fitting.TS', False)
         number_of_sources, RAs, Decs, source_name = self.get_source_centers(self.model_obj)
-
+        self.save_dir = save_dir
 
         if roiTemplate is not None:
             print(f"Using ROI template: {roiTemplate}")
@@ -93,7 +94,7 @@ class threeMLFit:
 
         self.bin_list=self.config.get('fitting.bins', [])
         
-        self.hawc = HAL("HAWC",self.map_tree,self.det_res,self.roi, bin_list=self.bin_list)
+        self.hawc = HAL("HAWC",self.map_tree,self.det_res,self.roi, n_workers=4)#, bin_list=self.bin_list)
         self.hawc.set_active_measurements(bin_list=self.bin_list)
         self.datalist = DataList(self.hawc)
         self.jl = JointLikelihood(self.model_obj, self.datalist, verbose=True)
@@ -191,7 +192,7 @@ class threeMLFit:
             print("")
 
     def hal_fit(self):
-        silence_logs()
+        # silence_logs()
         self.params, self.statistics = self.jl.fit(compute_covariance=False, n_samples=self.error_samples, quiet=False)
         self.jl.results.display()
 
@@ -201,7 +202,36 @@ class threeMLFit:
         self.jl.results.display()
         self.errAll = self.jl.get_errors()
 
+    def get_TS(self):
+        for source in self.model_obj.sources:
+            print(f"Computing TS for source: {source}")
+            try:
+                print(source, self.jl.compute_TS(source, self.statistics))
+            except:
+                pass
+        
+    def make_maps(self):
+        likelihood_object=self.hawc
+        # To save in the correct format
+        print("SAVE A BIG MAP")
+        new_ROI=HealpixConeROI(data_radius=self.roi_radius_model, model_radius=self.roi_radius_model+5, ra=self.roi_ra, dec=self.roi_dec)
+        large_like = HAL("AD_HAWC", self.map_tree, self.det_res, new_ROI) #,n_transits)
+        large_like.set_active_measurements(bin_list=self.bin_list)
+
+        large_jl = threeML.JointLikelihood( self.model_obj, self.datalist)
+        large_jl.set_minimizer("root")
+
+        large_like.set_model(self.model_obj)
+        large_like.get_log_like()
+
+        likelihood_object=large_like
+
+        print("Writing model map...")
+        likelihood_object.write_model_map(RESULTS_DIR + "/mod_fit_newhal.hd5")
+        likelihood_object.write_residual_map(RESULTS_DIR + "/res_fit_newhal.hd5")
+
     def run(self):
         print("Running threeML fit pipeline with bins:", self.bin_list)
         self.hal_fit()
+
 

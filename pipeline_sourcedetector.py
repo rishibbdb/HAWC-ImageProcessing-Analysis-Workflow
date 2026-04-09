@@ -12,7 +12,7 @@ import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 import astromodels
 import astromodels.functions.priors as priors
-
+from pathlib import Path
 import numpy as np
 import sys, os, re
 sys.path.append(os.path.abspath(".."))
@@ -65,7 +65,7 @@ class PipelineConfig:
 class SourceSeedDetector:
     """Main pipeline source detection class. Initializes with a configuration file and runs the source detection pipeline."""
     
-    def __init__(self, config_file: str):
+    def __init__(self, config_file: str, step_path: str = None):
         self.config = PipelineConfig(config_file)
         self.initialmap = self.config.get('paths.significance_map')
         self.coord_sys = self.config.get('coordinates.coord_sys')
@@ -89,10 +89,19 @@ class SourceSeedDetector:
                 self.l = float(self.config.get('coordinates.l'))
                 self.b = float(self.config.get('coordinates.b'))
         self.seed_coord_sys = 'G'
-        self.x_length = self.config.get('coordinates.roi_x', 1.0)+3
+        self.x_length = self.config.get('coordinates.roi_x', 1.0)
         self.y_length = self.config.get('coordinates.roi_y', 1.0)
-        self.save_dir = self.config.get('paths.main_dir')
-        os.makedirs(self.save_dir, exist_ok=True)
+        if self.x_length <=2:
+            self.x_length += 3
+        if self.y_length <=2:
+            self.y_length += 3
+
+        if step_path:
+            self.out_dir = str(Path(step_path) / 'results')
+        else:
+            self.save_dir = self.config.get('paths.main_dir')
+            self.out_dir = self.save_dir + "/SourceDetection"
+        os.makedirs(self.out_dir, exist_ok=True)
         self.SIG_THRESHOLD = 5.0
         self.SMEAR_RADII = [0.25, 0.3, 0.4, 0.5]
         
@@ -111,7 +120,7 @@ class SourceSeedDetector:
                 cmap='ult', figsize=(10, 6),
                 labels=labels,
             )
-        plt.savefig(f"{self.save_dir}/{title}.png", dpi=300)
+        plt.savefig(f"{self.out_dir}/{title}.png", dpi=300)
         plt.close()
 
     def normalise_image(self, array : np.ndarray):
@@ -379,7 +388,7 @@ class SourceSeedDetector:
         ax.set_xlabel('X (px)')
         ax.set_ylabel('Y (px)')
         plt.tight_layout()
-        plt.savefig(f"{self.save_dir}/{title}.png", dpi=300)
+        plt.savefig(f"{self.out_dir}/{title}.png", dpi=300)
         plt.close()
 
     def radius_to_sigma(self, R, fraction=0.6827):
@@ -482,12 +491,12 @@ class SourceSeedDetector:
             }
             print(f"Found {len(df_all)} sources, but none within original ROI")
         
-        with open(f"{self.save_dir}/filtered_sources.yaml", 'w') as f:
+        with open(f"{self.out_dir}/filtered_sources.yaml", 'w') as f:
             yaml.dump(sources_data, f, default_flow_style=False, sort_keys=False)
         
-        print(f"Results saved to: {self.save_dir}/filtered_sources.yaml")
+        print(f"Results saved to: {self.out_dir}/filtered_sources.yaml")
         
-        print(f"Results saved to: {self.save_dir}/filtered_sources.yaml")
+        print(f"Results saved to: {self.out_dir}/filtered_sources.yaml")
 
     def save_model_to_file(self, sources_dict, filtered_df, output_path="mymodel.model", 
                        hermes_present=None, hermes_path=None):
@@ -663,7 +672,7 @@ class SourceSeedDetector:
         self.allmodel, self.sources = threeML_model_from_sources(self.filtered_df)
         self.save_model_to_file(
             self.sources, self.filtered_df,
-            output_path        = f"{self.save_dir}/curModel.model",
+            output_path        = f"{self.out_dir}/curModel.model",
             hermes_present     = self.use_dbe,
             hermes_path        = self.dbe_template,
         )
@@ -687,7 +696,7 @@ if __name__ == "__main__":
         
         if args.verbose:
             print(f"Configuration loaded from: {args.config_file}")
-            print(f"Save directory: {detector.save_dir}")
+            print(f"Save directory: {detector.out_dir}")
             print(f"Significance map: {detector.initialmap}")
         
         # Run pipeline
@@ -699,7 +708,7 @@ if __name__ == "__main__":
             detector.run()
         
         if not args.skip_model_save and not args.source_seeding:
-            print(f"Pipeline complete. Results saved to: {detector.save_dir}")
+            print(f"Pipeline complete. Results saved to: {detector.out_dir}")
         else:
             print("Pipeline complete.")
     
