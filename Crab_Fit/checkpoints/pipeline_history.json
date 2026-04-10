@@ -1,0 +1,25 @@
+{
+  "created": "2026-04-09T17:45:57.525231",
+  "steps": {
+    "SeedModelFit": {
+      "name": "SeedModelFit",
+      "iteration": 0,
+      "status": "completed",
+      "timestamp": "2026-04-09T17:46:57.675639",
+      "data": {
+        "detector_sources_ps": 1,
+        "detector_sources_ext": 0,
+        "filtered_df_rows": 1,
+        "output_yaml": "Crab_Fit/step0.SeedModelFit/results/filtered_sources.yaml",
+        "output_model": "Crab_Fit/step0.SeedModelFit/results/curModel.model"
+      },
+      "metadata": {
+        "detector_class": "SourceSeedDetector",
+        "completion_time": "2026-04-09T17:46:57.675635"
+      }
+    }
+  },
+  "total_steps": 0,
+  "current_step": "SeedModelFit",
+  "status": "completed"
+}

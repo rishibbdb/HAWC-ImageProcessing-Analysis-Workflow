@@ -58,20 +58,20 @@ class PipelineConfig:
     
 class threeMLFit:
 
-    def __init__(self, config_path, model, save_dir):
+    def __init__(self, config_path: str, model, save_dir: str, roiTemplate: str = None, logger: str = None):
         self.config = PipelineConfig(config_file=config_path)
+        self.logger = logger  
         self.map_tree = str(self.config.get('paths.map_tree', None))
         self.det_res = str(self.config.get('paths.detector_response', None))
-        print(f"Map tree: {self.map_tree}")
-        print(f"Detector response: {self.det_res}")
+        self.logger.info(f"Map tree: {self.map_tree}")
+        self.logger.info(f"Detector response: {self.det_res}")
         self.roi_ra = self.config.get('coordinates.ra', 0.0)
         self.roi_dec = self.config.get('coordinates.dec', 0.0)
         self.roi_radius = 10
         self.roi_radius_model = 15
         self.roiThreshold = 0.5
         self.error_samples = 5000
-        roiTemplate = self.config.get('paths.roi_template', None)
-        print(f"Model file: {model}")
+        self.logger.info(f"Model file: {model}")
 
         namespace = {"threeML": threeML}
         exec(open(model).read(), namespace)
@@ -85,15 +85,15 @@ class threeMLFit:
         self.save_dir = save_dir
 
         if roiTemplate is not None:
-            print(f"Using ROI template: {roiTemplate}")
+            self.logger.info(f"Using ROI template: {roiTemplate}")
             self.roi = HealpixMapROI(data_radius=self.roi_radius, model_radius=self.roi_radius_model, ra=self.roi_ra, dec=self.roi_dec, roifile=roiTemplate, threshold=self.roiThreshold)
         else:
-            print("No ROI template provided, computing ROI from provided ra and dec")
+            self.logger.info("No ROI template provided, computing ROI from provided ra and dec")
             self.test_roi(self.roi_ra, self.roi_dec, self.roi_radius_model, number_of_sources, RAs, Decs, source_name)
             self.roi = HealpixConeROI(data_radius=self.roi_radius,model_radius=self.roi_radius_model,ra=self.roi_ra,dec=self.roi_dec,)
 
         self.bin_list=self.config.get('fitting.bins', [])
-        
+        self.logger.info(f"Running threeML fit pipeline with bins: {self.bin_list}")
         self.hawc = HAL("HAWC",self.map_tree,self.det_res,self.roi, n_workers=4)#, bin_list=self.bin_list)
         self.hawc.set_active_measurements(bin_list=self.bin_list)
         self.datalist = DataList(self.hawc)
@@ -104,7 +104,6 @@ class threeMLFit:
         c1 = SkyCoord(ra=RA1, dec=DEC1, unit="degree")
         c2 = SkyCoord(ra=RA2, dec=DEC2, unit="degree")
         return c1.separation(c2).to(threeML.u.degree).value
-
 
     def get_source_centers(self, model):
         RAs = []
@@ -131,7 +130,6 @@ class threeMLFit:
 
         return number_of_sources, RAs, Decs, source_name
 
-
     def get_roi_from_sources(self, number_of_sources, RAs, Decs, options):
         if number_of_sources == 0:
             return None, None
@@ -151,7 +149,6 @@ class threeMLFit:
         if not options.roiCenter:
             options.roiCenter = (roi_ra, roi_dec)
         return roi_ra, roi_dec
-
 
     def test_roi(self, roi_ra, roi_dec, roi_radius, number_of_sources, RAs, Decs, source_name):
         # Now we have the center compute distances to center
@@ -192,28 +189,34 @@ class threeMLFit:
             print("")
 
     def hal_fit(self):
-        # silence_logs()
+        silence_logs()
+        self.logger.info("Running MLE without error estimation")
         self.params, self.statistics = self.jl.fit(compute_covariance=False, n_samples=self.error_samples, quiet=False)
         self.jl.results.display()
 
     def hal_fit_with_covariance(self):
         silence_logs()
+        self.logger.info("Running MLE with error estimation")
         self.params, self.statistics = self.jl.fit(compute_covariance=True, n_samples=self.error_samples)
         self.jl.results.display()
         self.errAll = self.jl.get_errors()
 
     def get_TS(self):
+        self.logger.info("Calculating TS for all sources in the model")
+        source_name, ts = [], []
         for source in self.model_obj.sources:
-            print(f"Computing TS for source: {source}")
-            try:
-                print(source, self.jl.compute_TS(source, self.statistics))
-            except:
-                pass
+            self.logger.info(f"Computing TS for source: {source}")
+            ts_val = self.jl.compute_TS(source, self.statistics)
+            source_name.append(list(source))
+            ts.append(list(ts_val.TS))
+        return source_name, ts
+
         
     def make_maps(self):
+        self.logger.info("Saving HAL output maps")
         likelihood_object=self.hawc
         # To save in the correct format
-        print("SAVE A BIG MAP")
+        self.logger.info("SAVE A BIG MAP")
         new_ROI=HealpixConeROI(data_radius=self.roi_radius_model, model_radius=self.roi_radius_model+5, ra=self.roi_ra, dec=self.roi_dec)
         large_like = HAL("AD_HAWC", self.map_tree, self.det_res, new_ROI) #,n_transits)
         large_like.set_active_measurements(bin_list=self.bin_list)
@@ -226,12 +229,12 @@ class threeMLFit:
 
         likelihood_object=large_like
 
-        print("Writing model map...")
-        likelihood_object.write_model_map(RESULTS_DIR + "/mod_fit_newhal.hd5")
-        likelihood_object.write_residual_map(RESULTS_DIR + "/res_fit_newhal.hd5")
+        self.logger.info("Writing model map...")
+        likelihood_object.write_model_map(self.save_dir/ "results" / "model_fit.hd5")
+        likelihood_object.write_residual_map(self.save_dir / "results" / "residual_fit.hd5")
 
     def run(self):
-        print("Running threeML fit pipeline with bins:", self.bin_list)
+        self.logger.info("Running threeML fit pipeline with bins:", self.bin_list)
         self.hal_fit()
 
 

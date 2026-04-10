@@ -20,7 +20,7 @@ import tempfile
 import urllib
 import matplotlib.cm as cm
 from datetime import datetime
-import copy
+import healpy as hp
 import yaml
 import re
 from astropy.table import Table
@@ -1456,7 +1456,7 @@ def threeML_model_from_sources(filtered_df):
             fluxUnit = 1./(u.keV * u.cm ** 2 * u.s)
 
             # sources[f"spectrum{i}"].K = 1e-14
-            sources[f"spectrum{i}"].K = 1e-24 * fluxUnit
+            sources[f"spectrum{i}"].K = 1e-22 * fluxUnit
             sources[f"spectrum{i}"].K.fix = False
             sources[f"spectrum{i}"].K.bounds = (1e-26, 1e-20) * fluxUnit
             sources[f"spectrum{i}"].index = -2.5 
@@ -1466,32 +1466,32 @@ def threeML_model_from_sources(filtered_df):
             sources[f"spectrum{i}"].piv.fix = True
 
             sources[f"source{i}"].position.ra.free = True
-            sources[f"source{i}"].position.ra.bounds = ((ra_m[i] - 1), (ra_m[i]+1)) * u.degree
+            sources[f"source{i}"].position.ra.bounds = ((ra_m[i] - 3), (ra_m[i]+3)) * u.degree
             sources[f"source{i}"].position.dec.free = True
-            sources[f"source{i}"].position.dec.bounds = ((dec_m[i] - 1), (dec_m[i]+1)) * u.degree
+            sources[f"source{i}"].position.dec.bounds = ((dec_m[i] - 3), (dec_m[i]+3)) * u.degree
         else:
             sources[f"spectrum{i}"] = Powerlaw()
             shape = Gaussian_on_sphere()
 
             shape.lon0 = filtered_df['ra'][i]
             shape.lon0.fix = False
-            shape.lon0.bounds = ( (filtered_df['ra'][i] - 1), (filtered_df['ra'][i] + 1))
+            shape.lon0.bounds = ( (filtered_df['ra'][i] - 3), (filtered_df['ra'][i] + 3))
 
             shape.lat0 = filtered_df['dec'][i]
             shape.lat0.fix = False
-            shape.lat0.bounds = ( (filtered_df['dec'][i] - 1), (filtered_df['dec'][i] + 1))
+            shape.lat0.bounds = ( (filtered_df['dec'][i] - 3), (filtered_df['dec'][i] + 3))
 
 
             shape.sigma = filtered_df['Sigma Radius'][i]
             shape.sigma.fix = False
-            shape.sigma.bounds = (0.01, 2)
+            shape.sigma.bounds = (0.01, 3)
 
             sources[f"source{i}"] = ExtendedSource(
                 f"Source{i}", spatial_shape=shape, spectral_shape=sources[f"spectrum{i}"]
             )
 
             fluxUnit = 1. / (u.keV * u.cm**2 * u.s)
-            sources[f"spectrum{i}"].K = 1e-24 * fluxUnit
+            sources[f"spectrum{i}"].K = 1e-22 * fluxUnit
             sources[f"spectrum{i}"].K.fix = False
             sources[f"spectrum{i}"].K.bounds = (1e-26, 1e-20) * fluxUnit
             sources[f"spectrum{i}"].index = -2.5
@@ -1525,3 +1525,33 @@ def hdf_to_fits(hdf_path, fits_path):
     cols = fits.ColDefs([col1, col2, col3, col4])
     hdu  = fits.BinTableHDU.from_columns(cols)
     hdu.writeto(fits_path, overwrite=True)
+
+def convert_coords(region, system='galactic'):
+    new_region=[]
+
+    for i,coord in enumerate(region):
+        x=coord[0]
+        y=coord[1]
+        c = SkyCoord(x,y, frame=system, unit='deg')
+        point=( c.icrs.ra.value, c.icrs.dec.value )
+        new_region.append(point)
+
+    return new_region
+
+def coord_vectors(region):
+    region_vectors=[]
+    convert=np.pi/180.0
+
+    for i in region:
+        ra=i[0]
+        dec=i[1]
+        vec=hp.ang2vec(np.pi/2.-dec*convert,ra*convert,lonlat=False)
+        region_vectors.append(vec)
+
+    return region_vectors
+
+def save_ROI(pix, NSIDE, name):
+    m=np.zeros(hp.nside2npix(NSIDE))
+    m[pix]=1
+    hp.write_map(name, m, nest=False, coord="C", partial=False, overwrite=True )  
+

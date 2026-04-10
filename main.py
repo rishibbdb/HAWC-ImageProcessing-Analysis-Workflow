@@ -14,24 +14,28 @@ from collections import OrderedDict
 import shutil
 from pipeline_sourcedetector import SourceSeedDetector
 from pipeline_fitmodel import threeMLFit
- 
+from pipeline_helpers import *
+from pipeline_hd5 import convert_hd5_to_fits
+import healpy as hp
+
 class PipelineLogger:
-    """Centralized logging system"""
+    """Centralized logging system with separate pipeline and full logs"""
     
     def __init__(self, log_dir: str, log_level: str = 'INFO'):
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(parents=True, exist_ok=True)
         
-        # Create logger
+        # Create Pipeline logger (only Pipeline messages)
         self.logger = logging.getLogger('Pipeline')
         self.logger.setLevel(getattr(logging, log_level))
+        self.logger.propagate = False  # Don't propagate to root logger
         
-        # File handler
-        log_file = self.log_dir / f"pipeline_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-        fh = logging.FileHandler(log_file)
-        fh.setLevel(getattr(logging, log_level))
+        # File handler for pipeline.log
+        pipeline_log_file = self.log_dir / f"pipeline_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        pipeline_fh = logging.FileHandler(pipeline_log_file)
+        pipeline_fh.setLevel(getattr(logging, log_level))
         
-        # Console handler
+        # Console handler for pipeline messages
         ch = logging.StreamHandler()
         ch.setLevel(getattr(logging, log_level))
         
@@ -39,11 +43,25 @@ class PipelineLogger:
         formatter = logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
-        fh.setFormatter(formatter)
+        pipeline_fh.setFormatter(formatter)
         ch.setFormatter(formatter)
         
-        self.logger.addHandler(fh)
+        # Add handlers to pipeline logger
+        self.logger.addHandler(pipeline_fh)
         self.logger.addHandler(ch)
+        
+        # Create root logger (captures everything from all packages)
+        root_logger = logging.getLogger()
+        root_logger.setLevel(getattr(logging, log_level))
+        
+        # File handler for full_log.log (captures all packages)
+        full_log_file = self.log_dir / f"full_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        full_fh = logging.FileHandler(full_log_file)
+        full_fh.setLevel(getattr(logging, log_level))
+        full_fh.setFormatter(formatter)
+        
+        # Add full log handler to root logger
+        root_logger.addHandler(full_fh)
     
     def info(self, msg):
         self.logger.info(msg)
@@ -59,7 +77,6 @@ class PipelineLogger:
     
     def critical(self, msg):
         self.logger.critical(msg)
- 
  
 class CheckpointManager:
     """Manage pipeline checkpoints and history for resume capability"""
@@ -172,7 +189,6 @@ class CheckpointManager:
                 print(f"  Metadata: {record['metadata']}")
         print("\n" + "="*80 + "\n")
  
- 
 class PipelineConfig:
     """Load and manage configuration from YAML file"""
     def __init__(self, config_file: str):
@@ -205,7 +221,7 @@ class SourceSearchPipeline:
         self.step_name = self.config.get('paths.step', 'DefaultStep')
         self.step_iteration = self.config.get('paths.step_iteration', 0)
         
-        # Setup directories - hierarchical structure
+        #Main Dir
         main_dir = Path(self.config.get('paths.main_dir'))
         main_dir.mkdir(parents=True, exist_ok=True)
         self.main_dir = main_dir
@@ -231,28 +247,57 @@ class SourceSearchPipeline:
         self.log_dir = log_dir
         self.checkpoint_dir = checkpoint_dir
         self.output_dir = output_dir
+        self._setup_roi_template()
 
+    def _setup_roi_template(self):
+        """Setup ROI template: either use existing, create new, or use default"""
+        roi_template_path = self.config.get('paths.roi_template')
+        create_roi_flag = self.config.get('paths.create_roi_template', False)
+        
+        if roi_template_path and os.path.exists(roi_template_path):
+            self.logger.info(f"Using existing ROI template: {roi_template_path}")
+            self.roiTemplate = roi_template_path
+        elif create_roi_flag:
+            self.logger.info("Creating new ROI template...")
+            self.NSIDE = 1024
+            self.include_pixels_roitemplate = True
+            self.create_roi_template()
+            self.roiTemplate = self.main_dir / 'roiTemplate.fits'
+            self.logger.info(f"ROI template created at: {self.roiTemplate}")
+        else:
+            self.logger.info("Using default circular ROI (no template)")
+            self.roiTemplate = None
+
+    def create_roi_template(self):
+        if self.config.get('coordinates.l') is None:
+            self.ra = float(self.config.get('coordinates.ra'))
+            self.dec = float(self.config.get('coordinates.dec'))
+            central_coord = SkyCoord(ra=self.ra*u.degree, dec=self.dec*u.degree, frame='icrs')
+            self.l = central_coord.galactic.l.deg
+            self.b = central_coord.galactic.b.deg
+        else:
+            self.l = float(self.config.get('coordinates.l'))
+            self.b = float(self.config.get('coordinates.b'))
+        self.x_length = self.config.get('coordinates.roi_x', 1.0)
+        self.y_length = self.config.get('coordinates.roi_y', 1.0)
+        l_max, l_min, b_max, b_min = self.l + self.x_length, self.l - self.x_length, self.b + self.y_length, self.b - self.y_length, 
+        rectangle_region = [ (l_max, b_max), (l_min, b_max), (l_min, b_min), (l_max, b_min) ] 
+        rectangle_region_coords=convert_coords(rectangle_region,'galactic')
+        m=np.zeros(hp.nside2npix(self.NSIDE))
+        common_vectors=coord_vectors(rectangle_region_coords)
+        common_pix=hp.query_polygon(self.NSIDE,common_vectors,inclusive=self.include_pixels_roitemplate)
+        save_ROI(common_pix, self.NSIDE, f"{self.main_dir}/roiTemplate.fits")
     
     def run_fit(self):
-        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
-        self.hal_fit.run()
+        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model, save_dir=self.step_dir, roiTemplate=self.roiTemplate, logger=self.logger)
+        self.hal_fit.hal_fit()
         self.logger.info(f"{self.step_name} completed successfully")
 
     def run_fit_witherrors(self):
-        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
-        self.hal_fit.run()
+        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model, save_dir=self.step_dir, roiTemplate=self.roiTemplate, logger=self.logger)
+        self.hal_fit.hal_fit_with_covariance()
         self.logger.info(f"{self.step_name} completed successfully")
-    
-    def run_fit_withTS(self):
-        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
-        self.hal_fit.run()
-        self.logger.info(f"{self.step_name} completed successfully")
-
-    def run_fit_withTS_errors(self):
-        self.hal_fit = threeMLFit(config_path=str(self.config.config_file), model=self.model)
-        self.hal_fit.run()
-        self.logger.info(f"{self.step_name} completed successfully")               
-    
+         
     def _run_seed_model(self, significance_map_filename: str = 'sky_map.fits'):
         """Run the seed model fitting step"""
         self.logger.info("Initializing SourceSeedDetector for seed model fitting...")
@@ -268,7 +313,7 @@ class SourceSearchPipeline:
             metadata={'step_type': 'seed_model_fitting'}
         )
         
-        detector = SourceSeedDetector(str(self.config.config_file), step_path=str(self.step_dir))
+        detector = SourceSeedDetector(str(self.config.config_file), step_path=str(self.step_dir), logger=self.logger)
         
         # Update detector to use the newly created significance map
         significance_map_path = self.output_dir / significance_map_filename
@@ -300,7 +345,6 @@ class SourceSearchPipeline:
         self.logger.info(f"  - Point sources: {len(detector.ps_filtered_group)}")
         self.logger.info(f"  - Extended sources: {len(detector.ext_filtered_group)}")
         self.logger.info(f"  - Output directory: {self.output_dir}")
-
     
     def _run_source_detection(self):
         """Run the source detection step"""
@@ -357,30 +401,75 @@ class SourceSearchPipeline:
         
         self.checkpoint_mgr.print_history()
  
-    def make_maps(self, output_filename: str = "model_map.fits"):
-        self.logger.info("Running HealpixSigFluxMap...")
+    def make_maps(self, data_dir=None, input_pattern: str = None, output_filename: str = "skymap.fits"):
+        """
+        Create maps using HealpixSigFluxMap with flexible input pattern matching
+        
+        Parameters:
+        -----------
+        data_dir : Path or str, optional
+            Directory containing input files. If None, uses config paths.data_dir
+        input_pattern : str, optional
+            Pattern to match input files. If None, matches 'bin*' files
+            - 'bin' or None: matches bin files (sky map)
+            - 'residual': matches residual_bin* files
+            - 'model': matches model_bin* files
+        output_filename : str
+            Output filename for the map
+        """
+        self.logger.info(f"Running HealpixSigFluxMap with pattern '{input_pattern}'...")
+        
+        # Use provided data_dir or get from config
+        if data_dir is None:
+            data_dir = Path(self.config["paths"]["data_dir"])
+        else:
+            data_dir = Path(data_dir)
+        
         bins = self.config["fitting"]["bins"]
         det_res = self.config["paths"]["detector_response"]
         output_file = self.output_dir / output_filename
-
-        data_dir = Path(self.config["paths"]["data_dir"])
-
+        
+        # Determine the file pattern to search for
+        if input_pattern is None or input_pattern == 'bin':
+            # Default: match bin files for sky map
+            search_pattern = f"*bin*"
+            map_type = "sky"
+        elif input_pattern == 'residual':
+            # Match residual_bin files
+            search_pattern = f"*residual*bin*"
+            map_type = "residual"
+        elif input_pattern == 'model':
+            # Match model_bin files
+            search_pattern = f"*model*bin*"
+            map_type = "model"
+        else:
+            # Custom pattern
+            search_pattern = f"*{input_pattern}*"
+            map_type = input_pattern
+        
+        # Collect input files
         input_files = []
         for b in bins:
-            matched_files = list(data_dir.glob(f"*{b}*"))
+            matched_files = list(data_dir.glob(f"{search_pattern}{b}*"))
             if not matched_files:
-                self.logger.warning(f"No files found for bin {b} in {data_dir}")
+                self.logger.warning(f"No files found for bin {b} with pattern '{search_pattern}' in {data_dir}")
             input_files.extend(matched_files)
-
+        
+        if not input_files:
+            self.logger.error(f"No input files found matching pattern '{search_pattern}' in {data_dir}")
+            return None
+        
+        self.logger.info(f"Found {len(input_files)} input files for {map_type} map")
+        
         # Convert Path objects to strings for subprocess
         input_files = [str(f) for f in input_files]
-
+        
         # Coordinates
         ra = self.config["coordinates"]["ra"]
         dec = self.config["coordinates"]["dec"]
         roi_x = self.config["coordinates"]["roi_x"]
         roi_y = self.config["coordinates"]["roi_y"]
-
+        
         # Build the command
         cmd = (
             ["pixi", "run", "aerie-apps-HealpixSigFluxMap"]
@@ -389,70 +478,180 @@ class SourceSearchPipeline:
             + ["-d", str(det_res)]
             + ["--index", "2.6"]
             + ["--pivot", "7"]
-            + ["--window", str(ra), str(dec), str(roi_x), str(roi_y)]
+            + ["--window", str(ra), str(dec), str(roi_x + 6), str(roi_y + 6)]
             + ["--negFlux", "--negSignif"]
-            + ["--extension", "0.5"]
             + ["-o", str(output_file)]
         )
-
-        self.logger.info("Executing command:")
+        
+        self.logger.info("Executing HealpixSigFluxMap command:")
         self.logger.info(" ".join(cmd))
-
-        subprocess.run(cmd, check=True)
-
-        self.logger.info(f"Model map created at {output_file}")
+        
+        try:
+            subprocess.run(cmd, check=True)
+            self.logger.info(f"{map_type.capitalize()} map created at {output_file}")
+            return output_file
+        except subprocess.CalledProcessError as e:
+            self.logger.error(f"Failed to create {map_type} map: {e}")
+            raise
 
     def check_residual(self):
         """Check residuals after fitting"""
         self.logger.info("Checking residuals...")
-
+        resmap_path = os.path.join(self.output_dir, 'residual.fits')
+        if os.path.exists(resmap_path):
+            self._run_seed_model(significance_map_filename = 'residual.fits')
+        else:
+            self.logger.info("Residual map not found")
         self.logger.info("Residual check completed (placeholder)")
 
     def create_residualmaps(self):
         """Create residual maps after fitting"""
-        self.logger.info("Creating residual maps...")
+        resmap_path = os.path.join(self.output_dir, 'residual.fits')
+        if os.path.exists(resmap_path):
+            self.logger.info("Residual map exists")
+            return
+        else:
+            self.logger.info("Creating residual maps...")
+            convert_hd5_to_fits(self.output_dir, 'residual_fit.hd5', 'residual')
+            self.make_maps(self.output_dir, input_pattern='residual', output_filename='residual.fits')
 
         self.logger.info("Residual map creation completed (placeholder)")
 
     def create_modelmaps(self):
         """Create model maps after fitting"""
         self.logger.info("Creating model maps...")
-
+        convert_hd5_to_fits(self.output_dir, 'model_fit.hd5', 'model')
+        self.make_maps(self.output_dir, input_pattern='model', output_filename='model.fits')
         self.logger.info("Model map creation completed (placeholder)")
+
+    def _save_fit_results(self, params=None, stats=None, ts_values=None):
+        """Save fitting results to YAML file in step directory (not results subdirectory)"""
+        results_file = self.step_dir / 'fit_results.yaml'
+        
+        results = {
+            'fit_step': self.step_name,
+            'timestamp': datetime.now().isoformat()
+        }
+        
+        # Add parameters if provided
+        if params is not None:
+            params_dict = {}
+            if hasattr(params, 'to_dict'):
+                params_dict = params.to_dict()
+            elif isinstance(params, dict):
+                params_dict = params
+            else:
+                params_dict = dict(params)
+            results['parameters'] = params_dict
+        
+        # Add statistics if provided
+        if stats is not None:
+            stats_dict = {}
+            if hasattr(stats, 'to_dict'):
+                stats_dict = stats.to_dict()
+            elif isinstance(stats, dict):
+                stats_dict = stats
+            else:
+                stats_dict = dict(stats)
+            results['statistics'] = stats_dict
+        
+        # Add TS values if provided
+        if ts_values is not None:
+            ts_dict = {}
+            if isinstance(ts_values, dict):
+                ts_dict = ts_values
+            elif hasattr(ts_values, 'to_dict'):
+                # Handle pandas Series
+                ts_dict = ts_values.to_dict()
+            else:
+                try:
+                    ts_dict = dict(ts_values)
+                except (ValueError, TypeError):
+                    # If conversion fails, convert to string representation
+                    ts_dict = {'ts_values': str(ts_values)}
+            results['ts_values'] = ts_dict
+        
+        # Save to YAML
+        with open(results_file, 'w') as f:
+            yaml.dump(results, f, default_flow_style=False, sort_keys=False)
+        
+        self.logger.info(f"Fit results saved to: {results_file}")
+ 
+    def _run_seed_model_on_residual(self, residual_map_path: str):
+        """Run source detection on residual map to find excess hotspots"""
+        self.logger.info(f"Initializing SourceSeedDetector for residual analysis...")
+        
+        # Create a sub-directory for residual analysis
+        residual_output_dir = self.output_dir / 'residual_analysis'
+        residual_output_dir.mkdir(parents=True, exist_ok=True)
+        
+        detector = SourceSeedDetector(str(self.config.config_file), step_path=str(self.step_dir))
+        
+        # Update detector to use residual map
+        detector.initialmap = residual_map_path
+        detector.out_dir = str(residual_output_dir)
+        
+        self.logger.info(f"Running source detection on residual map: {residual_map_path}")
+        
+        try:
+            detector.run()
+            self.logger.info(f"Residual analysis completed. Results saved to {residual_output_dir}")
+            
+            # Log summary of detected hotspots
+            if hasattr(detector, 'filtered_df') and len(detector.filtered_df) > 0:
+                self.logger.info(f"Found {len(detector.filtered_df)} excess hotspots in residual map")
+            else:
+                self.logger.info("No significant excess hotspots found in residual map")
+        
+        except Exception as e:
+            self.logger.error(f"Error running source detection on residual map: {e}")
+            raise
 
     def run(self):
         """Execute the pipeline based on step configuration"""
         self.logger.info(f"Starting {self.step_name} step...")
         if self.step_name == 'SeedModelFit':
-            # Define the significance map filename to use consistently
             significance_map_filename = 'sky_map.fits'
-            
-            print(f"Seed model directory: {self.step_dir}")
+            self.logger.info(f"Seed model directory: {self.step_dir}")
             self.model = self.output_dir / 'curModel.model'
             if os.path.exists(self.model):
                 self.logger.info(f"Model file already exists at {self.model}, skipping seed model fitting")
             else:
                 self.logger.info(f"Model file not found at {self.model}, running seed model fitting")
                 
-                # Check if significance map needs to be created
+
                 significance_map_path = self.config.get('paths.significance_map')
                 signif_map_path = self.output_dir / significance_map_filename
-                
-                # Check if either significance map exists
                 if (significance_map_path and os.path.exists(significance_map_path)) or os.path.exists(signif_map_path):
                     self.logger.info(f"Significance map found, skipping map creation")
                 else:
                     self.logger.info("Significance map not found, creating it now...")
-                    self.make_maps(output_filename=significance_map_filename)
+                    data_dir = Path(self.config["paths"]["data_dir"])
+                    self.make_maps(data_dir, output_filename=significance_map_filename)
                 
                 self._run_seed_model(significance_map_filename)
-            self.run_fit_withTS()
-            self.create_modelmaps()
+            # self.run_fit_witherrors()
+            self.run_fit()
+            # self.hal_fit.make_maps()
+            params = self.hal_fit.params
+            print(params.value)
+            print('*'*80)
+            print(params.unit)
+            print('*'*80)
+            print(params.positive_error)
+            print('*'*80)
+            print(params.negative_error)
+            # stats = self.hal_fit.statistics
+            # source, TS = self.hal_fit.get_TS()
+            # self._save_fit_results(params=params, stats=stats, ts_values=TS)
             self.create_residualmaps()
             self.check_residual()
+            self.create_modelmaps()
+        # else:
+
 
 def main():
-    config_file = '/Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/config_crab.yaml'
+    config_file = 'config_crab.yaml'
     # pipeline = SourceSearchPipeline(config_file)
     # pipeline.run()
     pipeline = SourceSearchPipeline(config_file)

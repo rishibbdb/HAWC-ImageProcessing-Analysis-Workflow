@@ -1,0 +1,27 @@
+##################################BEGINSOURCE##################################
+source_name = "Source0"
+source_ra  = 83.63329479913897
+source_dec = 22.012620594643433
+
+spectrum = threeML.Powerlaw()
+source0 = threeML.PointSource(source_name, ra=source_ra, dec=source_dec, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+spectrum.K = 1.000e-24 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26 * fluxUnit, 1e-20 * fluxUnit)
+
+spectrum.piv = 2 * threeML.u.TeV
+spectrum.piv.fix = True
+
+spectrum.index = -2.5
+spectrum.index.fix = False
+spectrum.index.bounds = (-3., -1.)
+
+source0.position.ra.free = True
+source0.position.ra.bounds = ((83.63329479913897 - 1.0), (83.63329479913897 + 1.0)) * threeML.u.degree
+source0.position.dec.free = True
+source0.position.dec.bounds = ((22.012620594643433 - 1.0), (22.012620594643433 + 1.0)) * threeML.u.degree
+###################################ENDSOURCE###################################
+
+model = threeML.Model(source0)

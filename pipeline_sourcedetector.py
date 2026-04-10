@@ -65,8 +65,9 @@ class PipelineConfig:
 class SourceSeedDetector:
     """Main pipeline source detection class. Initializes with a configuration file and runs the source detection pipeline."""
     
-    def __init__(self, config_file: str, step_path: str = None):
+    def __init__(self, config_file: str, step_path: str = None, logger: str = None):
         self.config = PipelineConfig(config_file)
+        self.logger = logger  
         self.initialmap = self.config.get('paths.significance_map')
         self.coord_sys = self.config.get('coordinates.coord_sys')
         self.use_dbe = self.config.get('paths.use_dbe')
@@ -475,7 +476,7 @@ class SourceSeedDetector:
                     for _, row in self.filtered_df.iterrows()
                 ]
             }
-            print(f"Found {len(df_all)} sources, {len(self.filtered_df)} within original ROI")
+            self.logger.info(f"Found {len(df_all)} sources, {len(self.filtered_df)} within original ROI")
         else:
             sources_data = {
                 'roi_info': {
@@ -489,14 +490,14 @@ class SourceSeedDetector:
                 'sources': [],
                 'note': 'No sources found within original ROI'
             }
-            print(f"Found {len(df_all)} sources, but none within original ROI")
+            self.logger.info(f"Found {len(df_all)} sources, but none within original ROI")
         
         with open(f"{self.out_dir}/filtered_sources.yaml", 'w') as f:
             yaml.dump(sources_data, f, default_flow_style=False, sort_keys=False)
         
-        print(f"Results saved to: {self.out_dir}/filtered_sources.yaml")
+        self.logger.info(f"Results saved to: {self.out_dir}/filtered_sources.yaml")
         
-        print(f"Results saved to: {self.out_dir}/filtered_sources.yaml")
+        self.logger.info(f"Results saved to: {self.out_dir}/filtered_sources.yaml")
 
     def save_model_to_file(self, sources_dict, filtered_df, output_path="mymodel.model", 
                        hermes_present=None, hermes_path=None):

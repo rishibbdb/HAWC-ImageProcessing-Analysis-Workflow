@@ -1,0 +1,14 @@
+roi_info:
+  center_l: 184.50331899583432
+  center_b: -5.89631109590247
+  roi_x: 4.0
+  roi_y: 4.0
+  total_sources_detected: 1
+  sources_in_roi: 1
+sources:
+- name: Drip0
+  ra: 83.63329479913897
+  dec: 22.012620594643433
+  ext: 0.15
+  circle_radius_deg: 0.15
+  sigma_radius: 0.09899717446106998
