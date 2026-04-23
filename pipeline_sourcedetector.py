@@ -234,10 +234,11 @@ class SourceSeedDetector:
             bright_frac = compute_bright_frac(self.array, ly, lx, lr)
             print(f"Intensity Fraction of pixels greater than 5 sigma detection threshold = {100*bright_frac:.1f}%")
             if bright_frac < 0.5:
-                print("Larger blob is artifact of blob detection on subtracted map")
-                tag_ex += 1
-                for sb, _ in sbs:
-                    ps_flagged.append(sb)
+                if len(sbs) > 1:
+                    print("Larger blob is artifact of blob detection on subtracted map")
+                    tag_ex += 1
+                    for sb, _ in sbs:
+                        ps_flagged.append(sb)
             else:
                 coord_lb   = astropy_utils.pixel_to_skycoord(lx, ly, wcs=self.wcs).galactic
                 if len(sbs) == 0:
