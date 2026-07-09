@@ -83,4 +83,208 @@ pip install PyYAML
 
 ``` 
 
-## 
+# Map Maker - Quick Guide
+
+Simple script for converting HDF5 to FITS and generating Healpix maps.
+
+## Two Modes
+
+### Mode 1: HDF5 → FITS → Maps
+Convert HDF5 map tree file to FITS, then generate map.
+
+```bash
+python map_maker.py hdf5 \
+  -d data_directory \
+  -f residual_fit.hd5 \
+  -o output_directory \
+  -p residual \
+  --ra 273.38 --dec 342.23 \
+  --roi-x 5 --roi-y 5 \
+  --det-res /path/to/detector.fits
+```
+
+**Parameters:**
+- `-d, --data-dir` - Directory containing the HDF5 file
+- `-f, --filename` - HDF5 filename (e.g., `residual_fit.hd5`, `model_fit.hd5`)
+- `-o, --output-dir` - Output directory for FITS files and final map
+- `-p, --prefix` - Prefix for FITS files (default: `map`)
+- `-M, --map-output` - Final map filename (default: `map.fits`)
+- `--ra, --dec` - Coordinates
+- `--roi-x, --roi-y` - ROI radius
+- `--det-res` - Detector response file
+
+### Mode 2: FITS Only (Manual Bins)
+Use existing FITS files with a manual bin list.
+
+```bash
+python map_maker.py fits \
+  -d fits_directory \
+  -b B7C0Ej B8C0Ej B9C0Ej \
+  --ra 273.38 --dec 342.23 \
+  --roi-x 5 --roi-y 5 \
+  --det-res /path/to/detector.fits
+```
+
+**Parameters:**
+- `-d, --data-dir` - Directory with FITS files
+- `-b, --bins` - Bin names (space-separated)
+- `-M, --map-output` - Map filename (default: `map.fits`)
+- `--ra, --dec` - Coordinates
+- `--roi-x, --roi-y` - ROI radius
+- `--det-res` - Detector response file
+
+## Common Options (Both Modes)
+
+- `-v, --verbose` - Show debug output
+- `--log-file FILE` - Save logs to file
+
+## Examples
+
+### Example 1: Convert residual HDF5 with verbose output
+```bash
+python map_maker.py hdf5 \
+  -d analysis/results \
+  -f residual_fit.hd5 \
+  -o maps/residual \
+  -p residual \
+  -M residual.fits \
+  --ra 273.38 --dec 342.23 \
+  --roi-x 5 --roi-y 5 \
+  --det-res detector.fits \
+  -v
+```
+
+### Example 2: Convert model HDF5 with logging
+```bash
+python map_maker.py hdf5 \
+  -d analysis/results \
+  -f model_fit.hd5 \
+  -o maps/model \
+  -p model \
+  --ra 273.38 --dec 342.23 \
+  --roi-x 5 --roi-y 5 \
+  --det-res detector.fits \
+  --log-file model_conversion.log
+```
+
+### Example 3: Use existing FITS with custom bins
+```bash
+python map_maker.py fits \
+  -d maps/residual \
+  -b B7C0Ej B8C0Ej B9C0Ej B9C0Ek B10C0Ej B10C0Ek B10C0El \
+  -M residual_map.fits \
+  --ra 273.38 --dec 342.23 \
+  --roi-x 5 --roi-y 5 \
+  --det-res detector.fits
+```
+
+### Example 4: Batch processing multiple HDF5 files
+```bash
+for file in analysis/results/*_fit.hd5; do
+  name=$(basename "$file" _fit.hd5)
+  python map_maker.py hdf5 \
+    -d analysis/results \
+    -f "$(basename $file)" \
+    -o "maps/$name" \
+    -p "$name" \
+    --ra 273.38 --dec 342.23 \
+    --roi-x 5 --roi-y 5 \
+    --det-res detector.fits
+done
+```
+
+## Output Structure
+
+**Mode 1 (HDF5):**
+```
+output_directory/
+├── map_binB7C0Ej.fits.gz
+├── map_binB8C0Ej.fits.gz
+├── ...
+└── map.fits  ← Final output
+```
+
+**Mode 2 (FITS):**
+```
+data_directory/
+└── map.fits  ← Final output
+```
+
+## Workflow
+
+### Step 1: Fit your data (creates HDF5)
+```bash
+# Your fitting code creates:
+# analysis/residual_fit.hd5
+# analysis/model_fit.hd5
+```
+
+### Step 2: Convert to FITS and make maps
+```bash
+# Convert residual
+python map_maker.py hdf5 \
+  -d analysis \
+  -f residual_fit.hd5 \
+  -o maps/residual \
+  --ra 273.38 --dec 342.23 --roi-x 5 --roi-y 5 \
+  --det-res detector.fits
+
+# Convert model
+python map_maker.py hdf5 \
+  -d analysis \
+  -f model_fit.hd5 \
+  -o maps/model \
+  --ra 273.38 --dec 342.23 --roi-x 5 --roi-y 5 \
+  --det-res detector.fits
+```
+
+### Step 3: Reprocess with different parameters (optional)
+```bash
+# Already have FITS files, just reprocess with new window
+python map_maker.py fits \
+  -d maps/residual \
+  -b B7C0Ej B8C0Ej B9C0Ej \
+  --ra 280.0 --dec 350.0 --roi-x 8 --roi-y 8 \
+  --det-res detector.fits \
+  -M residual_new_window.fits
+```
+
+## Requirements
+
+```bash
+pip install numpy healpy astropy hawc_hal
+```
+
+Also need:
+- `pixi` with `aerie-apps-HealpixSigFluxMap` available
+
+## Troubleshooting
+
+**Issue: HDF5 file not found**
+- Check `-d` and `-f` paths
+- Verify file exists: `ls -la data_directory/filename.hd5`
+
+**Issue: No FITS files found in Mode 2**
+- Check bin names match filenames (case-sensitive)
+- List directory contents: `ls -la data_directory/*.fits*`
+- Try with full bin names (e.g., `B7C0Ej` not `B7`)
+
+**Issue: Detector response file not found**
+- Provide full path: `--det-res /full/path/to/detector.fits`
+
+**Issue: Map generation fails**
+- Enable verbose: add `-v` flag
+- Check pixi: `pixi run aerie-apps-HealpixSigFluxMap --help`
+
+## Exit Codes
+
+- `0` = Success
+- `1` = Error (check output)
+
+## Help
+
+```bash
+python map_maker.py -h                # Show all modes
+python map_maker.py hdf5 -h           # HDF5 mode help
+python map_maker.py fits -h           # FITS mode help
+```

@@ -241,7 +241,7 @@ class HealpixMapMaker:
             + ["-i"] + input_files
             + ["-b"] + bins
             + ["-d", str(det_res)]
-            + ["--index", "2.7"]
+            + ["--index", "2.6"]
             # + ["--extension", "0.5"]
             + ["--pivot", "7"]
             + ["--window", str(ra), str(dec), str(roi_x + 1), str(roi_y + 1)]
