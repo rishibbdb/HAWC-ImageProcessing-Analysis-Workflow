@@ -465,19 +465,21 @@ def main():
             # Step 1: Convert HDF5 to FITS
             logger.info("Step 1: Converting HDF5 to FITS")
             os.makedirs(args.output_dir, exist_ok=True)
+            existing_fits = sorted(Path(args.data_dir).glob(f"{args.prefix}_bin*.fits.gz"))
+
+            if existing_fits:
+                logger.info(f"Found {len(existing_fits)} existing FITS files, skipping conversion")
+                fits_files = [str(f) for f in existing_fits]
+            else:
+                logger.info("No existing FITS files found, converting HDF5 to FITS")
+                fits_files = convert_hd5_to_fits(
+                    dir=args.data_dir,
+                    filename=args.filename,
+                    outfile=args.prefix,
+                    logger=logger
+                )
             
-            fits_files = convert_hd5_to_fits(
-                dir=args.data_dir,
-                filename=args.filename,
-                outfile=args.prefix,
-                logger=logger
-            )
-            
-            if not fits_files:
-                logger.error("No FITS files were created")
-                return 1
-            
-            logger.info(f"Successfully created {len(fits_files)} FITS files")
+            logger.info(f"Using {len(fits_files)} FITS files")
             
             # Step 2: Extract bin names from FITS files
             bin_names = []
