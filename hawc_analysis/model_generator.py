@@ -1,0 +1,648 @@
+"""
+Model Generation Utilities
+
+Extracted from: pipeline_helpers.py, pipeline_sourcedetector.py
+Generates threeML model files from detected sources.
+"""
+
+from pathlib import Path
+from typing import Dict, List, Tuple, Optional
+import logging
+import copy
+import astromodels
+from astromodels.core.my_yaml import my_yaml  # or whatever astromodels uses internally
+import pandas as pd
+import numpy as np
+import astropy.units as u
+
+try:
+    import threeML
+    from threeML import (
+        PointSource,
+        ExtendedSource,
+        Powerlaw,
+        Gaussian_on_sphere,
+        Model,
+    )
+except ImportError:
+    raise ImportError("threeML package required for model generation")
+
+class ModelGenerator:
+    """Generate threeML model files from source catalogs"""
+    
+    # Constants for morphology classification
+    POINT_SOURCE_SIGMA_LIMIT = 0.12  # degrees
+    
+    @staticmethod
+    def is_point_source(sigma_radius: float) -> bool:
+        """Determine if source is point-like based on sigma radius
+        
+        Parameters:
+        -----------
+        sigma_radius : float
+            Spatial extension (sigma) in degrees
+        
+        Returns:
+        --------
+        bool
+            True if source is point-like
+        """
+        return sigma_radius < ModelGenerator.POINT_SOURCE_SIGMA_LIMIT
+    
+    @staticmethod
+    def create_point_source(
+        source_index: int,
+        ra: float,
+        dec: float,
+        ra_bounds: Optional[Tuple[float, float]] = None,
+        dec_bounds: Optional[Tuple[float, float]] = None,
+        logger: Optional[object] = None
+    ) -> Tuple[PointSource, Powerlaw]:
+        """Create point source with spectral model
+        
+        Parameters:
+        -----------
+        source_index : int
+            Source index (for naming)
+        ra : float
+            Right Ascension (degrees)
+        dec : float
+            Declination (degrees)
+        ra_bounds : tuple, optional
+            (ra_min, ra_max) bounds in degrees
+        dec_bounds : tuple, optional
+            (dec_min, dec_max) bounds in degrees
+        logger : object, optional
+            Logger instance
+        
+        Returns:
+        --------
+        tuple
+            (source_object, spectrum_object)
+        """
+        # Create Powerlaw spectrum
+        spectrum = Powerlaw()
+        
+        # Set spectral parameters
+        flux_unit = 1.0 / (u.keV * u.cm**2 * u.s)
+        spectrum.K = 1e-22 * flux_unit
+        spectrum.K.free = True
+        spectrum.K.bounds = (1e-26, 1e-20) * flux_unit
+        
+        spectrum.index = -2.5
+        spectrum.index.free = True
+        spectrum.index.bounds = (-3.0, -1.0)
+        
+        spectrum.piv = 2.0 * u.TeV
+        spectrum.piv.free = False
+        
+        # Create point source
+        source = PointSource(
+            f"Source{source_index}",
+            ra=ra,
+            dec=dec,
+            spectral_shape=spectrum
+        )
+        
+        # Set position bounds
+        if ra_bounds is None:
+            ra_bounds = (ra - 3.0, ra + 3.0)
+        if dec_bounds is None:
+            dec_bounds = (dec - 3.0, dec + 3.0)
+        
+        source.position.ra.free = True
+        source.position.ra.bounds = tuple(b * u.degree for b in ra_bounds)
+        source.position.dec.free = True
+        source.position.dec.bounds = tuple(b * u.degree for b in dec_bounds)
+        
+        if logger:
+            logger.debug(f"Created PointSource{source_index} at RA={ra}, Dec={dec}")
+        
+        return source, spectrum
+    
+    @staticmethod
+    def create_extended_source(
+        source_index: int,
+        ra: float,
+        dec: float,
+        sigma_radius: float,
+        ra_bounds: Optional[Tuple[float, float]] = None,
+        dec_bounds: Optional[Tuple[float, float]] = None,
+        sigma_bounds: Optional[Tuple[float, float]] = None,
+        logger: Optional[object] = None
+    ) -> Tuple[ExtendedSource, Powerlaw]:
+        """Create extended source with Gaussian morphology
+        
+        Parameters:
+        -----------
+        source_index : int
+            Source index (for naming)
+        ra : float
+            Right Ascension (degrees)
+        dec : float
+            Declination (degrees)
+        sigma_radius : float
+            Spatial extension (sigma, degrees)
+        ra_bounds : tuple, optional
+            (ra_min, ra_max) bounds in degrees
+        dec_bounds : tuple, optional
+            (dec_min, dec_max) bounds in degrees
+        sigma_bounds : tuple, optional
+            (sigma_min, sigma_max) bounds in degrees
+        logger : object, optional
+            Logger instance
+        
+        Returns:
+        --------
+        tuple
+            (source_object, spectrum_object)
+        """
+        # Create Powerlaw spectrum
+        spectrum = Powerlaw()
+        
+        # Set spectral parameters
+        flux_unit = 1.0 / (u.keV * u.cm**2 * u.s)
+        spectrum.K = 1e-22 * flux_unit
+        spectrum.K.free = True
+        spectrum.K.bounds = (1e-26, 1e-20) * flux_unit
+        
+        spectrum.index = -2.5
+        spectrum.index.free = True
+        spectrum.index.bounds = (-3.0, -1.0)
+        
+        spectrum.piv = 2.0 * u.TeV
+        spectrum.piv.free = False
+        
+        # Create Gaussian spatial shape
+        morphology = Gaussian_on_sphere()
+        
+        morphology.lon0 = ra * u.degree
+        morphology.lon0.free = True
+        if ra_bounds is None:
+            ra_bounds = (ra - 3.0, ra + 3.0)
+        morphology.lon0.bounds = tuple(b * u.degree for b in ra_bounds)
+        
+        morphology.lat0 = dec * u.degree
+        morphology.lat0.free = True
+        if dec_bounds is None:
+            dec_bounds = (dec - 3.0, dec + 3.0)
+        morphology.lat0.bounds = tuple(b * u.degree for b in dec_bounds)
+        
+        morphology.sigma = sigma_radius * u.degree
+        morphology.sigma.free = True
+        if sigma_bounds is None:
+            sigma_bounds = (0.01, 3.0)
+        morphology.sigma.bounds = tuple(b * u.degree for b in sigma_bounds)
+        
+        # Create extended source
+        source = ExtendedSource(
+            f"Source{source_index}",
+            spatial_shape=morphology,
+            spectral_shape=spectrum
+        )
+        
+        if logger:
+            logger.debug(
+                f"Created ExtendedSource{source_index} at RA={ra}, Dec={dec}, "
+                f"sigma={sigma_radius} deg"
+            )
+        
+        return source, spectrum
+    
+    @staticmethod
+    def create_model_from_sources(
+        source_dataframe: pd.DataFrame,
+        logger: Optional[object] = None
+    ) -> Tuple[Model, Dict]:
+        """Create threeML model from source DataFrame
+        
+        Parameters:
+        -----------
+        source_dataframe : pd.DataFrame
+            DataFrame with columns: 'ra', 'dec', 'Sigma Radius', etc.
+        logger : object, optional
+            Logger instance
+        
+        Returns:
+        --------
+        tuple
+            (model, source_dict)
+            - model: threeML Model object
+            - source_dict: dictionary of created sources
+        
+        Examples:
+        ---------
+        >>> df = pd.DataFrame({
+        ...     'ra': [83.5, 88.0],
+        ...     'dec': [22.0, 25.0],
+        ...     'Sigma Radius': [0.1, 0.15]
+        ... })
+        >>> model, sources = ModelGenerator.create_model_from_sources(df)
+        """
+        sources = {}
+        
+        for i, row in source_dataframe.iterrows():
+            ra = row['ra']
+            dec = row['dec']
+            sigma_radius = row.get('Sigma Radius', 0.0)
+            
+            # Determine morphology
+            if ModelGenerator.is_point_source(sigma_radius):
+                source, spectrum = ModelGenerator.create_point_source(
+                    i, ra, dec, logger=logger
+                )
+            else:
+                source, spectrum = ModelGenerator.create_extended_source(
+                    i, ra, dec, sigma_radius, logger=logger
+                )
+            
+            sources[f"source{i}"] = source
+        
+        if not sources:
+            raise ValueError("No sources to create model")
+        
+        # Create model from all sources
+        model = Model(*sources.values())
+        
+        if logger:
+            logger.info(f"Created threeML model with {len(sources)} sources")
+        
+        return model, sources
+    
+    @staticmethod
+    def write_model_file(
+        model: Model,
+        output_file: str,
+        logger: Optional[object] = None
+    ) -> Optional[Path]:
+        """Write threeML model to Python file
+        
+        Parameters:
+        -----------
+        model : Model
+            threeML Model object
+        output_file : str
+            Output Python filename
+        logger : object, optional
+            Logger instance
+        
+        Returns:
+        --------
+        Path or None
+            Path to written file, or None if failed
+        """
+        try:
+            output_path = Path(output_file)
+            
+            with open(output_path, 'w') as f:
+                f.write("#!/usr/bin/env python\n")
+                f.write("# Generated threeML model file\n")
+                f.write("# Do not edit manually\n\n")
+                f.write("from threeML import *\n\n")
+                f.write(f"model = {repr(model)}\n")
+            
+            if logger:
+                logger.info(f"Wrote model file: {output_file}")
+            
+            return output_path
+        
+        except Exception as e:
+            if logger:
+                logger.error(f"Failed to write model file: {e}")
+            return None
+    
+    @staticmethod
+    def write_model_string(
+        model: Model,
+        logger: Optional[object] = None
+    ) -> str:
+        """Get model as Python code string
+        
+        Parameters:
+        -----------
+        model : Model
+            threeML Model object
+        logger : object, optional
+            Logger instance
+        
+        Returns:
+        --------
+        str
+            Python code string defining the model
+        """
+        code = (
+            "#!/usr/bin/env python\n"
+            "# Generated threeML model file\n"
+            "# Do not edit manually\n\n"
+            "from threeML import *\n\n"
+            f"model = {repr(model)}\n"
+        )
+
+        return code
+
+    # ------------------------------------------------------------------------
+    # Live-model serialization and freeze/free/swap helpers.
+    #
+    # These operate on a fitted, live threeML Model between fit steps (joint
+    # fit -> extension test -> spectrum test -> final refit) instead of a
+    # DataFrame round-trip. write_model_from_live introspects each source's
+    # Parameter objects directly (value/bounds/free/unit), so it is not
+    # limited to the Powerlaw+Gaussian_on_sphere pair create_point_source /
+    # create_extended_source hardcode above.
+    # ------------------------------------------------------------------------
+
+    # Default free parameters for alternate spatial shapes used by the
+    # extension test, keyed by astromodels class name. Only the shapes
+    # actually offered in a given run's `fitting.alternate_spatial_models`
+    # need an entry here; add one per new shape as it's adopted.
+    DEFAULT_SPATIAL_PARAMS = {
+        'Gaussian_on_sphere': {'sigma': (0.3, 0.01, 3.0)},
+        'Disk_on_sphere': {'radius': (0.3, 0.01, 3.0)},
+        'Ellipse_on_sphere': {'a': (0.3, 0.01, 3.0), 'e': (0.5, 0.0, 0.99), 'theta': (0.0, -90.0, 90.0)},
+    }
+    DEFAULT_SPECTRUM_PARAMS = {
+        'Log_parabola': {'K': (1e-23,1e-29,1e-19), 'alpha': (-2.5, -4.0, -1.0), 'beta': (0.1, -1.0, 1.0)},
+        'Cutoff_powerlaw': {'K': (1e-23,1e-29,1e-19), 'xc': (10.0, 1.0, 100.0)},
+    }
+
+    @staticmethod
+    def _param_lines(var_expr: str, param_name: str, param) -> List[str]:
+        """Emit `var.param = ...` / `.free = ...` / `.bounds = ...` source lines
+        for one live astromodels Parameter, reconstructing its unit from
+        `str(param.unit)` (round-trippable via `u.Unit(...)`)."""
+        unit = getattr(param, 'unit', None)
+        unit_str = str(unit) if unit is not None else ''
+        has_unit = bool(unit_str) and unit_str not in ('', 'dimensionless')
+
+        def fmt(v):
+            # Plain float, not numpy scalar: numpy>=2 reprs float64 as
+            # "np.float64(...)", which the generated file can't parse
+            # without importing numpy.
+            v = float(v)
+            return f'{v!r} * u.Unit("{unit_str}")' if has_unit else f'{v!r}'
+
+        lines = [
+            f'{var_expr}.{param_name} = {fmt(param.value)}',
+            f'{var_expr}.{param_name}.free = {bool(param.free)}',
+        ]
+        if param.min_value is not None and param.max_value is not None:
+            lo, hi = param.min_value, param.max_value
+            if has_unit:
+                lines.append(f'{var_expr}.{param_name}.bounds = ({lo!r}, {hi!r}) * u.Unit("{unit_str}")')
+            else:
+                lines.append(f'{var_expr}.{param_name}.bounds = ({lo!r}, {hi!r})')
+        return lines
+
+    @staticmethod
+    def write_model_from_live(
+        model: Model,
+        output_path: str,
+        logger: Optional[object] = None
+    ) -> Path:
+        """Serialize a live, fitted threeML Model to an executable .model file.
+
+        Generic over source/shape type (walks each source's live Parameter
+        objects) rather than templated per shape, so it survives extension/
+        spectrum-test swaps that create shapes create_point_source /
+        create_extended_source don't know about. Compatible with
+        threeMLFit's loader (pipeline_fitmodel.py exec()s this file expecting
+        a `threeML` name and a top-level `model` assignment).
+        """
+        lines = [
+            "#!/usr/bin/env python",
+            "# Generated threeML model file (live-model writer)",
+            "# Do not edit manually",
+            "",
+            "import threeML",
+            "import astropy.units as u",
+            "",
+        ]
+        source_vars = []
+        for i, (name, source) in enumerate(model.sources.items()):
+            var = f"src{i}"
+            source_vars.append(var)
+
+            # Bare shape objects first, then wrap into the Source, THEN set
+            # parameter values/bounds. A freshly-constructed shape's
+            # parameters (e.g. spectral K) are dimensionless until wrapped
+            # into a Source -- assigning a physically-unitted value before
+            # that wrap raises a UnitConversionError. This mirrors
+            # image_seeds.py::save_model_to_file's proven order.
+            spectrum_shape = source.spectrum.main.shape
+            spec_class = type(spectrum_shape).__name__
+            spec_var = f"{var}_spec"
+            lines.append(f'{spec_var} = threeML.{spec_class}()')
+
+            if hasattr(source, 'position'):
+                ra_val = float(source.position.ra.value)
+                dec_val = float(source.position.dec.value)
+                lines.append(
+                    f'{var} = threeML.PointSource("{name}", ra={ra_val!r}, dec={dec_val!r}, '
+                    f'spectral_shape={spec_var})'
+                )
+                for pname, param in spectrum_shape.parameters.items():
+                    lines += ModelGenerator._param_lines(spec_var, pname, param)
+                lines += ModelGenerator._param_lines(f'{var}.position', 'ra', source.position.ra)
+                lines += ModelGenerator._param_lines(f'{var}.position', 'dec', source.position.dec)
+            else:
+                spatial_shape = source.spatial_shape
+                spat_class = type(spatial_shape).__name__
+                spat_var = f"{var}_shape"
+                lines.append(f'{spat_var} = threeML.{spat_class}()')
+                lines.append(
+                    f'{var} = threeML.ExtendedSource("{name}", spatial_shape={spat_var}, '
+                    f'spectral_shape={spec_var})'
+                )
+                for pname, param in spectrum_shape.parameters.items():
+                    lines += ModelGenerator._param_lines(spec_var, pname, param)
+                for pname, param in spatial_shape.parameters.items():
+                    lines += ModelGenerator._param_lines(spat_var, pname, param)
+            lines.append("")
+
+        lines.append(f"model = threeML.Model({', '.join(source_vars)})")
+        lines.append("")
+
+        output_path = Path(output_path)
+        output_path.write_text("\n".join(lines))
+        if logger:
+            logger.info(f"Wrote live model file: {output_path}")
+        return output_path
+
+    @staticmethod
+    def set_free(model: Model, source_names: List[str], kind: str, free: bool, param_names: Optional[List[str]] = None, logger: Optional[object] = None) -> None:
+        """Freeze or free parameters for a set of sources in a live model.
+
+        Parameters:
+        -----------
+        model : Model
+            Live threeML Model (mutated in place).
+        source_names : list of str
+            Sources to touch.
+        kind : 'spatial' or 'spectral'
+            Which parameter group to set. 'spatial' means position (point
+            sources) or spatial_shape (extended sources).
+        free : bool
+            Target free state.
+        param_names : list of str, optional
+            Restrict to these parameter names; default is all params of `kind`.
+        """
+        for name in source_names:
+            source = model.sources[name]
+            if kind == 'spectral':
+                if name == 'URM':
+                    logger.info(f"Setting spatial parameters for URM to free={free}")
+                    params = source.spatial_shape.parameters
+
+                # logger.info(f"Setting spectral parameters for source {name} to free={free}")
+                target = source.spectrum.main.shape
+                params = target.parameters
+            else:
+                if hasattr(source, 'position'):
+                    params = {'ra': source.position.ra, 'dec': source.position.dec}
+                else:
+                    params = source.spatial_shape.parameters
+            for pname, param in params.items():
+                if param_names is None or pname in param_names:
+                    param.free = free
+
+    # @staticmethod
+    # def _clone_shape(shape):
+    #     """Deep-copy a live astromodels shape (spatial or spectral) by value.
+
+    #     Avoids reusing the same Parameter-tree node across two Source
+    #     objects (astromodels shapes are parented to one owner).
+    #     """
+    #     # print(f"Cloning shape {shape.__class__.__name__} with parameters: {list(shape.parameters.keys())}")
+    #     # import inspect
+    #     # print(inspect.signature(type(shape).__init__))
+    #     # new_shape = type(shape)()
+    #     # for pname, param in shape.parameters.items():
+    #     #     target = getattr(new_shape, pname)
+    #     #     target.value = param.value
+    #     #     target.free = param.free
+    #     #     if param.min_value is not None and param.max_value is not None:
+    #     #         target.bounds = (param.min_value, param.max_value)
+    #     # return new_shape
+    @staticmethod
+    def _clone_shape(shape):
+        return copy.deepcopy(shape)
+
+    @staticmethod
+    def swap_spatial_shape(
+        model: Model,
+        source_name: str,
+        new_shape_name: str,
+        coord_range: float = 1.0,
+        logger: Optional[object] = None
+    ) -> Model:
+        """Return a new Model with `source_name` rebuilt as an ExtendedSource
+        using `new_shape_name` (e.g. 'Disk_on_sphere'), carrying over its
+        current fitted position and spectrum. Other sources are cloned
+        unchanged. Defaults for the new shape's own parameters (radius,
+        sigma, ...) come from DEFAULT_SPATIAL_PARAMS.
+        """
+        # print(model.sources.keys())
+        source = model.sources[source_name]
+        current_spatial_model = list(source._children.keys())[0]
+        if current_spatial_model == "position":
+            current_spatial_model = "Point_Source"
+        if current_spatial_model == new_shape_name:
+            logger.info(f"Source {source_name} already has spatial shape {new_shape_name}, skipping swap")
+            return model
+        logger.info(f"Spatial shape of source {current_spatial_model}, Alternate model {(new_shape_name)}")
+        if hasattr(source, 'position'):
+            ra, dec = source.position.ra.value, source.position.dec.value
+        else:
+            ra, dec = source.spatial_shape.lon0.value, source.spatial_shape.lat0.value
+
+        logger.info(f"Swapping {source_name} spatial shape from {current_spatial_model} to {new_shape_name}")
+        spectrum = ModelGenerator._clone_shape(source.spectrum.main.shape)
+        logger.info(f"Cloned spectrum for {source_name}")
+        shape_cls = getattr(threeML, new_shape_name)
+        new_shape = shape_cls()
+        new_shape.lon0 = ra
+        new_shape.lon0.free = True
+        new_shape.lon0.bounds = (ra - coord_range, ra + coord_range)
+        # new_shape.lat0 = dec * u.degree
+        new_shape.lat0 = dec
+        new_shape.lat0.free = True
+        new_shape.lat0.bounds = (dec - coord_range, dec + coord_range)
+        for pname, (val, lo, hi) in ModelGenerator.DEFAULT_SPATIAL_PARAMS.get(new_shape_name, {}).items():
+            if not hasattr(new_shape, pname):
+                continue
+            getattr(new_shape, pname).value = val
+            getattr(new_shape, pname).free = True
+            getattr(new_shape, pname).bounds = (lo, hi)
+        new_source = ExtendedSource(source_name, spatial_shape=new_shape, spectral_shape=spectrum)
+        logger.info(f"Cloned model for {source_name}")
+        other_sources = [ModelGenerator._clone_source(s, logger) for n, s in model.sources.items() if n != source_name]
+        
+        if logger:
+            logger.info(f"Swapped {source_name} spatial shape -> {new_shape_name}")
+        return Model(*other_sources, new_source)
+
+
+    @staticmethod
+    def swap_spectral_shape(
+        model: Model,
+        source_name: str,
+        new_shape_name: str,
+        logger: Optional[object] = None
+    ) -> Model:
+        """Return a new Model with `source_name`'s spectrum rebuilt using
+        `new_shape_name` (e.g. 'LogParabola'), carrying over its current
+        fitted position/morphology. Other sources are cloned unchanged.
+        """
+        source = model.sources[source_name]
+        spectrum_cls = getattr(threeML, new_shape_name)
+        new_spectrum = spectrum_cls()
+        new_spectrum.piv = 2.0 * u.TeV
+        
+        if hasattr(source, 'position'):
+            new_source = PointSource(
+                source_name, ra=source.position.ra.value, dec=source.position.dec.value,
+                spectral_shape=new_spectrum,
+            )
+            new_source.position.ra.free = source.position.ra.free
+            new_source.position.ra.bounds = (source.position.ra.min_value, source.position.ra.max_value)
+            new_source.position.dec.free = source.position.dec.free
+            new_source.position.dec.bounds = (source.position.dec.min_value, source.position.dec.max_value)
+        else:
+            new_spatial = ModelGenerator._clone_shape(source.spatial_shape)
+            new_source = ExtendedSource(source_name, spatial_shape=new_spatial, spectral_shape=new_spectrum)
+
+        other_sources = [ModelGenerator._clone_source(s, logger) for n, s in model.sources.items() if n != source_name]
+        for pname, (val, lo, hi) in ModelGenerator.DEFAULT_SPECTRUM_PARAMS.get(new_shape_name, {}).items():
+            if not hasattr(new_spectrum, pname):
+                continue
+            getattr(new_spectrum, pname).value = val
+            getattr(new_spectrum, pname).free = True
+            getattr(new_spectrum, pname).bounds = (lo, hi)
+        if logger:
+            logger.info(f"Swapped {source_name} spectral shape -> {new_shape_name}")
+            logger.debug(f"New source: {new_source}")
+        return Model(*other_sources, new_source)
+
+    @staticmethod
+    def _clone_source(source, logger: Optional[object] = None):
+        """Deep-copy a live Source (point or extended) by value, for reuse
+        in a rebuilt Model alongside a swapped sibling source."""
+        spectrum = ModelGenerator._clone_shape(source.spectrum.main.shape)
+        if hasattr(source, 'position'):
+            logger.info(f"Source {source.name} is a PointSource with position RA={source.position.ra.value}, Dec={source.position.dec.value}")
+            new_source = PointSource(
+                source.name, ra=source.position.ra.value, dec=source.position.dec.value,
+                spectral_shape=spectrum,
+            )
+            new_source.position.ra.free = source.position.ra.free
+            new_source.position.dec.free = source.position.dec.free
+            if source.position.ra.min_value is not None:
+                new_source.position.ra.bounds = (source.position.ra.min_value, source.position.ra.max_value)
+            if source.position.dec.min_value is not None:
+                new_source.position.dec.bounds = (source.position.dec.min_value, source.position.dec.max_value)
+        elif hasattr(source, 'spatial_shape'):
+            logger.info(f"Source {source.name} is an ExtendedSource with spatial shape {source.spatial_shape.__class__.__name__}")
+            spatial = ModelGenerator._clone_shape(source.spatial_shape)
+            logger.info(f"Cloned spatial shape for {source.name}")
+            new_source = ExtendedSource(source.name, spatial_shape=spatial, spectral_shape=spectrum)
+        return new_source

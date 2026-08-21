@@ -1,0 +1,38 @@
+2026-08-20 15:48:43 - Pipeline - INFO - Pipeline logger initialized
+2026-08-20 15:48:43 - Pipeline - INFO - Log level: INFO
+2026-08-20 15:48:43 - Pipeline - INFO - Pipeline log: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Main_Logs/pipeline_20260820_154843.log
+2026-08-20 15:48:43 - Pipeline - INFO - Full log: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Main_Logs/full_log_20260820_154843.log
+2026-08-20 15:48:43 - Pipeline - INFO - Converted galactic coordinates (l=13, b=0) to equatorial (RA=273.47050143305205, Dec=-17.661928870744514)
+2026-08-20 15:48:43 - Pipeline - INFO - Starting HAWCAnalysisPipeline (method=Drips)
+2026-08-20 15:48:43 - Pipeline - INFO - Significance map already exists at /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/DataMapDir/significance_map.fits, skipping generation
+2026-08-20 15:48:43 - Pipeline - INFO - Searching for FITS files in /Users/rishi/Documents/Analysis/data/fhitcountmaps/
+2026-08-20 15:48:43 - Pipeline - INFO - Looking for bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-20 15:48:43 - Pipeline - INFO - Found 6/6 energy bins
+2026-08-20 15:48:43 - Pipeline - INFO - Creating HEALPix map from 6 FITS files
+2026-08-20 15:48:43 - Pipeline - INFO - Energy bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-20 15:48:43 - Pipeline - INFO - Executing HealpixSigFluxMap command:
+2026-08-20 15:49:11 - Pipeline - INFO - HEALPix map created successfully: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/DataMapDir/significance_map.fits
+2026-08-20 15:49:11 - Pipeline - INFO - Initialized DRIPSSeeder
+2026-08-20 15:49:11 - Pipeline - INFO - ROI size: 3.0° x 5.0°
+2026-08-20 15:49:11 - Pipeline - INFO - ============================================================
+2026-08-20 15:49:11 - Pipeline - INFO - STARTING DRIPS SEEDING
+2026-08-20 15:49:11 - Pipeline - INFO - ============================================================
+2026-08-20 15:49:37 - Pipeline - INFO - Found 3 sources, 3 within original ROI
+2026-08-20 15:49:37 - Pipeline - INFO - Results saved to: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step0-Allpoint-sources/results/filtered_sources.yaml
+2026-08-20 15:49:37 - Pipeline - INFO - Results saved to: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step0-Allpoint-sources/results/filtered_sources.yaml
+2026-08-20 15:49:38 - Pipeline - INFO - ============================================================
+2026-08-20 15:49:38 - Pipeline - INFO - COMPLETED DRIPS SEEDING
+2026-08-20 15:49:38 - Pipeline - INFO - Sources detected: 3
+2026-08-20 15:49:38 - Pipeline - INFO - Iterations: 1
+2026-08-20 15:49:38 - Pipeline - INFO - Baseline log-likelihood: nan
+2026-08-20 15:49:38 - Pipeline - INFO - ============================================================
+2026-08-20 15:49:38 - Pipeline - INFO - Starting source_fitter (DRIPS-seeded in-process fit)
+2026-08-20 15:49:38 - Pipeline - INFO - Running joint fit on DRIPS seed model (3 sources)
+2026-08-20 15:49:38 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-20 15:49:38 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-20 15:49:38 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step0-Allpoint-sources/results/curModel.model
+2026-08-20 15:49:38 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-20 15:49:38 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-20 15:49:58 - Pipeline - INFO - Running MLE without error estimation
+2026-08-20 15:50:38 - Pipeline - INFO - Saving HAL output maps
+2026-08-20 15:50:38 - Pipeline - INFO - SAVE A BIG MAP
