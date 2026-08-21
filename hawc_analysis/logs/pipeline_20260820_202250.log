@@ -967,3 +967,821 @@ Linked functions (0):
 2026-08-21 12:49:38 - Pipeline - INFO - Cloned spatial shape for Source2
 2026-08-21 12:49:38 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
 2026-08-21 12:49:38 - Pipeline - INFO - Setting spatial parameters for URM to free=True
+2026-08-21 15:43:01 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:43:01 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:43:01 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:43:01 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:43:02 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:43:02 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:43:03 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:43:03 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:43:03 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:43:04 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:43:04 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:43:55 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:43:55 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:43:55 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:43:55 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:43:56 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:43:56 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:43:57 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:43:57 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:43:57 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:43:58 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:43:58 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:43:58 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:43:58 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:43:58 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:16 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:44:16 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:44:16 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:44:16 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:44:17 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:44:17 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:44:17 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:44:18 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:44:18 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:44:19 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:44:19 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 15:44:19 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:19 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:44:19 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:44:54 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:44:54 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:44:54 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:44:54 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:44:55 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:44:55 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:44:56 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:44:56 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:44:57 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:44:57 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:44:57 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 15:44:57 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:44:57 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:44:57 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:46:20 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:46:20 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:46:21 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:46:21 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:46:21 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:46:22 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:46:22 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:46:22 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:46:23 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:46:23 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:46:23 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 15:46:23 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 15:46:23 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 15:46:23 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:46:23 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:46:23 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source2-Extension-Gaussian_on_sphere.model
+2026-08-21 15:47:12 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:47:12 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:47:12 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:47:12 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:47:13 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:47:13 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:47:13 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:47:14 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:47:16 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:47:16 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:47:16 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 15:47:16 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 15:47:16 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 15:47:16 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:47:16 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:16 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source2-Extension-Gaussian_on_sphere.model
+2026-08-21 15:47:41 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:47:41 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:47:41 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:47:41 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:47:42 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:47:42 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:47:43 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:47:43 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:47:43 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:47:44 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:47:44 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 15:47:44 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 15:47:44 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 15:47:44 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:47:44 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:47:44 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source2-Extension-Gaussian_on_sphere.model
+2026-08-21 15:53:02 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:53:02 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:53:02 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:53:02 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:53:03 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:53:03 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:53:04 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:53:04 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:53:05 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:53:05 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:53:05 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:53:05 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:53:05 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:53:05 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:53:05 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:53:05 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:53:05 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:53:05 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:53:05 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 15:53:19 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:53:19 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:53:19 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:53:19 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:53:19 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:53:20 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:53:20 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:53:21 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:53:21 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:53:21 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:53:21 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:53:21 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:53:21 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:53:21 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:53:21 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:53:21 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:53:21 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:53:21 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:53:21 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 15:53:59 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:53:59 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:54:00 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:54:00 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:54:00 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:54:01 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:54:01 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:54:01 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:54:02 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:54:02 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:54:02 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 15:54:02 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 15:54:02 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:54:02 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:54:02 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 15:55:24 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 15:55:24 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 15:55:24 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 15:55:24 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 15:55:25 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 15:55:26 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 15:55:26 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:55:26 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 15:55:27 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 15:55:27 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 15:55:27 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 15:55:27 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 15:55:27 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 15:55:27 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 15:55:27 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 15:55:27 - Pipeline - INFO - Writing position parameter ra and param {'value': 273.3829861012103, 'desc': 'Right Ascension', 'min_value': 272.3881313466892, 'max_value': 274.3881313466892, 'unit': 'deg', 'is_normalization': False, 'delta': 27.33881313466892, 'free': False} for source Source0
+2026-08-21 15:55:27 - Pipeline - INFO - Writing position parameter dec and param {'value': -17.762817599918286, 'desc': 'Declination', 'min_value': -18.771011291553847, 'max_value': -16.771011291553847, 'unit': 'deg', 'is_normalization': False, 'delta': 1.7771011291553849, 'free': False} for source Source0
+2026-08-21 15:55:27 - Pipeline - INFO - Writing position parameter equinox and param J2000 for source Source0
+2026-08-21 16:03:51 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:03:51 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 16:03:51 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 16:03:51 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 16:03:51 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:03:52 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:03:52 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:03:53 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:03:53 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:03:53 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:03:53 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:03:53 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:03:53 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:03:53 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:03:53 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source2-Extension-Gaussian_on_sphere.model
+2026-08-21 16:04:07 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:04:07 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 16:04:07 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 16:04:07 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 16:04:08 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:04:08 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:04:09 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:04:09 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:04:09 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:04:10 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:04:10 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:04:10 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:04:10 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:04:10 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:04:10 - Pipeline - INFO - Writing position parameter ra and param {'value': 273.3829861012103, 'desc': 'Right Ascension', 'min_value': 272.3881313466892, 'max_value': 274.3881313466892, 'unit': 'deg', 'is_normalization': False, 'delta': 27.33881313466892, 'free': False} for source Source0
+2026-08-21 16:04:10 - Pipeline - INFO - Writing position parameter dec and param {'value': -17.762817599918286, 'desc': 'Declination', 'min_value': -18.771011291553847, 'max_value': -16.771011291553847, 'unit': 'deg', 'is_normalization': False, 'delta': 1.7771011291553849, 'free': False} for source Source0
+2026-08-21 16:04:10 - Pipeline - INFO - Writing position parameter equinox and param J2000 for source Source0
+2026-08-21 16:05:25 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:05:25 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 16:05:25 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 16:05:25 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 16:05:26 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:05:26 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:05:27 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:05:27 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:05:27 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:05:28 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:05:28 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:05:28 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:05:28 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:05:28 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:05:28 - Pipeline - INFO - Writing position parameter ra and param {'value': 273.3829861012103, 'desc': 'Right Ascension', 'min_value': 272.3881313466892, 'max_value': 274.3881313466892, 'unit': 'deg', 'is_normalization': False, 'delta': 27.33881313466892, 'free': False} for source Source0
+2026-08-21 16:05:28 - Pipeline - INFO - Writing position parameter dec and param {'value': -17.762817599918286, 'desc': 'Declination', 'min_value': -18.771011291553847, 'max_value': -16.771011291553847, 'unit': 'deg', 'is_normalization': False, 'delta': 1.7771011291553849, 'free': False} for source Source0
+2026-08-21 16:06:34 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:06:34 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 16:06:34 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 16:06:34 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 16:06:35 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:06:35 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:06:35 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:06:36 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:06:36 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:06:37 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:06:37 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'Source0 (extended source)' -> ('Source0', 'extended')
+2026-08-21 16:06:37 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:06:37 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:06:37 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'Source0 (point source)' -> ('Source0', 'point')
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:06:37 - Pipeline - INFO - Parsing source header: 'HAWC_bkg_renorm (Parameter)' -> None
+2026-08-21 16:07:19 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:07:19 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 16:07:19 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 16:07:19 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 16:07:20 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:07:20 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:07:21 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:07:21 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:07:21 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:07:22 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:07:22 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'Source0 (extended source)' -> ('Source0', 'extended')
+2026-08-21 16:07:22 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:07:22 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:22 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'Source0 (point source)' -> ('Source0', 'point')
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:07:22 - Pipeline - INFO - Parsing source header: 'HAWC_bkg_renorm (Parameter)' -> None
+2026-08-21 16:07:53 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:07:53 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 16:07:53 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 16:07:53 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 16:07:54 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:07:54 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:07:55 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:07:55 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:07:55 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:07:56 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:07:56 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'URM (extended source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'Source1 (extended source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'Source2 (extended source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'Source0 (extended source)' -> ('Source0', 'extended')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'Source0 (extended source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:07:56 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:07:56 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'URM (extended source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'Source0 (point source)' -> ('Source0', 'point')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'Source0 (point source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'Source1 (extended source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'Source2 (extended source)'
+2026-08-21 16:07:56 - Pipeline - INFO - Parsing source header: 'HAWC_bkg_renorm (Parameter)' -> None
+2026-08-21 16:07:56 - Pipeline - INFO - Stripped key: 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:08:33 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:08:33 - Pipeline - INFO - Swapping Source0 spatial shape from Point_Source to Gaussian_on_sphere
+2026-08-21 16:08:33 - Pipeline - INFO - Cloned spectrum for Source0
+2026-08-21 16:08:33 - Pipeline - INFO - Cloned model for Source0
+2026-08-21 16:08:34 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:08:34 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:08:34 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:08:35 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:08:35 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:08:36 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:08:36 - Pipeline - INFO - Swapped Source0 spatial shape -> Gaussian_on_sphere
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source0 (extended source)' -> ('Source0', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:08:36 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source2 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source0 (point source)' -> ('Source0', 'point')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'HAWC_bkg_renorm (Parameter)' -> None
+2026-08-21 16:08:36 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:08:36 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Setting diffuse source URM to fixed N=1.0
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source0 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source URM for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Checking source Source1 for extension test
+2026-08-21 16:08:36 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source2-Extension-Gaussian_on_sphere.model
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'URM (extended source)' -> ('URM', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source0 (point source)' -> ('Source0', 'point')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source1 (extended source)' -> ('Source1', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'Source2 (extended source)' -> ('Source2', 'extended')
+2026-08-21 16:08:36 - Pipeline - INFO - Parsing source header: 'HAWC_bkg_renorm (Parameter)' -> None
+2026-08-21 16:08:36 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:09:41 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:09:41 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:09:42 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:09:42 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:09:43 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:09:43 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:09:43 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:09:43 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:09:43 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:09:43 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:09:43 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source1-Extension-Gaussian_on_sphere.model
+2026-08-21 16:09:43 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:09:43 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:09:43 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source2-Extension-Gaussian_on_sphere.model
+2026-08-21 16:09:44 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:11:48 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:11:48 - Pipeline - INFO - Cloned SPectrum
+2026-08-21 16:12:19 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:12:19 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:12:20 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:12:20 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:12:20 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:12:21 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:12:21 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:12:22 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:12:22 - Pipeline - INFO - Wrote live model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:12:22 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:12:22 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:12:22 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:12:22 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:12:22 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model
+2026-08-21 16:12:22 - Pipeline - WARNING - Fit attempt 1/1 failed: 
+2026-08-21 16:13:35 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:13:35 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:13:36 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:13:36 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:13:36 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:13:37 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:13:37 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:13:38 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:13:38 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:13:38 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:13:38 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:13:38 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:13:38 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model/curModel.model
+2026-08-21 16:13:38 - Pipeline - WARNING - Fit attempt 1/1 failed: [Errno 20] Not a directory: '/Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model/curModel.model'
+2026-08-21 16:15:01 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:15:01 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:15:02 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:15:02 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:15:03 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:15:03 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:15:03 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:15:04 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:15:04 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:15:04 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:15:04 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:15:04 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:15:04 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model/curModel.model
+2026-08-21 16:15:48 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:15:48 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:15:49 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:15:49 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:15:50 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:15:50 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:15:51 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:15:51 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:15:51 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:15:51 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:15:51 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:15:51 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:15:51 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Models/Step2-Source0-Extension-Gaussian_on_sphere.model/curModel.model
+2026-08-21 16:16:48 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:16:48 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:16:49 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:16:49 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:16:49 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:16:50 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:16:50 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:16:51 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:16:51 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:16:51 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:16:51 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:16:51 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:16:51 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model.model
+2026-08-21 16:17:00 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:17:00 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:17:00 - Pipeline - INFO - Source URM is an ExtendedSource with spatial shape Hermes
+2026-08-21 16:17:01 - Pipeline - INFO - Cloned spatial shape for URM
+2026-08-21 16:17:01 - Pipeline - INFO - Source Source1 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:17:01 - Pipeline - INFO - Cloned spatial shape for Source1
+2026-08-21 16:17:02 - Pipeline - INFO - Source Source2 is an ExtendedSource with spatial shape Gaussian_on_sphere
+2026-08-21 16:17:02 - Pipeline - INFO - Cloned spatial shape for Source2
+2026-08-21 16:17:02 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:17:02 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:17:02 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:17:02 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:17:02 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:17:03 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:17:03 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:17:03 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:17:18 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:17:25 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-21 16:17:25 - Pipeline - INFO - Fit Step2-Source0-Extension-Gaussian_on_sphere: -logL=117510.629, AIC=235033.257 (0.38 min)
+2026-08-21 16:17:25 - Pipeline - INFO - Extension test Source0 -> Gaussian_on_sphere: delta_TS=1.06 (threshold 16)
+2026-08-21 16:17:25 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:17:25 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:17:25 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:17:25 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:17:25 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:17:25 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:17:25 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:17:25 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:17:26 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:17:26 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:17:26 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:17:41 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:17:43 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-21 16:17:43 - Pipeline - INFO - Fit Step2-Source1-Extension-Gaussian_on_sphere: -logL=117511.216, AIC=235028.433 (0.29 min)
+2026-08-21 16:17:43 - Pipeline - INFO - Extension test Source1 -> Gaussian_on_sphere: delta_TS=-0.11 (threshold 16)
+2026-08-21 16:17:43 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:17:43 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:17:43 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source2-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source2-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:17:43 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:17:43 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:17:43 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:17:43 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source2-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:17:43 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:17:43 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:17:43 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:17:58 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:18:56 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:18:56 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:19:00 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:19:00 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:19:00 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:19:00 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:19:00 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:19:00 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:19:00 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:19:00 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:19:15 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:19:19 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-21 16:19:19 - Pipeline - INFO - Fit Step2-Source0-Extension-Gaussian_on_sphere: -logL=117510.906, AIC=235027.812 (0.32 min)
+2026-08-21 16:19:19 - Pipeline - INFO - Extension test Source0 -> Gaussian_on_sphere: delta_TS=0.51 (threshold 16)
+2026-08-21 16:19:19 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:19:19 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:19:19 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-21 16:19:19 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:19:19 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:19:19 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:19:19 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:19:19 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:19:19 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:19:19 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:19:19 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:19:34 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:20:50 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:20:50 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:20:50 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:20:53 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:20:53 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:20:53 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:20:53 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:20:53 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:20:54 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:20:54 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:20:54 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:21:09 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:26:32 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:26:32 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:26:32 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:26:34 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:26:34 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:26:34 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:26:34 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:26:34 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:26:35 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:26:35 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:26:35 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:26:41 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:26:41 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:26:41 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:26:44 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:26:44 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:26:44 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:26:44 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:26:44 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:26:44 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:26:44 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:26:44 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:26:57 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:28:03 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:28:03 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:28:03 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:28:06 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:28:06 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:28:06 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:28:06 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:28:06 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:28:06 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:28:06 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:28:06 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:28:21 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:28:25 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-21 16:28:25 - Pipeline - INFO - Fit Step2-Source0-Extension-Gaussian_on_sphere: -logL=117510.906, AIC=235027.812 (0.32 min)
+2026-08-21 16:28:25 - Pipeline - INFO - Extension test Source0 -> Gaussian_on_sphere: delta_TS=0.51 (threshold 16)
+2026-08-21 16:28:25 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:28:25 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:28:25 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:28:25 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:28:25 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:28:51 - Pipeline - INFO - Starting extension fit
+2026-08-21 16:28:51 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:28:51 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-21 16:28:54 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-21 16:28:54 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-21 16:28:54 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-21 16:28:54 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-21 16:28:54 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-21 16:28:54 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-21 16:28:54 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-21 16:28:54 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-21 16:29:10 - Pipeline - INFO - Running MLE without error estimation
+2026-08-21 16:29:14 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-21 16:29:14 - Pipeline - INFO - Fit Step2-Source0-Extension-Gaussian_on_sphere: -logL=117510.906, AIC=235027.812 (0.33 min)
+2026-08-21 16:29:14 - Pipeline - INFO - Extension test Source0 -> Gaussian_on_sphere: delta_TS=0.51 (threshold 16)
+2026-08-21 16:29:14 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-21 16:29:14 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:29:14 - Pipeline - INFO - Source Source1 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-21 16:29:14 - Pipeline - INFO - Current best log-likelihood: 117511.160
+2026-08-21 16:29:14 - Pipeline - INFO - Source Source2 already has spatial shape Gaussian_on_sphere, skipping swap

@@ -105,26 +105,39 @@ class FitRunner:
         fitter = None
         self.logger.info(f'Fitting model {model_file} in {step_dir}  with compute_err={compute_err}, compute_TS={compute_TS}, make_maps={make_maps}')
 
-        for attempt in range(self.max_retries):
-            try:
-                fitter = threeMLFit(
-                    config_path=self.config_path,
-                    model=str(model_file),
-                    save_dir=step_dir,
-                    roiTemplate=self.roi_template,
-                    logger=self.logger,
-                )
-                if compute_err:
-                    fitter.hal_fit_with_covariance()
-                else:
-                    fitter.hal_fit()
-                if compute_TS:
-                    fitter.get_TS()
-                break
-            except Exception as e:
-                last_error = e
-                self.logger.warning(f'Fit attempt {attempt + 1}/{self.max_retries} failed: {e}')
-                fitter = None
+        # for attempt in range(self.max_retries):
+        #     try:
+        #         fitter = threeMLFit(
+        #             config_path=self.config_path,
+        #             model=str(model_file),
+        #             save_dir=step_dir,
+        #             roiTemplate=self.roi_template,
+        #             logger=self.logger,
+        #         )
+        #         if compute_err:
+        #             fitter.hal_fit_with_covariance()
+        #         else:
+        #             fitter.hal_fit()
+        #         if compute_TS:
+        #             fitter.get_TS()
+        #         break
+        #     except Exception as e:
+        #         last_error = e
+        #         self.logger.warning(f'Fit attempt {attempt + 1}/{self.max_retries} failed: {e}')
+        #         fitter = None
+
+        fitter = threeMLFit(
+        config_path=self.config_path,
+        model=str(model_file),
+        save_dir=step_dir,
+        roiTemplate=self.roi_template,
+        logger=self.logger,
+        )
+        if compute_err:
+            fitter.hal_fit_with_covariance()
+        else:
+            fitter.hal_fit()
+
         if fitter is None:
             raise RuntimeError(f'Fit at {model_file} failed after {self.max_retries} attempts: {last_error}')
 

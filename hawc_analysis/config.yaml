@@ -12,7 +12,7 @@ coordinates:
   # sig_map_path: /Users/rishi/Documents/Analysis/data/aligned-ml-wholesky-neg-ext0.0.fits.gz #if sig_map is true, specify the path to your precomputed sigmap  
   # sig_map_path: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/mahsa.fits
   count_map_dir: /Users/rishi/Documents/Analysis/data/fhitcountmaps/  #if sig_map is true, specify the directory containing your count maps   
-  image_bins : [B5C0, B6C0, B7C0, B8C0, B9C0, B10C0, ] #B5C0, B6C0, B7C0, B8C0, B9C0, B10C0] #if sig_map is true, specify the bins to be used for the significance map generation 
+  image_bins : [B2C0, B3C0, B4C0, B5C0, B6C0, B7C0, B8C0, B9C0, B10C0, ] #B5C0, B6C0, B7C0, B8C0, B9C0, B10C0] #if sig_map is true, specify the bins to be used for the significance map generation 
   generate_seed_only: false  #Set to true if you want to generate a seed model only, without performing the full fitting procedure, false otherwise
   detector_response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root #Path to detector response file  
   
@@ -20,7 +20,7 @@ fitting:
   map_tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root #Path to maptree file  
   detector_response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root #Path to detector response file  
   estimator: P5_nhit #Choose the estimator to be used for the fitting procedure. Options: P5_nhit, P5_NN_2D, P5_GP_2D  
-  bins: [B5C0, B6C0, B7C0, B8C0, B9C0, B10C0, ] #B5C0, B6C0, B7C0, B8C0, B9C0, B10C0] #bins to be used for the fitting procedure  
+  bins: [B2C0, B3C0, B4C0, B5C0, B6C0, B7C0, B8C0, B9C0, B10C0, ] #B5C0, B6C0, B7C0, B8C0, B9C0, B10C0] #bins to be used for the fitting procedure  
   fit_name: 'Run1' #Name for the fit, used for output files  
   output_dir: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/ #Directory where the output files will be saved  
   no_retries: 3 #Number of retries for the fitting procedure in case of failure

@@ -9,7 +9,7 @@ from astropy.coordinates import SkyCoord
 import pandas as pd
 
 from fit_runner import FitRunner, FitResult
-from core.model_generator import ModelGenerator
+from model_generator import ModelGenerator
 from seeding.base import SeedingOutput
 from core.hdf5_handler import HDF5Handler
 from core.map_tools import MapGenerator
@@ -118,7 +118,7 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
     if not alt_models:
         logger.info('No fitting.alternate_spatial_models configured; skipping extension test')
         return fit_result
-
+    free_dbe = config.get('fitting.free_diffuse_norm', False)
     threshold = config.get('likelihood_thresholds.extension_test', 16)
     coord_range = config.get('fitting.extended_source_coord_range', 1.0)
     runner = FitRunner(
@@ -134,27 +134,39 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
         if source_name == 'URM':
             logger.info(f'Skipping extension test for {source_name} (URM source)')
             continue
+
         other_sources = [n for n in model.sources.keys() if n != source_name]
         best_log_like = baseline_log_like
+        logger.info(f'Current best log-likelihood: {best_log_like:.3f}')
         best_model = model
 
         for alt_shape in alt_models:
+
+            source = model.sources[source_name]
+            current_spatial_model = list(source._children.keys())[0]
+            if current_spatial_model == alt_shape:
+                logger.info(f"Source {source_name} already has spatial shape {alt_shape}, skipping swap")
+                continue
+
             trial_model = ModelGenerator.swap_spatial_shape(
                 model, source_name, alt_shape, coord_range=coord_range, logger=logger,
             )
-            ModelGenerator.set_free(trial_model, other_sources, kind='spatial', free=False)
-            ModelGenerator.set_free(trial_model, other_sources, kind='spectral', free=False)
+            ModelGenerator.set_free(trial_model, other_sources, kind='spatial', free=False, free_diffuse=free_dbe, logger=logger)
+            ModelGenerator.set_free(trial_model, other_sources, kind='spectral', free=False, free_diffuse=free_dbe, logger=logger)
 
             step_name = f'Step2-{source_name}-Extension-{alt_shape}'
             step_dir = directory_manager.get_step_results_dir(step_name)
-            model_file = ModelGenerator.write_model_from_live(
-                trial_model, str(directory_manager.get_model_file_path(step_name)), logger=logger,
-            )
+            # model_file = ModelGenerator.write_model_from_live(
+            #     trial_model, str(directory_manager.get_model_file_path(step_name)), logger=logger,
+            # )
+            trial_model.save("{1}/{0}.yml".format('curModel', step_dir), overwrite=True)
+            ModelGenerator.write_model_file_from_yaml("{1}/{0}.yml".format('curModel', step_dir), "{1}/{0}.model".format('curModel', step_dir), logger=logger)
+            model_file = "{1}/{0}.model".format('curModel', step_dir)
             trial_result = runner.fit(
                 model_file=str(model_file),
                 step_dir=str(step_dir),
                 compute_err=config.get('error_and_TS.error_extension', True),
-                make_maps=False,
+                make_maps=True,
             )
 
             delta_ts = 2 * (best_log_like - trial_result.log_like)

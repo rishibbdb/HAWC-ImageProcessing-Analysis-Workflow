@@ -201,7 +201,7 @@ class threeMLFit:
         self.logger.info("Running MLE without error estimation")
         self.params, self.statistics = self.jl.fit(compute_covariance=False, n_samples=self.error_samples, quiet=False)
         self.jl.results.display()
-        self.jl.results.write_to(self.save_dir / "likelihoodResults.fits")
+        self.jl.results.write_to(self.save_dir / "likelihoodResults.fits", overwrite=True)
         self.logger.info(f"Fit results saved to {self.save_dir / 'likelihoodResults.fits'}")
 
     def hal_fit_with_covariance(self):
@@ -210,7 +210,7 @@ class threeMLFit:
         self.params, self.statistics = self.jl.fit(compute_covariance=True, n_samples=self.error_samples)
         self.jl.results.display()
         self.errAll = self.jl.get_errors()
-        self.jl.results.write_to("{0}/likelihoodResults.fits".format(self.save_dir))
+        self.jl.results.write_to("{0}/likelihoodResults.fits".format(self.save_dir), overwrite=True)
         self.logger.info(f"Fit results saved to {self.save_dir / 'likelihoodResults.fits'}")
 
     def get_TS(self):

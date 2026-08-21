@@ -14,7 +14,8 @@ from astromodels.core.my_yaml import my_yaml  # or whatever astromodels uses int
 import pandas as pd
 import numpy as np
 import astropy.units as u
-
+import re
+import yaml
 try:
     import threeML
     from threeML import (
@@ -469,7 +470,100 @@ class ModelGenerator:
         return output_path
 
     @staticmethod
-    def set_free(model: Model, source_names: List[str], kind: str, free: bool, param_names: Optional[List[str]] = None, logger: Optional[object] = None) -> None:
+    def write_model_file_from_yaml(yaml_file_loc: str, model_file_loc: str, logger: Optional[object] = None) -> None:
+        _name_type_re = re.compile(r'^(\S+)\s*\((\w+)\s*source\)$')
+        with open(yaml_file_loc) as f:
+            model_dict = yaml.safe_load(f)
+        begin_source_marker = '#----------BEGIN_SOURCE----------#\n'
+        end_source_marker   = '#-----------END_SOURCE-----------#\n'
+
+        source_names = []
+        with open(model_file_loc, 'w') as model_file:
+            for key, body in model_dict.items():
+                m = _name_type_re.match(key.strip())
+                logger.debug(f"Parsing source header: {key!r} -> {m.groups() if m else None}")
+                if key.strip() == 'HAWC_bkg_renorm (Parameter)':
+                    logger.info(f"Skipping background source {key!r}")
+                    continue
+                if not m:
+                    raise ValueError(f"Can't parse source header: {key!r}")
+                source, src_kind = m.group(1), m.group(2)  # 'point' or 'extended'
+                source_names.append(source)
+
+                model_file.write(f'{begin_source_marker}\n')
+                model_file.write(f"source_name = '{source}'\n\n")
+
+                spec_block = body['spectrum']['main']
+                spec_type = next(k for k in spec_block if k != 'polarization')
+                spec_params = spec_block[spec_type]
+
+                model_file.write(f'spectrum = threeML.{spec_type}()\n')
+
+                if src_kind == 'point':
+                    pos = body['position']
+                    lon_key, lat_key = ('ra', 'dec') if 'ra' in pos else ('lon0', 'lat0')
+                    lon_val, lat_val = pos[lon_key]['value'], pos[lat_key]['value']
+                    model_file.write(
+                        f'{source} = threeML.PointSource(source_name, ra={lon_val}, dec={lat_val}, '
+                        f'spectral_shape=spectrum)\n'
+                    )
+                else:
+                    shape_type = next(k for k in body if k != 'spectrum')
+                    shape_params = body[shape_type]
+
+                    if shape_type == 'Hermes':
+                        fits_file = shape_params['fits_file']['value']
+                        ihdu = shape_params['ihdu']['value']
+                        model_file.write(f"shape = threeML.Hermes(fits_file='{fits_file}', ihdu={ihdu})\n")
+                    else:
+                        model_file.write(f'shape = threeML.{shape_type}()\n')
+
+                    model_file.write(
+                        f'{source} = threeML.ExtendedSource(source_name, spatial_shape=shape, '
+                        f'spectral_shape=spectrum)\n'
+                    )
+
+                model_file.write('fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)\n')
+
+                for pname, p in spec_params.items():
+                    unit_mult = '* fluxUnit' if pname == 'K' else ''
+                    model_file.writelines([
+                        '\n',
+                        f'spectrum.{pname} = {p["value"]} {unit_mult}\n',
+                        f'spectrum.{pname}.fix = {not p["free"]}\n',
+                        f'spectrum.{pname}.bounds = ({p["min_value"]}, {p["max_value"]}) {unit_mult}\n',
+                    ])
+
+                if src_kind == 'point':
+                    for pname, p in pos.items():
+                        if pname == 'equinox':
+                            continue
+                        # logger.info(f"Writing position parameter {pname} and param {p} for source {source}")
+                        unit_mult = '* threeML.u.degree' if pname in (lon_key, lat_key) else ''
+                        model_file.writelines([
+                            '\n',
+                            f'{source}.position.{pname}.bounds = ({p["min_value"]}, {p["max_value"]}) {unit_mult}\n',
+                            f'{source}.position.{pname}.free = {p["free"]}\n',
+                        ])
+                else:
+                    for pname, p in shape_params.items():
+                        if pname in ('hash', 'ihdu', 'fits_file', 'frame'):
+                            continue
+                        unit_mult = '* threeML.u.degree' if pname in ('ra', 'dec', 'lon0', 'lat0') else ''
+                        model_file.writelines([
+                            '\n',
+                            f'shape.{pname} = {p["value"]} {unit_mult}\n',
+                            f'shape.{pname}.fix = {not p["free"]}\n',
+                            f'shape.{pname}.bounds = ({p["min_value"]}, {p["max_value"]}) {unit_mult}\n',
+                        ])
+
+                model_file.write(f'\n{end_source_marker}\n')
+
+            model_file.write('model = threeML.Model(' + ', '.join(source_names) + ')\n')
+
+
+    @staticmethod
+    def set_free(model: Model, source_names: List[str], kind: str, free: bool, free_diffuse: bool, param_names: Optional[List[str]] = None, logger: Optional[object] = None) -> None:
         """Freeze or free parameters for a set of sources in a live model.
 
         Parameters:
@@ -488,15 +582,25 @@ class ModelGenerator:
         """
         for name in source_names:
             source = model.sources[name]
+            logger.debug(f"Checking source {source.name} for extension test")
             if kind == 'spectral':
                 if name == 'URM':
-                    logger.info(f"Setting spatial parameters for URM to free={free}")
-                    params = source.spatial_shape.parameters
+                    params = list(source.spectrum.main._children.items())
+                    _, spec_func = params[0]
+                    for pname, p in spec_func.parameters.items():
+                        p.free = False
 
-                # logger.info(f"Setting spectral parameters for source {name} to free={free}")
                 target = source.spectrum.main.shape
                 params = target.parameters
             else:
+                if name == 'URM':
+                    params = list(source.spatial_shape.parameters.items())
+                    if free_diffuse:
+                        logger.debug(f"Setting diffuse source {name} to free={free}")
+                        params[0][1].free = True
+                    else:
+                        logger.debug(f"Setting diffuse source {name} to fixed N={1.0}")
+                        params[0][1].free = False
                 if hasattr(source, 'position'):
                     params = {'ra': source.position.ra, 'dec': source.position.dec}
                 else:
@@ -555,9 +659,8 @@ class ModelGenerator:
         else:
             ra, dec = source.spatial_shape.lon0.value, source.spatial_shape.lat0.value
 
-        logger.info(f"Swapping {source_name} spatial shape from {current_spatial_model} to {new_shape_name}")
+        logger.debug(f"Swapping {source_name} spatial shape from {current_spatial_model} to {new_shape_name}")
         spectrum = ModelGenerator._clone_shape(source.spectrum.main.shape)
-        logger.info(f"Cloned spectrum for {source_name}")
         shape_cls = getattr(threeML, new_shape_name)
         new_shape = shape_cls()
         new_shape.lon0 = ra
@@ -574,11 +677,10 @@ class ModelGenerator:
             getattr(new_shape, pname).free = True
             getattr(new_shape, pname).bounds = (lo, hi)
         new_source = ExtendedSource(source_name, spatial_shape=new_shape, spectral_shape=spectrum)
-        logger.info(f"Cloned model for {source_name}")
         other_sources = [ModelGenerator._clone_source(s, logger) for n, s in model.sources.items() if n != source_name]
         
         if logger:
-            logger.info(f"Swapped {source_name} spatial shape -> {new_shape_name}")
+            logger.debug(f"Swapped {source_name} spatial shape -> {new_shape_name}")
         return Model(*other_sources, new_source)
 
 
@@ -629,7 +731,7 @@ class ModelGenerator:
         in a rebuilt Model alongside a swapped sibling source."""
         spectrum = ModelGenerator._clone_shape(source.spectrum.main.shape)
         if hasattr(source, 'position'):
-            logger.info(f"Source {source.name} is a PointSource with position RA={source.position.ra.value}, Dec={source.position.dec.value}")
+            logger.debug(f"Source {source.name} is a PointSource with position RA={source.position.ra.value}, Dec={source.position.dec.value}")
             new_source = PointSource(
                 source.name, ra=source.position.ra.value, dec=source.position.dec.value,
                 spectral_shape=spectrum,
@@ -641,8 +743,8 @@ class ModelGenerator:
             if source.position.dec.min_value is not None:
                 new_source.position.dec.bounds = (source.position.dec.min_value, source.position.dec.max_value)
         elif hasattr(source, 'spatial_shape'):
-            logger.info(f"Source {source.name} is an ExtendedSource with spatial shape {source.spatial_shape.__class__.__name__}")
+            logger.debug(f"Source {source.name} is an ExtendedSource with spatial shape {source.spatial_shape.__class__.__name__}")
             spatial = ModelGenerator._clone_shape(source.spatial_shape)
-            logger.info(f"Cloned spatial shape for {source.name}")
+            logger.debug(f"Cloned spatial shape for {source.name}")
             new_source = ExtendedSource(source.name, spatial_shape=spatial, spectral_shape=spectrum)
         return new_source
