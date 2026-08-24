@@ -741,13 +741,15 @@ def run_final_refit(fit_result: FitResult, config, logger, directory_manager) ->
         roi_template=config.get('roi.roi_template_path'),
     )
     logger.info('Running final joint refit with all parameters free')
-    return runner.fit(
+    result = runner.fit(
         model_file=str(model_file),
         step_dir=str(step_dir),
-        compute_err=True,
+        compute_err=False,
         compute_TS=True,
         make_maps=True,
     )
+    save_fit_summary(result, logger)
+    return result
 
 
 # def run_final_refit(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
