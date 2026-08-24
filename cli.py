@@ -12,9 +12,10 @@ Usage:
 
 import argparse
 import sys
-
+from pathlib import Path
 from core.config import ConfigManager
 from pipeline import HAWCAnalysisPipeline
+from fit_runner import FitResult
 
 
 def main(argv=None) -> int:
@@ -38,7 +39,16 @@ def main(argv=None) -> int:
 
     pipeline = HAWCAnalysisPipeline(config)
     output = pipeline.run()
-    print(output.summary())
+
+    if isinstance(output, FitResult):
+        num_sources = len(output.model.sources)
+        print(f"Fit complete: {num_sources} sources, -logL={output.log_like:.3f}, AIC={output.aic:.3f}")
+        print(f"Final model directory: {output.step_dir}")
+    elif isinstance(output, Path):
+        print(f"Seed-only run complete. Model written to: {output}")
+    else:
+        print(output.summary())
+
     return 0
 
 

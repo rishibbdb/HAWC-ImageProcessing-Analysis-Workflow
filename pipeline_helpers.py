@@ -882,6 +882,7 @@ def make_plots(array, wcs, npix, coordsys, threshold=4, vmin=-5, vmax=15, blobs=
             pdf.savefig(fig, bbox_inches='tight')
         else:
             fig.savefig(save_dir + f'{title}.png')
+            print(f"Saved figure to {save_dir + f'{title}.png'}")
     return fig, ax
 
 def make_logplots(array, wcs, npix, coordsys, threshold=4, vmin=-5, vmax=15, blobs=None, contour=False, title=None, hotspots=None, save_dir=None, pdf=False, cmap='inferno', figsize=(10, 6), ax=None, **kwargs):

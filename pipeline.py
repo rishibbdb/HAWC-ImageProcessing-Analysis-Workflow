@@ -26,11 +26,12 @@ from core.config import ConfigManager
 from core.logger import PipelineLogger
 from core.checkpoint import CheckpointManager
 from core.directory_manager import DirectoryManager
-from core.map_tools import MapGenerator
+from map_tools import MapGenerator
 from seeding.base import SeedingOutput
-from seeding.image_seeds import DRIPSSeeder
+from drips_seeder import DRIPSSeeder
 from seeding.alps_seeder import ALPSSeeder
-from seeding import source_fitter
+import source_fitter
+from fit_runner import FitResult  # add this import
 
 class HAWCAnalysisPipeline:
     """Config-driven orchestrator: builds sig map (if needed), seeds, fits.
@@ -143,30 +144,6 @@ class HAWCAnalysisPipeline:
         self.checkpoint.save_step('build_significance_map', 0, 'completed', {'sig_map_path': str(output_path)})
         return output_path
 
-    def _run_drips(self) -> SeedingOutput:
-        """Run DRIPS detection, then (unless seed-only) hand off to ALPS for fitting."""
-        step_dir = self.directory_manager.get_step_results_dir('Step0-Allpoint-sources')
-        self.checkpoint.save_step('drips_seeding', 0, 'running', {})
-        seeder = DRIPSSeeder(self.config, self.logger, self.directory_manager, step_path=str(step_dir))
-        drips_output = seeder.run()
-        self.checkpoint.save_step(
-            'drips_seeding', 0, 'completed', drips_output.to_dict(),
-            metadata={'num_sources': drips_output.num_sources},
-        )
-
-        if self.config.get('coordinates.generate_seed_only', False):
-            self.logger.info("coordinates.generate_seed_only is True; returning DRIPS detection output without fitting")
-            return drips_output
-
-        self.checkpoint.save_step('drips_fit', 0, 'running', {})
-
-        fit_output = source_fitter.run(drips_output, self.config, self.logger, self.directory_manager, self.checkpoint)
-        self.checkpoint.save_step(
-            'drips_fit', 0, 'completed', fit_output.to_dict(),
-            metadata={'num_sources': fit_output.num_sources},
-        )
-        return fit_output
-
     def _run_alps(self) -> SeedingOutput:
         """Run ALPS's own native hotspot-driven point-source search + fitting."""
         self.checkpoint.save_step('alps_seeding', 0, 'running', {})
@@ -178,8 +155,39 @@ class HAWCAnalysisPipeline:
         )
         return output
 
-    def run(self) -> SeedingOutput:
-        """Run the full pipeline per `fitting_procedure` and return the SeedingOutput."""
+    def _run_drips(self) -> Union[SeedingOutput, FitResult]:
+        """Run DRIPS detection, then (unless seed-only) hand off to
+        source_fitter for the in-process joint fit + test/refit phases.
+        Returns the DRIPS model file Path if generate_seed_only is set,
+        else the final FitResult from source_fitter.run()."""
+        step_dir = self.directory_manager.get_step_results_dir('Step0-Allpoint-sources')
+        self.checkpoint.save_step('drips_seeding', 0, 'running', {})
+        seeder = DRIPSSeeder(self.config, self.logger, self.directory_manager, step_path=str(step_dir))
+        drips_output = seeder.run()  # Path to the generated .model file
+        self.logger.info(f"DRIPS seeding completed: model written to {drips_output}")
+        self.checkpoint.save_step(
+            'drips_seeding', 0, 'completed', {'model_path': str(drips_output)},
+        )
+
+        if self.config.get('coordinates.generate_seed_only', False):
+            self.logger.info("coordinates.generate_seed_only is True; returning DRIPS detection output without fitting")
+            return drips_output
+
+        self.checkpoint.save_step('drips_fit', 0, 'running', {})
+
+        fit_output = source_fitter.run(drips_output, self.config, self.logger, self.directory_manager, self.checkpoint)
+        num_sources = len(fit_output.model.sources)
+        self.checkpoint.save_step(
+            'drips_fit', 0, 'completed',
+            {'log_like': fit_output.log_like, 'aic': fit_output.aic, 'num_sources': num_sources},
+            metadata={'num_sources': num_sources},
+        )
+        return fit_output
+
+    def run(self) -> Union[SeedingOutput, FitResult, Path]:
+        """Run the full pipeline per `fitting_procedure` and return the
+        result: a Path to the DRIPS model file (seed-only Drips run), a
+        FitResult (full Drips run), or a SeedingOutput (Alps)."""
         self.logger.info(f"Starting HAWCAnalysisPipeline (method={self.method})")
         self._build_significance_map()
 
@@ -188,5 +196,11 @@ class HAWCAnalysisPipeline:
         else:
             output = self._run_alps()
 
-        self.logger.info(f"Pipeline completed: {output.num_sources} sources, method={output.method}")
+        if isinstance(output, FitResult):
+            num_sources = len(output.model.sources)
+            self.logger.info(f"Pipeline completed: {num_sources} sources, -logL={output.log_like:.3f}")
+        elif isinstance(output, Path):
+            self.logger.info(f"Pipeline completed (seed-only): model at {output}")
+        else:
+            self.logger.info(f"Pipeline completed: {output.num_sources} sources, method={output.method}")
         return output

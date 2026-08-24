@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy
 from astropy.coordinates import SkyCoord
-
 for prefix in ("OMP", "MKL", "NUMEXPR"):
     os.environ[f"{prefix}_NUM_THREADS"] = "4"
 
@@ -61,12 +60,20 @@ class threeMLFit:
     def __init__(self, config_path: str, model, save_dir: str, roiTemplate: str = None, logger: str = None):
         self.config = PipelineConfig(config_file=config_path)
         self.logger = logger  
-        self.map_tree = str(self.config.get('paths.map_tree', None))
-        self.det_res = str(self.config.get('paths.detector_response', None))
+        self.map_tree = str(self.config.get('fitting.map_tree', None))
+        self.det_res = str(self.config.get('fitting.detector_response', None))
         self.logger.info(f"Map tree: {self.map_tree}")
         self.logger.info(f"Detector response: {self.det_res}")
         self.roi_ra = self.config.get('coordinates.ra', 0.0)
         self.roi_dec = self.config.get('coordinates.dec', 0.0)
+
+        if self.roi_ra is None or self.roi_dec is None:
+            l = self.config.get('coordinates.l', 0.0)
+            b = self.config.get('coordinates.b', 0.0)
+            skycoord = SkyCoord(l, b, frame='galactic', unit='deg')
+            self.roi_ra = skycoord.icrs.ra.deg
+            self.roi_dec = skycoord.icrs.dec.deg
+            self.logger.info(f"Converted galactic coordinates (l={l}, b={b}) to equatorial (RA={self.roi_ra}, Dec={self.roi_dec})")
         self.roi_radius = 10
         self.roi_radius_model = 15
         self.roiThreshold = 0.5
@@ -89,6 +96,7 @@ class threeMLFit:
             self.roi = HealpixMapROI(data_radius=self.roi_radius, model_radius=self.roi_radius_model, ra=self.roi_ra, dec=self.roi_dec, roifile=roiTemplate, threshold=self.roiThreshold)
         else:
             self.logger.info("No ROI template provided, computing ROI from provided ra and dec")
+            self.logger.info(f'ROI center: {self.roi_ra}, {self.roi_dec}')
             self.test_roi(self.roi_ra, self.roi_dec, self.roi_radius_model, number_of_sources, RAs, Decs, source_name)
             self.roi = HealpixConeROI(data_radius=self.roi_radius,model_radius=self.roi_radius_model,ra=self.roi_ra,dec=self.roi_dec,)
 
@@ -193,6 +201,8 @@ class threeMLFit:
         self.logger.info("Running MLE without error estimation")
         self.params, self.statistics = self.jl.fit(compute_covariance=False, n_samples=self.error_samples, quiet=False)
         self.jl.results.display()
+        self.jl.results.write_to(self.save_dir / "likelihoodResults.fits", overwrite=True)
+        self.logger.info(f"Fit results saved to {self.save_dir / 'likelihoodResults.fits'}")
 
     def hal_fit_with_covariance(self):
         silence_logs()
@@ -200,16 +210,23 @@ class threeMLFit:
         self.params, self.statistics = self.jl.fit(compute_covariance=True, n_samples=self.error_samples)
         self.jl.results.display()
         self.errAll = self.jl.get_errors()
+        self.jl.results.write_to("{0}/likelihoodResults.fits".format(self.save_dir), overwrite=True)
+        self.logger.info(f"Fit results saved to {self.save_dir / 'likelihoodResults.fits'}")
 
     def get_TS(self):
         self.logger.info("Calculating TS for all sources in the model")
-        source_name, ts = [], []
+        ts_by_source = {}
         for source in self.model_obj.sources:
             self.logger.info(f"Computing TS for source: {source}")
-            ts_val = self.jl.compute_TS(source, self.statistics)
-            source_name.append(list(source))
-            ts.append(list(ts_val.TS))
-        return source_name, ts
+            try:
+                ts_val = self.jl.compute_TS(source, self.statistics)
+                ts_scalar = float(ts_val.TS.iloc[0]) if hasattr(ts_val.TS, 'iloc') else float(ts_val.TS)
+                self.logger.info(f"TS for source {source}: {ts_scalar}")
+                ts_by_source[source] = ts_scalar
+            except Exception as e:
+                self.logger.info(f"Error computing TS for source {source}: {e}")
+                ts_by_source[source] = 9999
+        return ts_by_source
 
         
     def make_maps(self):
@@ -230,8 +247,8 @@ class threeMLFit:
         likelihood_object=large_like
 
         self.logger.info("Writing model map...")
-        likelihood_object.write_model_map(self.save_dir/ "results" / "model_fit.hd5")
-        likelihood_object.write_residual_map(self.save_dir / "results" / "residual_fit.hd5")
+        likelihood_object.write_model_map(self.save_dir/  "model_fit.hd5")
+        likelihood_object.write_residual_map(self.save_dir /  "residual_fit.hd5")
 
     def run(self):
         self.logger.info("Running threeML fit pipeline with bins:", self.bin_list)
