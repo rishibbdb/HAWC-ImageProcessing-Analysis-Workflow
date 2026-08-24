@@ -144,13 +144,14 @@ class DRIPSSeeder():
     def normalise_image(self, array: np.ndarray) -> None:
         """Soft-floor and min-max normalise the significance map to [0,1]."""
         if np.max(self.array) < self.SIG_THRESHOLD:
-            print(f"    Below threshold ({np.max(self.array):.2f} < {self.SIG_THRESHOLD}sigma) — skipping.")
+            self.logger(f"    Below threshold ({np.max(self.array):.2f} < {self.SIG_THRESHOLD}sigma) — skipping.")
             fig_blank, ax_blank = plt.subplots(figsize=(8.5, 4))
             ax_blank.axis('off')
             ax_blank.text(0.5, 0.5,
                             f"No data > {self.SIG_THRESHOLD}sigma in file\n"
                             f"(Max = {np.max(self.array):.2f}sigma)",
                             fontsize=12, ha='center', va='center')
+            raise ValueError(f"No excess found in the region")
         else:
             print(f"  Max significance {np.max(self.array):.2f}sigma exceeds threshold {self.SIG_THRESHOLD}sigma — proceeding with analysis.")
         if np.min(self.array) < -5:
@@ -544,6 +545,7 @@ class DRIPSSeeder():
                 raise ValueError("hermes_path must be provided when hermes_present=True")
 
             lines += [
+                "import astromodels",
                 "##################################BEGINSOURCE##################################",
                 'source_name = "URM"',
                 "",
@@ -576,7 +578,7 @@ class DRIPSSeeder():
             is_extended = hasattr(src, 'spatial_shape')
             ra_val    = filtered_df['ra'].iloc[i]
             dec_val   = filtered_df['dec'].iloc[i]
-
+            
             lines.append("##################################BEGINSOURCE##################################")
             lines.append(f'source_name = "{src_name}"')
 
@@ -603,9 +605,9 @@ class DRIPSSeeder():
                     "spectrum.index.bounds = (-3., -1.)",
                     "",
                     f"{key}.position.ra.free = True",
-                    f"{key}.position.ra.bounds = (({ra_val} - 1.0), ({ra_val} + 1.0)) * threeML.u.degree",
+                    f"{key}.position.ra.bounds = (({ra_val} - 3.0), ({ra_val} + 3.0)) * threeML.u.degree",
                     f"{key}.position.dec.free = True",
-                    f"{key}.position.dec.bounds = (({dec_val} - 1.0), ({dec_val} + 1.0)) * threeML.u.degree",
+                    f"{key}.position.dec.bounds = (({dec_val} - 3.0), ({dec_val} + 3.0)) * threeML.u.degree",
                 ]
             else:
                 sp    = src.spectrum.main.shape
@@ -620,11 +622,11 @@ class DRIPSSeeder():
                     "",
                     f"shape.lon0 = {morph.lon0.value} * threeML.u.degree",
                     "shape.lon0.fix = False",
-                    f"shape.lon0.bounds = (({morph.lon0.value} - 1) * threeML.u.degree, ({morph.lon0.value} + 1) * threeML.u.degree)",
+                    f"shape.lon0.bounds = (({morph.lon0.value} - 3.0) * threeML.u.degree, ({morph.lon0.value} + 3.0) * threeML.u.degree)",
                     "",
                     f"shape.lat0 = {morph.lat0.value} * threeML.u.degree",
                     "shape.lat0.fix = False",
-                    f"shape.lat0.bounds = (({morph.lat0.value} - 1) * threeML.u.degree, ({morph.lat0.value} + 1) * threeML.u.degree)",
+                    f"shape.lat0.bounds = (({morph.lat0.value} - 3.0) * threeML.u.degree, ({morph.lat0.value} + 3.0) * threeML.u.degree)",
                     "",
                     f"shape.sigma = {morph.sigma.value}",
                     "shape.sigma.fix = False",

@@ -215,13 +215,14 @@ class threeMLFit:
 
     def get_TS(self):
         self.logger.info("Calculating TS for all sources in the model")
-        source_name, ts = [], []
+        ts_by_source = {}
         for source in self.model_obj.sources:
             self.logger.info(f"Computing TS for source: {source}")
             ts_val = self.jl.compute_TS(source, self.statistics)
-            source_name.append(list(source))
-            ts.append(list(ts_val.TS))
-        return source_name, ts
+            ts_scalar = float(ts_val.TS.iloc[0]) if hasattr(ts_val.TS, 'iloc') else float(ts_val.TS)
+            self.logger.info(f"TS for source {source}: {ts_scalar}")
+            ts_by_source[source] = ts_scalar
+        return ts_by_source
 
         
     def make_maps(self):

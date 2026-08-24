@@ -40,6 +40,7 @@ class FitResult:
     model: object
     log_like: float
     aic: float
+    ts : float
     model_map_path: Optional[Path]
     residual_map_path: Optional[Path]
     step_dir: Path
@@ -137,7 +138,8 @@ class FitRunner:
             fitter.hal_fit_with_covariance()
         else:
             fitter.hal_fit()
-
+        if compute_TS:
+            ts=fitter.get_TS()
         if fitter is None:
             raise RuntimeError(f'Fit at {model_file} failed after {self.max_retries} attempts: {last_error}')
 
@@ -160,6 +162,7 @@ class FitRunner:
             model=fitter.model_obj,
             log_like=log_like,
             aic=aic,
+            ts = ts,
             model_map_path=model_map_path,
             residual_map_path=residual_map_path,
             step_dir=step_dir,

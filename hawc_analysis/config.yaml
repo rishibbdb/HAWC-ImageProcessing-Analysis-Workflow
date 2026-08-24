@@ -47,6 +47,8 @@ diffuse:
   diffuse_template_path: /Users/rishi/Documents/Analysis/Sources/J1813/Hermes3D-allchan.fits.gz #Optional path to a DBE template file if use_diffuse_background is true
   generate_diffuse_template: false #Set to true if you want to generate a diffuse background template, false otherwise  
   free_diffuse_norm: true #Set to true if you want to free the normalization of the diffuse background model during fitting, false otherwise 
+testing: 
+  force_low_ts_source: 'Source0'
 
 likelihood_thresholds:  
   point_source_detection: 25  

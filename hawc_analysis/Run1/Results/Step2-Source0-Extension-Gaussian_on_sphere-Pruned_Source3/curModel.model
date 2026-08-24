@@ -1,0 +1,91 @@
+#----------BEGIN_SOURCE----------#
+
+source_name = 'Source1'
+
+spectrum = threeML.Powerlaw()
+Source1 = threeML.PointSource(source_name, ra=273.3829975822111, dec=-17.744203808399234, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+spectrum.K = 9.227640596015626e-22 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26, 1e-20) * fluxUnit
+
+spectrum.piv = 2000000000.0 
+spectrum.piv.fix = False
+spectrum.piv.bounds = (None, None) 
+
+spectrum.index = -2.4617781943851345 
+spectrum.index.fix = False
+spectrum.index.bounds = (-3.0, -1.0) 
+
+Source1.position.ra.bounds = (270.3881313466892, 276.3881313466892) * threeML.u.degree
+Source1.position.ra.free = True
+
+Source1.position.dec.bounds = (-20.771011291553847, -14.771011291553847) * threeML.u.degree
+Source1.position.dec.free = True
+
+#-----------END_SOURCE-----------#
+
+#----------BEGIN_SOURCE----------#
+
+source_name = 'URM'
+
+spectrum = threeML.Powerlaw()
+shape = threeML.Hermes(fits_file='/Users/rishi/Documents/Analysis/Sources/J1813/Hermes3D-allchan.fits.gz', ihdu=0.0)
+URM = threeML.ExtendedSource(source_name, spatial_shape=shape, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+spectrum.K = 1.0 * fluxUnit
+spectrum.K.fix = True
+spectrum.K.bounds = (1e-30, 1000.0) * fluxUnit
+
+spectrum.piv = 1.0 
+spectrum.piv.fix = True
+spectrum.piv.bounds = (None, None) 
+
+spectrum.index = 0.0 
+spectrum.index.fix = True
+spectrum.index.bounds = (-10.0, 10.0) 
+
+shape.N = 10.543302240696951 
+shape.N.fix = False
+shape.N.bounds = (0.01, 100.0) 
+
+#-----------END_SOURCE-----------#
+
+#----------BEGIN_SOURCE----------#
+
+source_name = 'Source0'
+
+spectrum = threeML.Powerlaw()
+shape = threeML.Gaussian_on_sphere()
+Source0 = threeML.ExtendedSource(source_name, spatial_shape=shape, spectral_shape=spectrum)
+fluxUnit = 1. / (threeML.u.keV * threeML.u.cm ** 2 * threeML.u.s)
+
+spectrum.K = 5.583157253418874e-22 * fluxUnit
+spectrum.K.fix = False
+spectrum.K.bounds = (1e-26, 1e-20) * fluxUnit
+
+spectrum.piv = 2000000000.0 
+spectrum.piv.fix = False
+spectrum.piv.bounds = (None, None) 
+
+spectrum.index = -2.2568013159347324 
+spectrum.index.fix = False
+spectrum.index.bounds = (-3.0, -1.0) 
+
+shape.lon0 = 273.3680528033888 * threeML.u.degree
+shape.lon0.fix = False
+shape.lon0.bounds = (272.3680528033888, 274.3680528033888) * threeML.u.degree
+
+shape.lat0 = -16.927018851151125 * threeML.u.degree
+shape.lat0.fix = False
+shape.lat0.bounds = (-17.927018851151125, -15.927018851151125) * threeML.u.degree
+
+shape.sigma = 0.3830753138935077 
+shape.sigma.fix = False
+shape.sigma.bounds = (0.01, 3.0) 
+
+#-----------END_SOURCE-----------#
+
+model = threeML.Model(Source1, URM, Source0)

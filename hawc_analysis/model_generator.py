@@ -562,52 +562,97 @@ class ModelGenerator:
             model_file.write('model = threeML.Model(' + ', '.join(source_names) + ')\n')
 
 
-    @staticmethod
-    def set_free(model: Model, source_names: List[str], kind: str, free: bool, free_diffuse: bool, param_names: Optional[List[str]] = None, logger: Optional[object] = None) -> None:
-        """Freeze or free parameters for a set of sources in a live model.
+    # @staticmethod
+    # def set_free(model: Model, source_names: List[str], kind: str, free: bool, free_diffuse: bool, param_names: Optional[List[str]] = None, logger: Optional[object] = None) -> None:
+    #     """Freeze or free parameters for a set of sources in a live model.
 
-        Parameters:
-        -----------
-        model : Model
-            Live threeML Model (mutated in place).
-        source_names : list of str
-            Sources to touch.
-        kind : 'spatial' or 'spectral'
-            Which parameter group to set. 'spatial' means position (point
-            sources) or spatial_shape (extended sources).
-        free : bool
-            Target free state.
-        param_names : list of str, optional
-            Restrict to these parameter names; default is all params of `kind`.
-        """
+    #     Parameters:
+    #     -----------
+    #     model : Model
+    #         Live threeML Model (mutated in place).
+    #     source_names : list of str
+    #         Sources to touch.
+    #     kind : 'spatial' or 'spectral'
+    #         Which parameter group to set. 'spatial' means position (point
+    #         sources) or spatial_shape (extended sources).
+    #     free : bool
+    #         Target free state.
+    #     param_names : list of str, optional
+    #         Restrict to these parameter names; default is all params of `kind`.
+    #     """
+    #     for name in source_names:
+    #         source = model.sources[name]
+    #         logger.debug(f"Checking source {source.name} for extension test")
+    #         if kind == 'spectral':
+    #             if name == 'URM':
+    #                 params = list(source.spectrum.main._children.items())
+    #                 _, spec_func = params[0]
+    #                 for pname, p in spec_func.parameters.items():
+    #                     p.free = True
+
+    #             target = source.spectrum.main.shape
+    #             params = target.parameters
+                
+    #         elif kind == 'spatial':
+    #             if name == 'URM':
+    #                 params = list(source.spectrum.main._children.items())
+    #                 _, spec_func = params[0]
+    #                 for pname, p in spec_func.parameters.items():
+    #                     p.free = True
+    #                 params = list(source.spatial_shape.parameters.items())
+    #                 if free_diffuse:
+    #                     logger.debug(f"Setting diffuse source {name} to free={free}")
+    #                     params[0][1].free = False
+    #                 else:
+    #                     logger.debug(f"Setting diffuse source {name} to fixed N={1.0}")
+    #                     params[0][1].free = True
+    #             if hasattr(source, 'position'):
+    #                 params = {'ra': source.position.ra, 'dec': source.position.dec}
+    #             else:
+    #                 params = source.spatial_shape.parameters
+    #         for pname, param in params.items():
+    #             logger.info(f"SOURCE {name} : param {pname} of {param}")
+    #             if param_names is None or pname in param_names:
+    #                 param.free = free
+    #             logger.info(f"SOURCE {name} : param {pname} of {param}")
+
+    @staticmethod
+    def set_free(model: Model, source_names: List[str], kind: str, free: bool,
+                free_diffuse: bool, param_names: Optional[List[str]] = None,
+                logger: Optional[object] = None) -> None:
         for name in source_names:
             source = model.sources[name]
             logger.debug(f"Checking source {source.name} for extension test")
-            if kind == 'spectral':
-                if name == 'URM':
-                    params = list(source.spectrum.main._children.items())
-                    _, spec_func = params[0]
-                    for pname, p in spec_func.parameters.items():
-                        p.free = False
 
-                target = source.spectrum.main.shape
-                params = target.parameters
-            else:
+            if kind == 'spectral':
+                logger.info("TESTING SPECTRAL")
                 if name == 'URM':
-                    params = list(source.spatial_shape.parameters.items())
-                    if free_diffuse:
-                        logger.debug(f"Setting diffuse source {name} to free={free}")
-                        params[0][1].free = True
-                    else:
-                        logger.debug(f"Setting diffuse source {name} to fixed N={1.0}")
-                        params[0][1].free = False
+                    logger.debug(f"Skipping spectral params for {name}: URM spectrum is always fixed")
+                    continue
+                params = source.spectrum.main.shape.parameters
+            # else:
+            #     params = source.spectrum.main.shape.parameters
+                
+            elif kind == 'spatial':
+                if name == 'URM':
+                    n_param = source.spatial_shape.parameters['N']
+                    logger.debug(f"Setting diffuse source {name} N.free={free_diffuse}")
+                    n_param.free = free_diffuse
+                    continue 
                 if hasattr(source, 'position'):
                     params = {'ra': source.position.ra, 'dec': source.position.dec}
                 else:
                     params = source.spatial_shape.parameters
+            else:
+                raise ValueError(f"Unknown kind: {kind}")
+
             for pname, param in params.items():
                 if param_names is None or pname in param_names:
+                    logger.info(f"SOURCE {name} : param {pname} -> free={free}")
                     param.free = free
+                if param_names is not None and pname not in param_names:
+                    logger.info(f"SOURCE {name} : param {pname} -> FIXED (not in param_names)")
+                    param.free = False
 
     # @staticmethod
     # def _clone_shape(shape):
@@ -630,6 +675,15 @@ class ModelGenerator:
     @staticmethod
     def _clone_shape(shape):
         return copy.deepcopy(shape)
+
+    @staticmethod
+    def remove_sources(model: Model, exclude_names: List[str], logger: Optional[object] = None) -> Model:
+        """Return a new Model with `exclude_names` dropped; every remaining
+        source is cloned unchanged."""
+        kept = [ModelGenerator._clone_source(s, logger) for n, s in model.sources.items() if n not in exclude_names]
+        if not kept:
+            raise ValueError("Removing these sources would leave an empty model")
+        return Model(*kept)
 
     @staticmethod
     def swap_spatial_shape(
@@ -664,11 +718,11 @@ class ModelGenerator:
         shape_cls = getattr(threeML, new_shape_name)
         new_shape = shape_cls()
         new_shape.lon0 = ra
-        new_shape.lon0.free = True
+        new_shape.lon0.free = False
         new_shape.lon0.bounds = (ra - coord_range, ra + coord_range)
         # new_shape.lat0 = dec * u.degree
         new_shape.lat0 = dec
-        new_shape.lat0.free = True
+        new_shape.lat0.free = False
         new_shape.lat0.bounds = (dec - coord_range, dec + coord_range)
         for pname, (val, lo, hi) in ModelGenerator.DEFAULT_SPATIAL_PARAMS.get(new_shape_name, {}).items():
             if not hasattr(new_shape, pname):
@@ -698,7 +752,9 @@ class ModelGenerator:
         source = model.sources[source_name]
         spectrum_cls = getattr(threeML, new_shape_name)
         new_spectrum = spectrum_cls()
-        new_spectrum.piv = 2.0 * u.TeV
+        logger.info(f"Swapping {source_name} spectral shape from {type(source.spectrum.main.shape).__name__} to {new_shape_name}")
+        logger.info(f"New spectrum class: {new_spectrum._children.keys()}")
+        new_spectrum.piv = 2000000000.0  # 2 TeV in eV
         
         if hasattr(source, 'position'):
             new_source = PointSource(

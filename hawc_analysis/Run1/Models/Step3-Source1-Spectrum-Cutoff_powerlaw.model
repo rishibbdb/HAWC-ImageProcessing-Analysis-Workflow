@@ -1,0 +1,89 @@
+#!/usr/bin/env python
+# Generated threeML model file (live-model writer)
+# Do not edit manually
+
+import threeML
+import astropy.units as u
+
+src0_spec = threeML.Cutoff_powerlaw()
+src0 = threeML.PointSource("Source1", ra=273.3829975822111, dec=-17.744203808399234, spectral_shape=src0_spec)
+src0_spec.K = 1e-23 * u.Unit("1 / (keV s cm2)")
+src0_spec.K.free = True
+src0_spec.K.bounds = (1e-29, 1e-19) * u.Unit("1 / (keV s cm2)")
+src0_spec.piv = 2000000000.0 * u.Unit("keV")
+src0_spec.piv.free = False
+src0_spec.index = -2.0
+src0_spec.index.free = True
+src0_spec.index.bounds = (-10.0, 10.0)
+src0_spec.xc = 10.0 * u.Unit("keV")
+src0_spec.xc.free = True
+src0_spec.xc.bounds = (1.0, 100.0) * u.Unit("keV")
+src0.position.ra = 273.3829975822111 * u.Unit("deg")
+src0.position.ra.free = False
+src0.position.ra.bounds = (270.3881313466892, 276.3881313466892) * u.Unit("deg")
+src0.position.dec = -17.744203808399234 * u.Unit("deg")
+src0.position.dec.free = False
+src0.position.dec.bounds = (-20.771011291553847, -14.771011291553847) * u.Unit("deg")
+
+src1_spec = threeML.Powerlaw()
+src1_shape = threeML.Hermes()
+src1 = threeML.ExtendedSource("URM", spatial_shape=src1_shape, spectral_shape=src1_spec)
+src1_spec.K = 1.0 * u.Unit("1 / (keV s cm2)")
+src1_spec.K.free = False
+src1_spec.K.bounds = (1e-30, 1000.0) * u.Unit("1 / (keV s cm2)")
+src1_spec.piv = 1.0 * u.Unit("keV")
+src1_spec.piv.free = False
+src1_spec.index = 0.0
+src1_spec.index.free = False
+src1_spec.index.bounds = (-10.0, 10.0)
+src1_shape.N = 11.995649445130633 * u.Unit("1 / sr")
+src1_shape.N.free = False
+src1_shape.N.bounds = (0.01, 100.0) * u.Unit("1 / sr")
+src1_shape.hash = 2.222908696959882e+67
+src1_shape.hash.free = False
+src1_shape.ihdu = 0.0
+src1_shape.ihdu.free = False
+
+src2_spec = threeML.Powerlaw()
+src2_shape = threeML.Gaussian_on_sphere()
+src2 = threeML.ExtendedSource("Source3", spatial_shape=src2_shape, spectral_shape=src2_spec)
+src2_spec.K = 1.475483525724279e-21 * u.Unit("1 / (keV s cm2)")
+src2_spec.K.free = False
+src2_spec.K.bounds = (1e-26, 1e-20) * u.Unit("1 / (keV s cm2)")
+src2_spec.piv = 2000000000.0 * u.Unit("keV")
+src2_spec.piv.free = False
+src2_spec.index = -2.421433073164211
+src2_spec.index.free = False
+src2_spec.index.bounds = (-3.0, -1.0)
+src2_shape.lon0 = 272.3753778223248 * u.Unit("deg")
+src2_shape.lon0.free = False
+src2_shape.lon0.bounds = (269.2959177559601, 275.2959177559601) * u.Unit("deg")
+src2_shape.lat0 = -19.361318388379143 * u.Unit("deg")
+src2_shape.lat0.free = False
+src2_shape.lat0.bounds = (-22.573288742263617, -16.573288742263617) * u.Unit("deg")
+src2_shape.sigma = 0.1842488274064035 * u.Unit("deg")
+src2_shape.sigma.free = False
+src2_shape.sigma.bounds = (0.01, 2.0) * u.Unit("deg")
+
+src3_spec = threeML.Powerlaw()
+src3_shape = threeML.Gaussian_on_sphere()
+src3 = threeML.ExtendedSource("Source0", spatial_shape=src3_shape, spectral_shape=src3_spec)
+src3_spec.K = 3.7177446931310875e-22 * u.Unit("1 / (keV s cm2)")
+src3_spec.K.free = False
+src3_spec.K.bounds = (1e-26, 1e-20) * u.Unit("1 / (keV s cm2)")
+src3_spec.piv = 2000000000.0 * u.Unit("keV")
+src3_spec.piv.free = False
+src3_spec.index = -2.1778065631053356
+src3_spec.index.free = False
+src3_spec.index.bounds = (-3.0, -1.0)
+src3_shape.lon0 = 273.4820543473103 * u.Unit("deg")
+src3_shape.lon0.free = False
+src3_shape.lon0.bounds = (272.3680528033888, 274.3680528033888) * u.Unit("deg")
+src3_shape.lat0 = -16.918409539125506 * u.Unit("deg")
+src3_shape.lat0.free = False
+src3_shape.lat0.bounds = (-17.927018851151125, -15.927018851151125) * u.Unit("deg")
+src3_shape.sigma = 0.32436540813775383 * u.Unit("deg")
+src3_shape.sigma.free = False
+src3_shape.sigma.bounds = (0.01, 3.0) * u.Unit("deg")
+
+model = threeML.Model(src0, src1, src2, src3)

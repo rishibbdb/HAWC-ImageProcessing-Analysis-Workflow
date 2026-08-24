@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+# Generated threeML model file (live-model writer)
+# Do not edit manually
+
+import threeML
+import astropy.units as u
+
+src0_spec = threeML.Powerlaw()
+src0 = threeML.PointSource("Source1", ra=273.3829975822111, dec=-17.744203808399234, spectral_shape=src0_spec)
+src0_spec.K = 9.227640596015626e-22 * u.Unit("1 / (keV s cm2)")
+src0_spec.K.free = True
+src0_spec.K.bounds = (1e-26, 1e-20) * u.Unit("1 / (keV s cm2)")
+src0_spec.piv = 2000000000.0 * u.Unit("keV")
+src0_spec.piv.free = True
+src0_spec.index = -2.4617781943851345
+src0_spec.index.free = True
+src0_spec.index.bounds = (-3.0, -1.0)
+src0.position.ra = 273.3829975822111 * u.Unit("deg")
+src0.position.ra.free = True
+src0.position.ra.bounds = (270.3881313466892, 276.3881313466892) * u.Unit("deg")
+src0.position.dec = -17.744203808399234 * u.Unit("deg")
+src0.position.dec.free = True
+src0.position.dec.bounds = (-20.771011291553847, -14.771011291553847) * u.Unit("deg")
+
+src1_spec = threeML.Powerlaw()
+src1_shape = threeML.Hermes()
+src1 = threeML.ExtendedSource("URM", spatial_shape=src1_shape, spectral_shape=src1_spec)
+src1_spec.K = 1.0 * u.Unit("1 / (keV s cm2)")
+src1_spec.K.free = False
+src1_spec.K.bounds = (1e-30, 1000.0) * u.Unit("1 / (keV s cm2)")
+src1_spec.piv = 1.0 * u.Unit("keV")
+src1_spec.piv.free = False
+src1_spec.index = 0.0
+src1_spec.index.free = False
+src1_spec.index.bounds = (-10.0, 10.0)
+src1_shape.N = 10.543302240696951 * u.Unit("1 / sr")
+src1_shape.N.free = True
+src1_shape.N.bounds = (0.01, 100.0) * u.Unit("1 / sr")
+src1_shape.hash = 2.222908696959882e+67
+src1_shape.hash.free = False
+src1_shape.ihdu = 0.0
+src1_shape.ihdu.free = False
+
+src2_spec = threeML.Powerlaw()
+src2_shape = threeML.Gaussian_on_sphere()
+src2 = threeML.ExtendedSource("Source0", spatial_shape=src2_shape, spectral_shape=src2_spec)
+src2_spec.K = 5.583157253418874e-22 * u.Unit("1 / (keV s cm2)")
+src2_spec.K.free = True
+src2_spec.K.bounds = (1e-26, 1e-20) * u.Unit("1 / (keV s cm2)")
+src2_spec.piv = 2000000000.0 * u.Unit("keV")
+src2_spec.piv.free = True
+src2_spec.index = -2.2568013159347324
+src2_spec.index.free = True
+src2_spec.index.bounds = (-3.0, -1.0)
+src2_shape.lon0 = 273.3680528033888 * u.Unit("deg")
+src2_shape.lon0.free = True
+src2_shape.lon0.bounds = (272.3680528033888, 274.3680528033888) * u.Unit("deg")
+src2_shape.lat0 = -16.927018851151125 * u.Unit("deg")
+src2_shape.lat0.free = True
+src2_shape.lat0.bounds = (-17.927018851151125, -15.927018851151125) * u.Unit("deg")
+src2_shape.sigma = 0.3830753138935077 * u.Unit("deg")
+src2_shape.sigma.free = True
+src2_shape.sigma.bounds = (0.01, 3.0) * u.Unit("deg")
+
+model = threeML.Model(src0, src1, src2)
