@@ -2093,3 +2093,630 @@ Name: TS, dtype: float64
 2026-08-24 03:13:27 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
 2026-08-24 03:13:27 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
 2026-08-24 03:13:40 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:13:59 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere-Pruned_Source3/likelihoodResults.fits
+2026-08-24 03:13:59 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:13:59 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:14:14 - Pipeline - INFO - TS for source Source1: 128.9377502637799
+2026-08-24 03:14:14 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:15:54 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:15:54 - Pipeline - INFO - Diffuse background normalization status during spectrum test: True
+2026-08-24 03:15:54 - Pipeline - INFO - Current best log-likelihood: 190751.076
+2026-08-24 03:15:54 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source1 : param ra -> FIXED (not in param_names)
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source1 : param dec -> FIXED (not in param_names)
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:15:57 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source1 : param piv -> FIXED (not in param_names)
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 03:15:57 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:15:57 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:15:57 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:15:57 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=True
+2026-08-24 03:15:57 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:15:57 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:15:57 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:15:57 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-24 03:15:57 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:15:57 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:15:57 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:16:12 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:16:31 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-24 03:16:31 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:16:31 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:16:43 - Pipeline - INFO - TS for source Source1: 467.22956700099166
+2026-08-24 03:16:43 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:17:06 - Pipeline - INFO - TS for source URM: -639.9672196622705
+2026-08-24 03:17:06 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:17:14 - Pipeline - INFO - TS for source Source3: 828.4458891568356
+2026-08-24 03:17:15 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:17:20 - Pipeline - INFO - TS for source Source0: 160.2751000256394
+2026-08-24 03:17:20 - Pipeline - INFO - Saving HAL output maps
+2026-08-24 03:17:20 - Pipeline - INFO - SAVE A BIG MAP
+2026-08-24 03:17:42 - Pipeline - INFO - Writing model map...
+2026-08-24 03:17:43 - Pipeline - INFO - Fit Step2-Source0-Extension-Gaussian_on_sphere: -logL=190716.568, AIC=381451.135 (1.76 min)
+2026-08-24 03:17:43 - Pipeline - INFO - Extension test Source0 -> Gaussian_on_sphere: delta_TS=69.02 (threshold 16)
+2026-08-24 03:17:43 - Pipeline - INFO - Accepted alternate spatial model Gaussian_on_sphere for Source0
+2026-08-24 03:17:43 - Pipeline - INFO - Converting HDF5 to FITS: residual_fit.hd5
+2026-08-24 03:17:48 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB2C0.fits.gz
+2026-08-24 03:17:52 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB3C0.fits.gz
+2026-08-24 03:17:56 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB4C0.fits.gz
+2026-08-24 03:18:00 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB5C0.fits.gz
+2026-08-24 03:18:03 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB6C0.fits.gz
+2026-08-24 03:18:05 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB7C0.fits.gz
+2026-08-24 03:18:07 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB8C0.fits.gz
+2026-08-24 03:18:09 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB9C0.fits.gz
+2026-08-24 03:18:11 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB10C0.fits.gz
+2026-08-24 03:18:11 - Pipeline - INFO - Successfully converted 9 energy bins to FITS
+2026-08-24 03:18:11 - Pipeline - INFO - Creating HEALPix map from 9 FITS files
+2026-08-24 03:18:11 - Pipeline - INFO - Energy bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:18:11 - Pipeline - INFO - Executing HealpixSigFluxMap command:
+2026-08-24 03:18:41 - Pipeline - INFO - HEALPix map created successfully: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual.fits
+2026-08-24 03:18:41 - Pipeline - INFO - Current best log-likelihood: 190716.568
+2026-08-24 03:18:41 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:18:44 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:18:44 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:18:44 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:18:44 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:18:44 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=True
+2026-08-24 03:18:44 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:18:44 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:18:44 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:18:44 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model
+2026-08-24 03:18:44 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:18:44 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:18:44 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:18:59 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:19:26 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-24 03:19:26 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:19:26 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:20:14 - Pipeline - INFO - TS for source URM: -668.467764414323
+2026-08-24 03:20:14 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:20:27 - Pipeline - INFO - TS for source Source3: 830.3404540269403
+2026-08-24 03:20:27 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:20:39 - Pipeline - INFO - TS for source Source0: 157.23589363414794
+2026-08-24 03:20:39 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:20:50 - Pipeline - INFO - TS for source Source1: 470.5302413103054
+2026-08-24 03:20:50 - Pipeline - INFO - Saving HAL output maps
+2026-08-24 03:20:50 - Pipeline - INFO - SAVE A BIG MAP
+2026-08-24 03:21:13 - Pipeline - INFO - Writing model map...
+2026-08-24 03:21:13 - Pipeline - INFO - Fit Step2-Source1-Extension-Gaussian_on_sphere: -logL=190714.917, AIC=381449.834 (2.49 min)
+2026-08-24 03:21:13 - Pipeline - INFO - Extension test Source1 -> Gaussian_on_sphere: delta_TS=3.30 (threshold 16)
+2026-08-24 03:21:13 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-24 03:21:13 - Pipeline - INFO - Current best log-likelihood: 190716.568
+2026-08-24 03:21:13 - Pipeline - INFO - Source Source3 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-24 03:23:11 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:23:11 - Pipeline - INFO - Diffuse background normalization status during spectrum test: True
+2026-08-24 03:23:11 - Pipeline - INFO - Current best log-likelihood: 190751.076
+2026-08-24 03:23:11 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source1 : param ra -> FIXED (not in param_names)
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source1 : param dec -> FIXED (not in param_names)
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:23:14 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source1 : param piv -> FIXED (not in param_names)
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 03:23:14 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:23:14 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:23:14 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:23:14 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=True
+2026-08-24 03:23:14 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:23:14 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:23:14 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:23:14 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-24 03:23:14 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:23:14 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:23:14 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:23:28 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:23:45 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-24 03:23:45 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:23:45 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:23:57 - Pipeline - INFO - TS for source Source1: 467.22956700099166
+2026-08-24 03:23:57 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:24:18 - Pipeline - INFO - TS for source URM: -639.9672196622705
+2026-08-24 03:24:18 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:24:26 - Pipeline - INFO - TS for source Source3: 828.4458891568356
+2026-08-24 03:24:26 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:24:31 - Pipeline - INFO - TS for source Source0: 160.2751000256394
+2026-08-24 03:24:31 - Pipeline - INFO - Saving HAL output maps
+2026-08-24 03:24:31 - Pipeline - INFO - SAVE A BIG MAP
+2026-08-24 03:24:54 - Pipeline - INFO - Writing model map...
+2026-08-24 03:24:54 - Pipeline - INFO - Fit Step2-Source0-Extension-Gaussian_on_sphere: -logL=190716.568, AIC=381451.135 (1.68 min)
+2026-08-24 03:24:54 - Pipeline - INFO - Extension test Source0 -> Gaussian_on_sphere: delta_TS=69.02 (threshold 16)
+2026-08-24 03:24:54 - Pipeline - INFO - Accepted alternate spatial model Gaussian_on_sphere for Source0
+2026-08-24 03:24:54 - Pipeline - INFO - Converting HDF5 to FITS: residual_fit.hd5
+2026-08-24 03:25:00 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB2C0.fits.gz
+2026-08-24 03:25:04 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB3C0.fits.gz
+2026-08-24 03:25:09 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB4C0.fits.gz
+2026-08-24 03:25:12 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB5C0.fits.gz
+2026-08-24 03:25:15 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB6C0.fits.gz
+2026-08-24 03:25:18 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB7C0.fits.gz
+2026-08-24 03:25:20 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB8C0.fits.gz
+2026-08-24 03:25:22 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB9C0.fits.gz
+2026-08-24 03:25:23 - Pipeline - INFO - Created FITS file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual_binB10C0.fits.gz
+2026-08-24 03:25:23 - Pipeline - INFO - Successfully converted 9 energy bins to FITS
+2026-08-24 03:25:23 - Pipeline - INFO - Creating HEALPix map from 9 FITS files
+2026-08-24 03:25:23 - Pipeline - INFO - Energy bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:25:23 - Pipeline - INFO - Executing HealpixSigFluxMap command:
+2026-08-24 03:25:53 - Pipeline - INFO - HEALPix map created successfully: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/fits/residual.fits
+2026-08-24 03:25:53 - Pipeline - INFO - Current best log-likelihood: 190716.568
+2026-08-24 03:25:53 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:25:56 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:25:56 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:25:56 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:25:56 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:25:56 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=True
+2026-08-24 03:25:56 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:25:56 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:25:56 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:25:56 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model
+2026-08-24 03:25:57 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:25:57 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:25:57 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:26:18 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:26:45 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-24 03:26:45 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:26:45 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:27:37 - Pipeline - INFO - TS for source URM: -668.467764414323
+2026-08-24 03:27:37 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:27:54 - Pipeline - INFO - TS for source Source3: 830.3404540269403
+2026-08-24 03:27:54 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:28:10 - Pipeline - INFO - TS for source Source0: 157.23589363414794
+2026-08-24 03:28:10 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:28:24 - Pipeline - INFO - TS for source Source1: 470.5302413103054
+2026-08-24 03:28:24 - Pipeline - INFO - Saving HAL output maps
+2026-08-24 03:28:24 - Pipeline - INFO - SAVE A BIG MAP
+2026-08-24 03:28:49 - Pipeline - INFO - Writing model map...
+2026-08-24 03:28:50 - Pipeline - INFO - Fit Step2-Source1-Extension-Gaussian_on_sphere: -logL=190714.917, AIC=381449.834 (2.89 min)
+2026-08-24 03:28:50 - Pipeline - INFO - Extension test Source1 -> Gaussian_on_sphere: delta_TS=3.30 (threshold 16)
+2026-08-24 03:28:50 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-24 03:28:50 - Pipeline - INFO - Current best log-likelihood: 190716.568
+2026-08-24 03:28:50 - Pipeline - INFO - Source Source3 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-24 03:29:50 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:29:50 - Pipeline - INFO - Diffuse background normalization status during spectrum test: True
+2026-08-24 03:29:50 - Pipeline - INFO - Current best log-likelihood: 190751.076
+2026-08-24 03:29:50 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source1 : param ra -> FIXED (not in param_names)
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source1 : param dec -> FIXED (not in param_names)
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:29:52 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source1 : param piv -> FIXED (not in param_names)
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 03:29:52 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:29:52 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:29:52 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:29:55 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=True
+2026-08-24 03:29:55 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:29:55 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:29:55 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:29:55 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/curModel.model
+2026-08-24 03:29:55 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:29:55 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:29:55 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:30:08 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:30:26 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source0-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-24 03:30:26 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:30:26 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:30:40 - Pipeline - INFO - TS for source Source1: 467.22956700099166
+2026-08-24 03:30:40 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:31:02 - Pipeline - INFO - TS for source URM: -639.9672196622705
+2026-08-24 03:31:02 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:31:11 - Pipeline - INFO - TS for source Source3: 828.4458891568356
+2026-08-24 03:31:11 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:31:17 - Pipeline - INFO - TS for source Source0: 160.2751000256394
+2026-08-24 03:31:17 - Pipeline - INFO - Saving HAL output maps
+2026-08-24 03:31:17 - Pipeline - INFO - SAVE A BIG MAP
+2026-08-24 03:31:36 - Pipeline - INFO - Writing model map...
+2026-08-24 03:31:37 - Pipeline - INFO - Fit Step2-Source0-Extension-Gaussian_on_sphere: -logL=190716.568, AIC=381451.135 (1.70 min)
+2026-08-24 03:31:37 - Pipeline - INFO - Extension test Source0 -> Gaussian_on_sphere: delta_TS=69.02 (threshold 16)
+2026-08-24 03:31:37 - Pipeline - INFO - Accepted alternate spatial model Gaussian_on_sphere for Source0
+2026-08-24 03:31:37 - Pipeline - INFO - Current best log-likelihood: 190716.568
+2026-08-24 03:31:37 - Pipeline - INFO - Spatial shape of source Point_Source, Alternate model Gaussian_on_sphere
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:31:40 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:31:40 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:31:40 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:31:40 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:31:40 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere  with compute_err=False, compute_TS=True, make_maps=True
+2026-08-24 03:31:40 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:31:40 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:31:40 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:31:40 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/curModel.model
+2026-08-24 03:31:40 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:31:40 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:31:40 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:31:52 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:32:20 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step2-Source1-Extension-Gaussian_on_sphere/likelihoodResults.fits
+2026-08-24 03:32:20 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:32:20 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:33:09 - Pipeline - INFO - TS for source URM: -668.467764414323
+2026-08-24 03:33:09 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:33:23 - Pipeline - INFO - TS for source Source3: 830.3404540269403
+2026-08-24 03:33:23 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:33:36 - Pipeline - INFO - TS for source Source0: 157.23589363414794
+2026-08-24 03:33:36 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:33:48 - Pipeline - INFO - TS for source Source1: 470.5302413103054
+2026-08-24 03:33:48 - Pipeline - INFO - Saving HAL output maps
+2026-08-24 03:33:48 - Pipeline - INFO - SAVE A BIG MAP
+2026-08-24 03:34:09 - Pipeline - INFO - Writing model map...
+2026-08-24 03:34:09 - Pipeline - INFO - Fit Step2-Source1-Extension-Gaussian_on_sphere: -logL=190714.917, AIC=381449.834 (2.49 min)
+2026-08-24 03:34:09 - Pipeline - INFO - Extension test Source1 -> Gaussian_on_sphere: delta_TS=3.30 (threshold 16)
+2026-08-24 03:34:09 - Pipeline - INFO - Skipping extension test for URM (URM source)
+2026-08-24 03:34:09 - Pipeline - INFO - Current best log-likelihood: 190716.568
+2026-08-24 03:34:09 - Pipeline - INFO - Source Source3 already has spatial shape Gaussian_on_sphere, skipping swap
+2026-08-24 03:34:37 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:34:37 - Pipeline - INFO - Diffuse background normalization status during spectrum test: False
+2026-08-24 03:34:37 - Pipeline - INFO - Swapping Source1 spectral shape from Powerlaw to Cutoff_powerlaw
+2026-08-24 03:34:37 - Pipeline - INFO - New spectrum class: dict_keys(['K', 'piv', 'index', 'xc'])
+2026-08-24 03:34:40 - Pipeline - INFO - Swapped Source1 spectral shape -> Cutoff_powerlaw
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source3 : param lon0 -> free=False
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source3 : param lat0 -> free=False
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source3 : param sigma -> FIXED (not in param_names)
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source0 : param lon0 -> free=False
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source0 : param lat0 -> free=False
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source0 : param sigma -> FIXED (not in param_names)
+2026-08-24 03:34:40 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:34:40 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source3 : param K -> FIXED (not in param_names)
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source3 : param piv -> free=True
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source3 : param index -> FIXED (not in param_names)
+2026-08-24 03:34:40 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source0 : param K -> FIXED (not in param_names)
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source0 : param piv -> free=True
+2026-08-24 03:34:40 - Pipeline - INFO - SOURCE Source0 : param index -> FIXED (not in param_names)
+2026-08-24 03:34:40 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-24 03:34:40 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:34:40 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:34:40 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:34:40 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model
+2026-08-24 03:34:40 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:34:40 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:34:40 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:34:53 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:36:03 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:36:03 - Pipeline - INFO - Diffuse background normalization status during spectrum test: False
+2026-08-24 03:36:03 - Pipeline - INFO - Swapping Source1 spectral shape from Powerlaw to Cutoff_powerlaw
+2026-08-24 03:36:03 - Pipeline - INFO - New spectrum class: dict_keys(['K', 'piv', 'index', 'xc'])
+2026-08-24 03:36:06 - Pipeline - INFO - Swapped Source1 spectral shape -> Cutoff_powerlaw
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:36:06 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:36:06 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:36:06 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:36:06 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:36:06 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-24 03:36:06 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:36:06 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:36:06 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:36:06 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model
+2026-08-24 03:36:06 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:36:06 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:36:06 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:36:20 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:36:30 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/likelihoodResults.fits
+2026-08-24 03:36:30 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:36:30 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:36:36 - Pipeline - INFO - TS for source Source1: -0.0001670402125455439
+2026-08-24 03:36:36 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:37:01 - Pipeline - INFO - TS for source URM: -284.85596332047135
+2026-08-24 03:37:01 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:40:39 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:40:39 - Pipeline - INFO - Diffuse background normalization status during spectrum test: False
+2026-08-24 03:40:39 - Pipeline - INFO - Swapping Source1 spectral shape from Powerlaw to Cutoff_powerlaw
+2026-08-24 03:40:39 - Pipeline - INFO - New spectrum class: dict_keys(['K', 'piv', 'index', 'xc'])
+2026-08-24 03:40:43 - Pipeline - INFO - Swapped Source1 spectral shape -> Cutoff_powerlaw
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:40:43 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:40:43 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:40:43 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:40:43 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:40:43 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-24 03:40:43 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:40:43 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:40:43 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:40:43 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model
+2026-08-24 03:40:43 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:40:43 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:40:43 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:40:58 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:41:27 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/likelihoodResults.fits
+2026-08-24 03:41:27 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:41:27 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:41:36 - Pipeline - INFO - TS for source Source1: 525.8407337080571
+2026-08-24 03:41:36 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:42:06 - Pipeline - INFO - TS for source URM: -623.393056643079
+2026-08-24 03:42:06 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:42:11 - Pipeline - INFO - TS for source Source3: 851.5674950875691
+2026-08-24 03:42:11 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:42:20 - Pipeline - INFO - TS for source Source0: 186.41924908728106
+2026-08-24 03:42:20 - Pipeline - INFO - Fit Step3-Source1-Spectrum-Cutoff_powerlaw: -logL=190690.349, AIC=381398.699 (1.62 min)
+2026-08-24 03:42:20 - Pipeline - INFO - Spectrum test Source1 -> Cutoff_powerlaw: delta_TS=52.44 (threshold 16)
+2026-08-24 03:42:20 - Pipeline - INFO - Accepted alternate spectral model Cutoff_powerlaw for Source1
+2026-08-24 03:42:20 - Pipeline - INFO - Swapping URM spectral shape from Powerlaw to Cutoff_powerlaw
+2026-08-24 03:42:20 - Pipeline - INFO - New spectrum class: dict_keys(['K', 'piv', 'index', 'xc'])
+2026-08-24 03:42:22 - Pipeline - INFO - Swapped URM spectral shape -> Cutoff_powerlaw
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source1 : param ra -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source1 : param dec -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source1 : param piv -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source1 : param xc -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:42:22 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:42:22 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-URM-Spectrum-Cutoff_powerlaw/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-URM-Spectrum-Cutoff_powerlaw  with compute_err=False, compute_TS=True, make_maps=False
+2026-08-24 03:42:22 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:42:22 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:42:22 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:42:22 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-URM-Spectrum-Cutoff_powerlaw/curModel.model
+2026-08-24 03:42:22 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:42:22 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:42:22 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:42:38 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:43:07 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-URM-Spectrum-Cutoff_powerlaw/likelihoodResults.fits
+2026-08-24 03:43:07 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:43:07 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:43:17 - Pipeline - INFO - TS for source Source1: 859.3745505003608
+2026-08-24 03:43:17 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:51:42 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:51:42 - Pipeline - INFO - Diffuse background normalization status during spectrum test: True
+2026-08-24 03:51:42 - Pipeline - INFO - Swapping Source1 spectral shape from Powerlaw to Cutoff_powerlaw
+2026-08-24 03:51:42 - Pipeline - INFO - New spectrum class: dict_keys(['K', 'piv', 'index', 'xc'])
+2026-08-24 03:51:47 - Pipeline - INFO - Swapped Source1 spectral shape -> Cutoff_powerlaw
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:51:47 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:51:47 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:51:47 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:51:47 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:51:47 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw  with compute_err=False, compute_TS=False, make_maps=False
+2026-08-24 03:51:47 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:51:47 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:51:47 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:51:47 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/curModel.model
+2026-08-24 03:51:47 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:51:47 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:51:47 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:52:02 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:52:33 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source1-Spectrum-Cutoff_powerlaw/likelihoodResults.fits
+2026-08-24 03:52:33 - Pipeline - INFO - Fit Step3-Source1-Spectrum-Cutoff_powerlaw: -logL=190690.300, AIC=381400.600 (0.77 min)
+2026-08-24 03:52:33 - Pipeline - INFO - Spectrum test Source1 -> Cutoff_powerlaw: delta_TS=52.54 (threshold 16)
+2026-08-24 03:52:33 - Pipeline - INFO - delta_TS above threshold; computing per-source TS for Step3-Source1-Spectrum-Cutoff_powerlaw
+2026-08-24 03:52:33 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:52:33 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:52:45 - Pipeline - INFO - TS for source Source1: 519.7644031085074
+2026-08-24 03:52:45 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:53:16 - Pipeline - INFO - TS for source URM: -623.2936667843605
+2026-08-24 03:53:16 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:53:29 - Pipeline - INFO - TS for source Source3: 826.017458451679
+2026-08-24 03:53:29 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:53:36 - Pipeline - INFO - TS for source Source0: 160.5485978666111
+2026-08-24 03:53:36 - Pipeline - INFO - Accepted alternate spectral model Cutoff_powerlaw for Source1
+2026-08-24 03:53:36 - Pipeline - INFO - Skipping spectrum test for URM (URM source)
+2026-08-24 03:53:36 - Pipeline - INFO - Swapping Source3 spectral shape from Powerlaw to Cutoff_powerlaw
+2026-08-24 03:53:36 - Pipeline - INFO - New spectrum class: dict_keys(['K', 'piv', 'index', 'xc'])
+2026-08-24 03:53:38 - Pipeline - INFO - Swapped Source3 spectral shape -> Cutoff_powerlaw
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source1 : param ra -> FIXED (not in param_names)
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source1 : param dec -> FIXED (not in param_names)
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source0 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source0 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source0 : param sigma -> free=True
+2026-08-24 03:53:38 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source1 : param piv -> FIXED (not in param_names)
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source1 : param xc -> FIXED (not in param_names)
+2026-08-24 03:53:38 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:53:38 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source0 : param piv -> FIXED (not in param_names)
+2026-08-24 03:53:38 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:53:38 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source3-Spectrum-Cutoff_powerlaw/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source3-Spectrum-Cutoff_powerlaw  with compute_err=False, compute_TS=False, make_maps=False
+2026-08-24 03:53:38 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:53:38 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:53:38 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:53:38 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source3-Spectrum-Cutoff_powerlaw/curModel.model
+2026-08-24 03:53:38 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:53:38 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:53:38 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:53:53 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:54:33 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source3-Spectrum-Cutoff_powerlaw/likelihoodResults.fits
+2026-08-24 03:54:33 - Pipeline - INFO - Fit Step3-Source3-Spectrum-Cutoff_powerlaw: -logL=190689.310, AIC=381398.620 (0.91 min)
+2026-08-24 03:54:33 - Pipeline - INFO - Spectrum test Source3 -> Cutoff_powerlaw: delta_TS=1.98 (threshold 16)
+2026-08-24 03:54:33 - Pipeline - INFO - Rejected alternate spectral model Cutoff_powerlaw for Source3; skipping TS computation
+2026-08-24 03:54:33 - Pipeline - INFO - Swapping Source0 spectral shape from Powerlaw to Cutoff_powerlaw
+2026-08-24 03:54:33 - Pipeline - INFO - New spectrum class: dict_keys(['K', 'piv', 'index', 'xc'])
+2026-08-24 03:54:36 - Pipeline - INFO - Swapped Source0 spectral shape -> Cutoff_powerlaw
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source1 : param ra -> FIXED (not in param_names)
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source1 : param dec -> FIXED (not in param_names)
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source3 : param lon0 -> FIXED (not in param_names)
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source3 : param lat0 -> FIXED (not in param_names)
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:54:36 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source1 : param piv -> FIXED (not in param_names)
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source1 : param xc -> FIXED (not in param_names)
+2026-08-24 03:54:36 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:54:36 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source3 : param piv -> FIXED (not in param_names)
+2026-08-24 03:54:36 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:54:36 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source0-Spectrum-Cutoff_powerlaw/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source0-Spectrum-Cutoff_powerlaw  with compute_err=False, compute_TS=False, make_maps=False
+2026-08-24 03:54:36 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:54:36 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:54:36 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:54:36 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source0-Spectrum-Cutoff_powerlaw/curModel.model
+2026-08-24 03:54:36 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:54:36 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:54:36 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:54:51 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:55:30 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step3-Source0-Spectrum-Cutoff_powerlaw/likelihoodResults.fits
+2026-08-24 03:55:30 - Pipeline - INFO - Fit Step3-Source0-Spectrum-Cutoff_powerlaw: -logL=190687.849, AIC=381395.698 (0.89 min)
+2026-08-24 03:55:30 - Pipeline - INFO - Spectrum test Source0 -> Cutoff_powerlaw: delta_TS=4.90 (threshold 16)
+2026-08-24 03:55:30 - Pipeline - INFO - Rejected alternate spectral model Cutoff_powerlaw for Source0; skipping TS computation
+2026-08-24 03:56:17 - Pipeline - INFO - Starting extension fit
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source0 : param ra -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source0 : param dec -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source1 : param ra -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source1 : param dec -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source3 : param lon0 -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source3 : param lat0 -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source0 : param piv -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source1 : param piv -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:56:17 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source3 : param piv -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 03:56:17 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-24 03:56:17 - Pipeline - INFO - Running final joint refit with all parameters free
+2026-08-24 03:56:17 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step4-FinalRefit/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step4-FinalRefit  with compute_err=False, compute_TS=True, make_maps=True
+2026-08-24 03:56:17 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 03:56:17 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 03:56:17 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 03:56:17 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step4-FinalRefit/curModel.model
+2026-08-24 03:56:17 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 03:56:17 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 03:56:17 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 03:56:32 - Pipeline - INFO - Running MLE without error estimation
+2026-08-24 03:57:28 - Pipeline - INFO - Fit results saved to /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step4-FinalRefit/likelihoodResults.fits
+2026-08-24 03:57:28 - Pipeline - INFO - Calculating TS for all sources in the model
+2026-08-24 03:57:28 - Pipeline - INFO - Computing TS for source: Source0
+2026-08-24 03:57:40 - Pipeline - INFO - TS for source Source0: 91.27881391526898
+2026-08-24 03:57:40 - Pipeline - INFO - Computing TS for source: Source1
+2026-08-24 03:58:23 - Pipeline - INFO - TS for source Source1: 530.4963144836947
+2026-08-24 03:58:23 - Pipeline - INFO - Computing TS for source: URM
+2026-08-24 03:59:05 - Pipeline - INFO - TS for source URM: 712.9706483683549
+2026-08-24 03:59:05 - Pipeline - INFO - Computing TS for source: Source3
+2026-08-24 03:59:20 - Pipeline - INFO - TS for source Source3: 808.1390080836136
+2026-08-24 03:59:20 - Pipeline - INFO - Saving HAL output maps
+2026-08-24 03:59:20 - Pipeline - INFO - SAVE A BIG MAP
+2026-08-24 03:59:43 - Pipeline - INFO - Writing model map...
+2026-08-24 03:59:44 - Pipeline - INFO - Fit Step4-FinalRefit: -logL=190751.048, AIC=381536.096 (3.45 min)
+2026-08-24 09:14:19 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-24 09:27:58 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-24 09:45:47 - Pipeline - INFO - Starting extension fit
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source0 : param ra -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source0 : param dec -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source1 : param ra -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source1 : param dec -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source3 : param lon0 -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source3 : param lat0 -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source3 : param sigma -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source0 : param K -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source0 : param piv -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source0 : param index -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source1 : param K -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source1 : param piv -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source1 : param index -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 09:45:47 - Pipeline - INFO - TESTING SPECTRAL
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source3 : param K -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source3 : param piv -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - SOURCE Source3 : param index -> free=True
+2026-08-24 09:45:47 - Pipeline - INFO - Skipping background source 'HAWC_bkg_renorm (Parameter)'
+2026-08-24 09:45:47 - Pipeline - INFO - Running final joint refit with all parameters free
+2026-08-24 09:45:47 - Pipeline - INFO - Fitting model /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step4-FinalRefit/curModel.model in /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step4-FinalRefit  with compute_err=True, compute_TS=True, make_maps=True
+2026-08-24 09:45:47 - Pipeline - INFO - Map tree: /Users/rishi/Documents/Analysis/data/maptree-fhit2pct-pass5f-mlp-chunk1-1510.root
+2026-08-24 09:45:47 - Pipeline - INFO - Detector response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root
+2026-08-24 09:45:47 - Pipeline - INFO - Converted galactic coordinates (l=12.5, b=0) to equatorial (RA=273.2187758272126, Dec=-18.100800822935284)
+2026-08-24 09:45:47 - Pipeline - INFO - Model file: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/Run1/Results/Step4-FinalRefit/curModel.model
+2026-08-24 09:45:47 - Pipeline - INFO - No ROI template provided, computing ROI from provided ra and dec
+2026-08-24 09:45:47 - Pipeline - INFO - ROI center: 273.2187758272126, -18.100800822935284
+2026-08-24 09:45:47 - Pipeline - INFO - Running threeML fit pipeline with bins: ['B2C0', 'B3C0', 'B4C0', 'B5C0', 'B6C0', 'B7C0', 'B8C0', 'B9C0', 'B10C0']
+2026-08-24 09:46:05 - Pipeline - INFO - Running MLE with error estimation

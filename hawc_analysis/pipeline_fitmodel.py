@@ -218,10 +218,14 @@ class threeMLFit:
         ts_by_source = {}
         for source in self.model_obj.sources:
             self.logger.info(f"Computing TS for source: {source}")
-            ts_val = self.jl.compute_TS(source, self.statistics)
-            ts_scalar = float(ts_val.TS.iloc[0]) if hasattr(ts_val.TS, 'iloc') else float(ts_val.TS)
-            self.logger.info(f"TS for source {source}: {ts_scalar}")
-            ts_by_source[source] = ts_scalar
+            try:
+                ts_val = self.jl.compute_TS(source, self.statistics)
+                ts_scalar = float(ts_val.TS.iloc[0]) if hasattr(ts_val.TS, 'iloc') else float(ts_val.TS)
+                self.logger.info(f"TS for source {source}: {ts_scalar}")
+                ts_by_source[source] = ts_scalar
+            except Exception as e:
+                self.logger.info(f"Error computing TS for source {source}: {e}")
+                ts_by_source[source] = 9999
         return ts_by_source
 
         

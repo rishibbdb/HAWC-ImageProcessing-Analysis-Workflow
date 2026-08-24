@@ -70,6 +70,104 @@ class FitRunner:
         self.roi_template = roi_template
         self.max_retries = max_retries
 
+    # def fit(
+    #     self,
+    #     model_file: str,
+    #     step_dir: str,
+    #     compute_err: bool = True,
+    #     compute_TS: bool = True,
+    #     make_maps: bool = True,
+    # ) -> FitResult:
+    #     """Run one in-process fit.
+
+    #     Parameters:
+    #     -----------
+    #     model_file : str
+    #         Path to the .model file to fit (an executable Python file that
+    #         defines `model = threeML.Model(...)`).
+    #     step_dir : str
+    #         Output directory for this step; threeMLFit writes maps under
+    #         step_dir/results/.
+    #     compute_err : bool
+    #         If True use hal_fit_with_covariance(), else hal_fit().
+    #     compute_TS : bool
+    #         If True, compute the Test Statistic (TS) for each source.
+    #     make_maps : bool
+    #         If True, write model_fit.hd5 and residual_fit.hd5 via make_maps().
+
+    #     Returns:
+    #     --------
+    #     FitResult
+    #     """
+    #     step_dir = Path(step_dir)
+
+    #     start = time.perf_counter()
+    #     last_error = None
+    #     fitter = None
+    #     self.logger.info(f'Fitting model {model_file} in {step_dir}  with compute_err={compute_err}, compute_TS={compute_TS}, make_maps={make_maps}')
+
+    #     # for attempt in range(self.max_retries):
+    #     #     try:
+    #     #         fitter = threeMLFit(
+    #     #             config_path=self.config_path,
+    #     #             model=str(model_file),
+    #     #             save_dir=step_dir,
+    #     #             roiTemplate=self.roi_template,
+    #     #             logger=self.logger,
+    #     #         )
+    #     #         if compute_err:
+    #     #             fitter.hal_fit_with_covariance()
+    #     #         else:
+    #     #             fitter.hal_fit()
+    #     #         if compute_TS:
+    #     #             fitter.get_TS()
+    #     #         break
+    #     #     except Exception as e:
+    #     #         last_error = e
+    #     #         self.logger.warning(f'Fit attempt {attempt + 1}/{self.max_retries} failed: {e}')
+    #     #         fitter = None
+
+    #     fitter = threeMLFit(
+    #     config_path=self.config_path,
+    #     model=str(model_file),
+    #     save_dir=step_dir,
+    #     roiTemplate=self.roi_template,
+    #     logger=self.logger,
+    #     )
+    #     if compute_err:
+    #         fitter.hal_fit_with_covariance()
+    #     else:
+    #         fitter.hal_fit()
+    #     if compute_TS:
+    #         ts=fitter.get_TS()
+    #     if fitter is None:
+    #         raise RuntimeError(f'Fit at {model_file} failed after {self.max_retries} attempts: {last_error}')
+
+    #     log_like = float(fitter.statistics.loc['total', '-log(likelihood)'])
+    #     aic = self._extract_aic(fitter)
+
+    #     model_map_path = None
+    #     residual_map_path = None
+    #     if make_maps:
+    #         fitter.make_maps()
+    #         mm = step_dir / 'model_fit.hd5'
+    #         rm = step_dir / 'residual_fit.hd5'
+    #         model_map_path = mm if mm.exists() else None
+    #         residual_map_path = rm if rm.exists() else None
+
+    #     elapsed = (time.perf_counter() - start) / 60.0
+    #     self.logger.info(f'Fit {step_dir.name}: -logL={log_like:.3f}, AIC={aic:.3f} ({elapsed:.2f} min)')
+
+    #     return FitResult(
+    #         model=fitter.model_obj,
+    #         log_like=log_like,
+    #         aic=aic,
+    #         ts = ts,
+    #         model_map_path=model_map_path,
+    #         residual_map_path=residual_map_path,
+    #         step_dir=step_dir,
+    #         fitter=fitter,
+    #     )
     def fit(
         self,
         model_file: str,
@@ -78,68 +176,27 @@ class FitRunner:
         compute_TS: bool = True,
         make_maps: bool = True,
     ) -> FitResult:
-        """Run one in-process fit.
-
-        Parameters:
-        -----------
-        model_file : str
-            Path to the .model file to fit (an executable Python file that
-            defines `model = threeML.Model(...)`).
-        step_dir : str
-            Output directory for this step; threeMLFit writes maps under
-            step_dir/results/.
-        compute_err : bool
-            If True use hal_fit_with_covariance(), else hal_fit().
-        compute_TS : bool
-            If True, compute the Test Statistic (TS) for each source.
-        make_maps : bool
-            If True, write model_fit.hd5 and residual_fit.hd5 via make_maps().
-
-        Returns:
-        --------
-        FitResult
-        """
         step_dir = Path(step_dir)
 
         start = time.perf_counter()
         last_error = None
         fitter = None
+        ts = None
         self.logger.info(f'Fitting model {model_file} in {step_dir}  with compute_err={compute_err}, compute_TS={compute_TS}, make_maps={make_maps}')
 
-        # for attempt in range(self.max_retries):
-        #     try:
-        #         fitter = threeMLFit(
-        #             config_path=self.config_path,
-        #             model=str(model_file),
-        #             save_dir=step_dir,
-        #             roiTemplate=self.roi_template,
-        #             logger=self.logger,
-        #         )
-        #         if compute_err:
-        #             fitter.hal_fit_with_covariance()
-        #         else:
-        #             fitter.hal_fit()
-        #         if compute_TS:
-        #             fitter.get_TS()
-        #         break
-        #     except Exception as e:
-        #         last_error = e
-        #         self.logger.warning(f'Fit attempt {attempt + 1}/{self.max_retries} failed: {e}')
-        #         fitter = None
-
         fitter = threeMLFit(
-        config_path=self.config_path,
-        model=str(model_file),
-        save_dir=step_dir,
-        roiTemplate=self.roi_template,
-        logger=self.logger,
+            config_path=self.config_path,
+            model=str(model_file),
+            save_dir=step_dir,
+            roiTemplate=self.roi_template,
+            logger=self.logger,
         )
         if compute_err:
             fitter.hal_fit_with_covariance()
         else:
             fitter.hal_fit()
         if compute_TS:
-            ts=fitter.get_TS()
+            ts = fitter.get_TS()
         if fitter is None:
             raise RuntimeError(f'Fit at {model_file} failed after {self.max_retries} attempts: {last_error}')
 
@@ -162,13 +219,12 @@ class FitRunner:
             model=fitter.model_obj,
             log_like=log_like,
             aic=aic,
-            ts = ts,
+            ts=ts,
             model_map_path=model_map_path,
             residual_map_path=residual_map_path,
             step_dir=step_dir,
             fitter=fitter,
         )
-
     def _extract_aic(self, fitter) -> float:
         """Pull AIC from the threeML MLEResults.
 

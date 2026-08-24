@@ -363,7 +363,7 @@ class ModelGenerator:
     }
     DEFAULT_SPECTRUM_PARAMS = {
         'Log_parabola': {'K': (1e-23,1e-29,1e-19), 'alpha': (-2.5, -4.0, -1.0), 'beta': (0.1, -1.0, 1.0)},
-        'Cutoff_powerlaw': {'K': (1e-23,1e-29,1e-19), 'xc': (10.0, 1.0, 100.0)},
+        'Cutoff_powerlaw': {'K': (1e-23,1e-29,1e-19), 'xc': (10000000000.0 , 1000000000.0 , 200000000000.0 )},
     }
 
     @staticmethod

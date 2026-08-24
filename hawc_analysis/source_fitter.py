@@ -9,12 +9,91 @@ import os
 from astropy.coordinates import SkyCoord
 import pandas as pd
 import astromodels
+from astropy.io import fits
 from fit_runner import FitRunner, FitResult
 from model_generator import ModelGenerator
 from seeding.base import SeedingOutput
 from core.hdf5_handler import HDF5Handler
 from core.map_tools import MapGenerator
 from pipeline_helpers import load_hawc_data, find_peak, make_plots
+
+import json
+import numpy as np
+from astropy.io import fits
+
+
+def save_fit_summary(fit_result: FitResult, logger: object, extra: dict = None) -> Path:
+    """Read likelihoodResults.fits from fit_result.step_dir, combine its
+    per-parameter table with fit_result.ts (if computed), and write both to
+    fit_result.step_dir/fit_summary.json (and a flat fit_summary.csv for
+    quick inspection). Call this once after each fit, wherever the caller
+    has a finished FitResult in hand.
+
+    Returns the path to the written JSON summary, or None if the FITS
+    results file wasn't found (e.g. a fit that failed before writing it).
+    """
+    step_dir = Path(fit_result.step_dir)
+    results_path = step_dir / 'likelihoodResults.fits'
+
+    if not results_path.exists():
+        logger.warning(f'save_fit_summary: no likelihoodResults.fits at {results_path}; skipping')
+        return None
+
+    with fits.open(results_path) as hdul:
+        data = hdul[1].data
+
+    params = {}
+    for row in data:
+        name = row['NAME'].decode() if isinstance(row['NAME'], bytes) else str(row['NAME'])
+        unit = row['UNIT'].decode() if isinstance(row['UNIT'], bytes) else str(row['UNIT'])
+        params[name] = {
+            'value': float(row['VALUE']),
+            'negative_error': float(row['NEGATIVE_ERROR']),
+            'positive_error': float(row['POSITIVE_ERROR']),
+            'error': float(row['ERROR']),
+            'unit': unit,
+        }
+
+    ts_by_source = fit_result.ts if isinstance(fit_result.ts, dict) else None
+
+    summary = {
+        'step_dir': str(step_dir),
+        'log_like': fit_result.log_like,
+        'aic': fit_result.aic,
+        'ts': ts_by_source,
+        'parameters': params,
+    }
+    if extra:
+        summary.update(extra)
+
+    json_path = step_dir / 'fit_summary.json'
+    with open(json_path, 'w') as f:
+        json.dump(summary, f, indent=2, default=_json_safe)
+    logger.info(f'Wrote fit summary: {json_path}')
+
+    csv_path = step_dir / 'fit_summary.csv'
+    with open(csv_path, 'w') as f:
+        f.write('name,value,negative_error,positive_error,error,unit\n')
+        for name, p in params.items():
+            f.write(f"{name},{p['value']},{p['negative_error']},{p['positive_error']},{p['error']},{p['unit']}\n")
+        if ts_by_source:
+            f.write('\nsource,ts\n')
+            for source, ts in ts_by_source.items():
+                f.write(f'{source},{ts}\n')
+    logger.info(f'Wrote fit summary CSV: {csv_path}')
+
+    return json_path
+
+
+def _json_safe(obj):
+    """json.dump default= handler for numpy scalars/NaN that plain json
+    chokes on."""
+    if isinstance(obj, (np.floating, np.integer)):
+        val = float(obj)
+        return None if val != val else val  # NaN -> null
+    if isinstance(obj, float) and obj != obj:
+        return None
+    raise TypeError(f'Object of type {type(obj)} is not JSON serializable')
 
 def _as_list(value) -> List[str]:
     if value is None:
@@ -248,9 +327,9 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
     extension_ts_threshold = config.get('likelihood_thresholds.extension_test', 16)
     coord_range = config.get('fitting.extended_source_coord_range', 1.0)
 
-    # force_low_ts_source = config.get('testing.force_low_ts_source', None)
-    force_low_ts_source = 'Source3' 
-    # force_low_ts_source = True
+    force_low_ts_source = config.get('testing.force_low_ts_source', None)
+    # force_low_ts_source = 'Source3' 
+
     if force_low_ts_source:
         logger.info(
             f'TESTING OVERRIDE ACTIVE: forcing TS for source {force_low_ts_source!r} '
@@ -266,9 +345,7 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
     model = fit_result.model
     baseline_log_like = fit_result.log_like
     source_names = list(model.sources.keys())
-    i=0
     for source_name in source_names:
-        i += 1
         if source_name == 'URM':
             logger.info(f'Skipping extension test for {source_name} (URM source)')
             continue
@@ -301,8 +378,19 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
                 model_file=str(model_file),
                 step_dir=str(step_dir),
                 compute_err=config.get('error_and_TS.error_extension', True),
+                compute_TS=False,
                 make_maps=True,
             )
+
+            delta_ts = 2 * (best_log_like - trial_result.log_like)
+            logger.info(f'Extension test {source_name} -> {alt_shape}: delta_TS={delta_ts:.2f} (threshold {extension_ts_threshold})')
+
+            if delta_ts <= extension_ts_threshold:
+                logger.info(f'Rejected alternate spatial model {alt_shape} for {source_name}; skipping TS computation')
+                continue
+
+            logger.info(f'delta_TS above threshold; computing per-source TS for {step_name}')
+            trial_result.ts = trial_result.fitter.get_TS()
 
             if force_low_ts_source and isinstance(trial_result.ts, dict) and force_low_ts_source in trial_result.ts:
                 real_ts = trial_result.ts[force_low_ts_source]
@@ -332,22 +420,19 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
                     force_low_ts_source = None
                 continue
 
-            delta_ts = 2 * (best_log_like - trial_result.log_like)
-            logger.info(f'Extension test {source_name} -> {alt_shape}: delta_TS={delta_ts:.2f} (threshold {extension_ts_threshold})')
-            if delta_ts > extension_ts_threshold:
-                best_log_like = trial_result.log_like
-                best_model = trial_result.model
-                logger.info(f'Accepted alternate spatial model {alt_shape} for {source_name}')
-                resmap = _build_fit_maps(config, logger, directory_manager, trial_result.step_dir, 'residual')
-                fit_result = trial_result
+            best_log_like = trial_result.log_like
+            best_model = trial_result.model
+            logger.info(f'Accepted alternate spatial model {alt_shape} for {source_name}')
+            fit_result = trial_result
         model = best_model
         baseline_log_like = best_log_like
 
-    return FitResult(
-        model=model, log_like=baseline_log_like, aic=fit_result.aic,
+    results = FitResult(
+        model=model, log_like=baseline_log_like, aic=fit_result.aic, ts = fit_result.ts,
         model_map_path=fit_result.model_map_path, residual_map_path=fit_result.residual_map_path,
         step_dir=fit_result.step_dir, fitter=fit_result.fitter,
     )
+    return results
 
 # def run_extension_test(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
 #     """Test alternate spatial models per source; accept if TS improvement
@@ -453,10 +538,92 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
 #     )
 
 
+# def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
+#     """Test alternate spectral models per source; accept if TS improvement
+#     exceeds likelihood_thresholds.spectrum_test. Same freeze-others-per-trial
+#     approach as run_extension_test.
+#     """
+#     alt_models = _as_list(config.get('fitting.alternate_spectral_models'))
+#     if not alt_models:
+#         logger.info('No fitting.alternate_spectral_models configured; skipping spectrum test')
+#         return fit_result
+
+#     threshold = config.get('likelihood_thresholds.spectrum_test', 16)
+#     runner = FitRunner(
+#         config_path=str(config.config_file),
+#         logger=logger,
+#         roi_template=config.get('roi.roi_template_path'),
+#     )
+#     free_dbe = config.get('fitting.free_diffuse_norm', False)
+#     logger.info(f"Diffuse background normalization status during spectrum test: {free_dbe}")
+#     model = fit_result.model
+#     baseline_log_like = fit_result.log_like
+#     source_names = list(model.sources.keys())
+
+#     for source_name in source_names:
+#         other_sources = [n for n in model.sources.keys() if n != source_name]
+#         best_log_like = baseline_log_like
+#         best_model = model
+
+#         for alt_spectrum in alt_models:
+#             trial_model = ModelGenerator.swap_spectral_shape(
+#                 model, source_name, alt_spectrum, logger=logger,
+#             )
+#             ModelGenerator.set_free(trial_model, other_sources, kind='spatial', free=True, free_diffuse=free_dbe, param_names=['sigma', 'e', 'theta'], logger=logger)
+#             ModelGenerator.set_free(trial_model, other_sources, kind='spectral', free=True, free_diffuse=free_dbe, param_names=['K', 'index', 'alpha', 'beta'], logger=logger)
+
+#             step_name = f'Step3-{source_name}-Spectrum-{alt_spectrum}'
+#             step_dir = directory_manager.get_step_results_dir(step_name)
+#             trial_model.save("{1}/{0}.yml".format('curModel', step_dir), overwrite=True)
+#             ModelGenerator.write_model_file_from_yaml("{1}/{0}.yml".format('curModel', step_dir), "{1}/{0}.model".format('curModel', step_dir), logger=logger)
+#             model_file = "{1}/{0}.model".format('curModel', step_dir)
+#             trial_result = runner.fit(
+#                 model_file=str(model_file),
+#                 step_dir=str(step_dir),
+#                 compute_err=config.get('error_and_TS.error_spectrum', True),
+#                 compute_TS=True,
+#                 make_maps=False,
+#             )
+
+#             pruned_result = _check_and_remove_low_ts(
+#                 trial_result, source_names_to_protect=[source_name],
+#                 ts_threshold=25, step_label=f'{step_name}',
+#                 config=config, logger=logger, directory_manager=directory_manager,
+#             )
+#             if pruned_result is not None:
+#                 trial_result = pruned_result
+#                 best_log_like = trial_result.log_like
+#                 best_model = trial_result.model
+#                 fit_result = trial_result
+#                 model = best_model
+#                 baseline_log_like = best_log_like
+#                 low_ts_dropped = set(source_names) - set(model.sources.keys())
+#                 source_names = [n for n in source_names if n not in low_ts_dropped]
+#                 other_sources = [n for n in other_sources if n not in low_ts_dropped]
+#                 continue
+
+#             delta_ts = 2 * (best_log_like - trial_result.log_like)
+#             logger.info(f'Spectrum test {source_name} -> {alt_spectrum}: delta_TS={delta_ts:.2f} (threshold {threshold})')
+#             if delta_ts > threshold:
+#                 best_log_like = trial_result.log_like
+#                 best_model = trial_result.model
+#                 logger.info(f'Accepted alternate spectral model {alt_spectrum} for {source_name}')
+
+#         model = best_model
+#         baseline_log_like = best_log_like
+
+#     return FitResult(
+#         model=model, log_like=baseline_log_like, aic=fit_result.aic, ts = fit_result.ts,
+#         model_map_path=fit_result.model_map_path, residual_map_path=fit_result.residual_map_path,
+#         step_dir=fit_result.step_dir, fitter=fit_result.fitter,
+#     )
+
 def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
     """Test alternate spectral models per source; accept if TS improvement
     exceeds likelihood_thresholds.spectrum_test. Same freeze-others-per-trial
-    approach as run_extension_test.
+    approach as run_extension_test. TS is only computed for trials whose
+    delta_TS already clears the acceptance threshold from log_like alone --
+    compute_TS=False on the initial fit, get_TS() called only if accepted.
     """
     alt_models = _as_list(config.get('fitting.alternate_spectral_models'))
     if not alt_models:
@@ -464,18 +631,26 @@ def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) 
         return fit_result
 
     threshold = config.get('likelihood_thresholds.spectrum_test', 16)
+    source_ts_threshold = config.get('likelihood_thresholds.point_source_detection', 16)
     runner = FitRunner(
         config_path=str(config.config_file),
         logger=logger,
         roi_template=config.get('roi.roi_template_path'),
     )
-    free_dbe = config.get('fitting.free_diffuse_norm', False)
+    free_dbe = config.get('diffuse.free_diffuse_norm', False)
     logger.info(f"Diffuse background normalization status during spectrum test: {free_dbe}")
     model = fit_result.model
     baseline_log_like = fit_result.log_like
     source_names = list(model.sources.keys())
 
     for source_name in source_names:
+        if source_name == 'URM':
+            logger.info(f'Skipping spectrum test for {source_name} (URM source)')
+            continue
+        if source_name not in model.sources:
+            logger.info(f'{source_name} was removed by a prior low-TS check; skipping its spectrum test')
+            continue
+
         other_sources = [n for n in model.sources.keys() if n != source_name]
         best_log_like = baseline_log_like
         best_model = model
@@ -484,8 +659,8 @@ def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) 
             trial_model = ModelGenerator.swap_spectral_shape(
                 model, source_name, alt_spectrum, logger=logger,
             )
-            ModelGenerator.set_free(trial_model, other_sources, kind='spatial', free=False, free_diffuse=free_dbe, param_names=['lon0', 'lat0', 'ra', 'dec'], logger=logger)
-            ModelGenerator.set_free(trial_model, other_sources, kind='spectral', free=True, free_diffuse=free_dbe, param_names=['piv'], logger=logger)
+            ModelGenerator.set_free(trial_model, other_sources, kind='spatial', free=True, free_diffuse=free_dbe, param_names=['sigma', 'e', 'theta'], logger=logger)
+            ModelGenerator.set_free(trial_model, other_sources, kind='spectral', free=True, free_diffuse=free_dbe, param_names=['K', 'index', 'alpha', 'beta'], logger=logger)
 
             step_name = f'Step3-{source_name}-Spectrum-{alt_spectrum}'
             step_dir = directory_manager.get_step_results_dir(step_name)
@@ -496,13 +671,23 @@ def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) 
                 model_file=str(model_file),
                 step_dir=str(step_dir),
                 compute_err=config.get('error_and_TS.error_spectrum', True),
-                compute_TS=True,
+                compute_TS=False,
                 make_maps=False,
             )
 
+            delta_ts = 2 * (best_log_like - trial_result.log_like)
+            logger.info(f'Spectrum test {source_name} -> {alt_spectrum}: delta_TS={delta_ts:.2f} (threshold {threshold})')
+
+            if delta_ts <= threshold:
+                logger.info(f'Rejected alternate spectral model {alt_spectrum} for {source_name}; skipping TS computation')
+                continue
+
+            logger.info(f'delta_TS above threshold; computing per-source TS for {step_name}')
+            trial_result.ts = trial_result.fitter.get_TS()
+
             pruned_result = _check_and_remove_low_ts(
                 trial_result, source_names_to_protect=[source_name],
-                ts_threshold=25, step_label=f'{step_name}',
+                ts_threshold=source_ts_threshold, step_label=f'{step_name}',
                 config=config, logger=logger, directory_manager=directory_manager,
             )
             if pruned_result is not None:
@@ -517,22 +702,19 @@ def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) 
                 other_sources = [n for n in other_sources if n not in low_ts_dropped]
                 continue
 
-            delta_ts = 2 * (best_log_like - trial_result.log_like)
-            logger.info(f'Spectrum test {source_name} -> {alt_spectrum}: delta_TS={delta_ts:.2f} (threshold {threshold})')
-            if delta_ts > threshold:
-                best_log_like = trial_result.log_like
-                best_model = trial_result.model
-                logger.info(f'Accepted alternate spectral model {alt_spectrum} for {source_name}')
+            best_log_like = trial_result.log_like
+            best_model = trial_result.model
+            fit_result = trial_result
+            logger.info(f'Accepted alternate spectral model {alt_spectrum} for {source_name}')
 
         model = best_model
         baseline_log_like = best_log_like
 
     return FitResult(
-        model=model, log_like=baseline_log_like, aic=fit_result.aic,
+        model=model, log_like=baseline_log_like, aic=fit_result.aic, ts=fit_result.ts,
         model_map_path=fit_result.model_map_path, residual_map_path=fit_result.residual_map_path,
         step_dir=fit_result.step_dir, fitter=fit_result.fitter,
     )
-
 
 def run_final_refit(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
     """Unfreeze every source's parameters and do one more joint fit.
@@ -543,14 +725,16 @@ def run_final_refit(fit_result: FitResult, config, logger, directory_manager) ->
     """
     model = fit_result.model
     all_sources = list(model.sources.keys())
-    ModelGenerator.set_free(model, all_sources, kind='spatial', free=True)
-    ModelGenerator.set_free(model, all_sources, kind='spectral', free=True)
+    ModelGenerator.set_free(model, all_sources, kind='spatial', free=True, free_diffuse=True, logger=logger)
+    ModelGenerator.set_free(model, all_sources, kind='spectral', free=True, free_diffuse=True, logger=logger)
 
     step_name = 'Step4-FinalRefit'
     step_dir = directory_manager.get_step_results_dir(step_name)
-    model_file = ModelGenerator.write_model_from_live(
-        model, str(directory_manager.get_model_file_path(step_name)), logger=logger,
-    )
+    yml_path = "{1}/{0}.yml".format('curModel', step_dir)
+    model_file = "{1}/{0}.model".format('curModel', step_dir)
+    model.save(yml_path, overwrite=True)
+    ModelGenerator.write_model_file_from_yaml(yml_path, model_file, logger=logger)
+
     runner = FitRunner(
         config_path=str(config.config_file),
         logger=logger,
@@ -560,12 +744,87 @@ def run_final_refit(fit_result: FitResult, config, logger, directory_manager) ->
     return runner.fit(
         model_file=str(model_file),
         step_dir=str(step_dir),
-        compute_err=config.get('error_and_TS.error_point', True),
+        compute_err=True,
+        compute_TS=True,
         make_maps=True,
     )
 
 
+# def run_final_refit(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
+#     """Unfreeze every source's parameters and do one more joint fit.
 
+#     Genuinely new: neither alpscode.py nor seeding/alps_seeder.py has a
+#     working final-refit method (perform_final_fitting_phase is read but never
+#     consumed anywhere in either).
+#     """
+#     model = fit_result.model
+#     all_sources = list(model.sources.keys())
+#     ModelGenerator.set_free(model, all_sources, kind='spatial', free=True)
+#     ModelGenerator.set_free(model, all_sources, kind='spectral', free=True)
+
+#     step_name = 'Step4-FinalRefit'
+#     step_dir = directory_manager.get_step_results_dir(step_name)
+#     model_file = ModelGenerator.write_model_from_live(
+#         model, str(directory_manager.get_model_file_path(step_name)), logger=logger,
+#     )
+#     runner = FitRunner(
+#         config_path=str(config.config_file),
+#         logger=logger,
+#         roi_template=config.get('roi.roi_template_path'),
+#     )
+#     logger.info('Running final joint refit with all parameters free')
+#     return runner.fit(
+#         model_file=str(model_file),
+#         step_dir=str(step_dir),
+#         compute_err=config.get('error_and_TS.error_point', True),
+#         make_maps=True,
+#     )
+
+
+
+
+# def run(drip_model_path, config, logger, directory_manager, checkpoint=None) -> SeedingOutput:
+#     """Run joint fit -> extension test -> spectrum test -> final refit (each
+#     gated by config) and package the result as a SeedingOutput.
+#     """
+#     logger.info('Starting source_fitter (DRIPS-seeded in-process fit)')
+
+#     result = run_joint_fit(drip_model_path, config, logger, directory_manager)
+#     checkpoint.save_step('drips_joint_fit', 0, 'completed', result, metadata={'num_sources': len(result.model.sources)})
+#     resmap = _build_fit_maps(config, logger, directory_manager, result.step_dir, 'residual')
+
+#     if config.get('fitting.run_extension_test', True):
+#         result = run_extension_test(result, config, logger, directory_manager)
+
+#     if config.get('fitting.run_spectrum_test', True):
+#         result = run_spectrum_test(result, config, logger, directory_manager)
+
+#     if config.get('fitting.run_final_refit', True):
+#         result = run_final_refit(result, config, logger, directory_manager)
+
+#     num_sources = len(result.model.sources)
+#     model_path = directory_manager.get_model_file_path('Final')
+#     ModelGenerator.write_model_from_live(result.model, str(model_path), logger=logger)
+
+#     output = SeedingOutput(
+#         source_info_db=_model_summary_df(result.model),
+#         baseline_model_path=model_path,
+#         baseline_likelihood=result.log_like,
+#         baseline_params={},
+#         ts_values={},
+#         residual_map_path=Path(result.residual_map_path) if result.residual_map_path else seeding_output.residual_map_path,
+#         checkpoint_data={
+#             'method': 'DripsFit',
+#             'num_sources': num_sources,
+#             'seeded_from': 'DRIPS',
+#             'aic': result.aic,
+#         },
+#         num_sources=num_sources,
+#         num_iterations=1,
+#         method='DripsFit',
+#     )
+#     logger.info(f'source_fitter complete: {num_sources} sources, -logL={result.log_like:.3f}')
+#     return output
 
 def run(drip_model_path, config, logger, directory_manager, checkpoint=None) -> SeedingOutput:
     """Run joint fit -> extension test -> spectrum test -> final refit (each
@@ -574,7 +833,8 @@ def run(drip_model_path, config, logger, directory_manager, checkpoint=None) -> 
     logger.info('Starting source_fitter (DRIPS-seeded in-process fit)')
 
     result = run_joint_fit(drip_model_path, config, logger, directory_manager)
-    checkpoint.save_step('drips_joint_fit', 0, 'completed', result, metadata={'num_sources': len(result.model.sources)})
+    if checkpoint is not None:
+        checkpoint.save_step('drips_joint_fit', 0, 'completed', result, metadata={'num_sources': len(result.model.sources)})
     resmap = _build_fit_maps(config, logger, directory_manager, result.step_dir, 'residual')
 
     if config.get('fitting.run_extension_test', True):
@@ -588,15 +848,18 @@ def run(drip_model_path, config, logger, directory_manager, checkpoint=None) -> 
 
     num_sources = len(result.model.sources)
     model_path = directory_manager.get_model_file_path('Final')
-    ModelGenerator.write_model_from_live(result.model, str(model_path), logger=logger)
+    yml_path = str(model_path).replace('.model', '.yml') if str(model_path).endswith('.model') else f'{model_path}.yml'
+    result.model.save(yml_path, overwrite=True)
+    ModelGenerator.write_model_file_from_yaml(yml_path, str(model_path), logger=logger)
 
+    residual_path = result.residual_map_path or resmap
     output = SeedingOutput(
         source_info_db=_model_summary_df(result.model),
         baseline_model_path=model_path,
         baseline_likelihood=result.log_like,
         baseline_params={},
         ts_values={},
-        residual_map_path=Path(result.residual_map_path) if result.residual_map_path else seeding_output.residual_map_path,
+        residual_map_path=Path(residual_path) if residual_path else None,
         checkpoint_data={
             'method': 'DripsFit',
             'num_sources': num_sources,
