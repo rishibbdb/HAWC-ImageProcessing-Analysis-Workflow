@@ -2,8 +2,8 @@
 fitting_procedure: 'Drips'  # Options: 'Drips', 'Alps' ##If fitting_procedure is 'Drips', specify the following parameters: coord_sys, roi_x and roi_y (in degrees) for the region of interest around the source, and the coordinate system (C for celestial, G for galactic).
 coordinates:  
   coord_sys: 'C'    #Coordinate system: C for celestial, G for galactic  
-  ra: 84    #Specify the right ascension (RA) or longitude (L) in degrees for the center of the region of interest (ROI)   
-  dec: 22    #Specify the declination (Dec) or latitude (B) in degrees for the center of the region of interest (ROI)  
+  ra: 307.65    #Specify the right ascension (RA) or longitude (L) in degrees for the center of the region of interest (ROI)   
+  dec: 41    #Specify the declination (Dec) or latitude (B) in degrees for the center of the region of interest (ROI)  
   l: null
   b: null
   roi_x: 4.0  #Specify the size of the region of interest (ROI) in degrees along the x-axis (RA or L)  
@@ -21,7 +21,7 @@ fitting:
   detector_response: /Users/rishi/Documents/Analysis/data/detRes-fhit2pct-pass5f-mlp-refit.root #Path to detector response file  
   estimator: P5_nhit #Choose the estimator to be used for the fitting procedure. Options: P5_nhit, P5_NN_2D, P5_GP_2D  
   bins: [B2C0, B3C0, B4C0, B5C0, B6C0, B7C0, B8C0, B9C0, B10C0, ] #B5C0, B6C0, B7C0, B8C0, B9C0, B10C0] #bins to be used for the fitting procedure  
-  fit_name: 'Run1' #Name for the fit, used for output files  
+  fit_name: 'Cocoon' #Name for the fit, used for output files  
   output_dir: /Users/rishi/Documents/Analysis/Sources/AstroImageDetection-fitmodel/HAWC-ImageProcessing-3MLFit/hawc_analysis/ #Directory where the output files will be saved  
   no_retries: 3 #Number of retries for the fitting procedure in case of failure
   alternate_spectral_models: ['Cutoff_powerlaw', 'Log_parabola'] #List of alternate spectral models to be tested during the fitting procedure. Must match installed astromodels/threeML class names exactly, e.g. 'Log_parabola', 'Cutoff_powerlaw', 'Exponential_cutoff' (verified against the pixi threeml env; 'LogParabola'/'ExponentialCutoffPowerLaw' from the old comment don't exist as class names here)

@@ -307,15 +307,17 @@ def _check_and_remove_low_ts(trial_result: FitResult, source_names_to_protect: L
         config_path=str(config.config_file), logger=logger,
         roi_template=config.get('roi.roi_template_path'),
     )
-    return runner.fit(
+    refit_result = runner.fit(
         model_file=str(model_path),
         step_dir=str(prune_step_dir),
         compute_err=config.get('error_and_TS.error_point', True),
         compute_TS=True,
         make_maps=True,
     )
+    save_fit_summary(refit_result, logger)
+    return refit_result
 
-def run_extension_test(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
+def run_extension_test(fit_result: FitResult, config, logger, directory_manager, skip_sources: List[str] = None) -> FitResult:
     """Test alternate spatial models per source; accept if TS improvement
     exceeds likelihood_thresholds.extension_test. Other sources are frozen
     during each trial to isolate the tested source's effect; nothing is
@@ -334,7 +336,7 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
 
     force_low_ts_source = config.get('testing.force_low_ts_source', None)
     # force_low_ts_source = 'Source3' 
-
+    skip_sources = skip_sources or []
     if force_low_ts_source:
         logger.info(
             f'TESTING OVERRIDE ACTIVE: forcing TS for source {force_low_ts_source!r} '
@@ -354,7 +356,12 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
         if source_name == 'URM':
             logger.info(f'Skipping extension test for {source_name} (URM source)')
             continue
-
+        if source_name not in model.sources:
+            logger.info(f'{source_name} was removed by a prior low-TS check; skipping its extension test')
+            continue
+        if source_name in skip_sources:
+            logger.info(f'{source_name} already tested in a prior run; skipping (resume)')
+            continue
         other_sources = [n for n in model.sources.keys() if n != source_name]
         best_log_like = baseline_log_like
         logger.info(f'Current best log-likelihood: {best_log_like:.3f}')
@@ -386,7 +393,7 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
                 compute_TS=False,
                 make_maps=True,
             )
-
+            save_fit_summary(trial_result, logger)
             delta_ts = 2 * (best_log_like - trial_result.log_like)
             logger.info(f'Extension test {source_name} -> {alt_shape}: delta_TS={delta_ts:.2f} (threshold {extension_ts_threshold})')
 
@@ -642,7 +649,7 @@ def run_extension_test(fit_result: FitResult, config, logger, directory_manager)
 #         step_dir=fit_result.step_dir, fitter=fit_result.fitter,
 #     )
 
-def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) -> FitResult:
+def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager, skip_sources: List[str] = None) -> FitResult:
     """Test alternate spectral models per source. The current model (C) is
     nested within every alternate model in fitting.alternate_spectral_models
     (e.g. Powerlaw is a restricted case of Log_parabola and of
@@ -671,6 +678,7 @@ def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) 
     model = fit_result.model
     baseline_log_like = fit_result.log_like
     source_names = list(model.sources.keys())
+    skip_sources = skip_sources or []
 
     for source_name in source_names:
         if source_name == 'URM':
@@ -679,7 +687,10 @@ def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) 
         if source_name not in model.sources:
             logger.info(f'{source_name} was removed by a prior low-TS check; skipping its spectrum test')
             continue
-
+        if source_name in skip_sources:
+            logger.info(f'{source_name} already tested in a prior run; skipping (resume)')
+            continue
+        
         other_sources = [n for n in model.sources.keys() if n != source_name]
         # C's own log_like/AIC -- the nested-parent baseline every alt_spectrum
         # trial is screened against. Stays fixed for the whole inner loop:
@@ -708,7 +719,7 @@ def run_spectrum_test(fit_result: FitResult, config, logger, directory_manager) 
                 compute_TS=False,
                 make_maps=False,
             )
-
+            save_fit_summary(trial_result, logger)
             delta_ts = 2 * (c_log_like - trial_result.log_like)
             logger.info(
                 f'Spectrum test {source_name} -> {alt_spectrum} vs baseline C: '
@@ -883,7 +894,11 @@ def run(drip_model_path, config, logger, directory_manager, checkpoint=None) -> 
     result = run_joint_fit(drip_model_path, config, logger, directory_manager)
     save_fit_summary(result, logger, extra={'step': 'Step1-JointFit'})
     if checkpoint is not None:
-        checkpoint.save_step('drips_joint_fit', 0, 'completed', result, metadata={'num_sources': len(result.model.sources)})
+        checkpoint.save_step(
+            'drips_joint_fit', 0, 'completed',
+            {'log_like': result.log_like, 'aic': result.aic, 'ts': result.ts, 'step_dir': str(result.step_dir)},
+            metadata={'num_sources': len(result.model.sources)},
+        )
     _build_fit_maps(config, logger, directory_manager, result.step_dir, 'residual')
 
     if config.get('fitting.run_extension_test', True):
@@ -907,7 +922,104 @@ def run(drip_model_path, config, logger, directory_manager, checkpoint=None) -> 
     save_fit_summary(result, logger, extra={'step': 'Final'})
 
     if checkpoint is not None:
-        checkpoint.save_step('final_refit', 1, 'completed', result, metadata={'num_sources': num_sources})
+        checkpoint.save_step(
+            'final_refit', 1, 'completed',
+            {'log_like': result.log_like, 'aic': result.aic, 'ts': result.ts, 'step_dir': str(result.step_dir)},
+            metadata={'num_sources': num_sources},
+        )
 
     logger.info(f'source_fitter complete: {num_sources} sources, -logL={result.log_like:.3f}')
     return result
+
+
+
+def load_fit_result_from_step_dir(step_dir, logger) -> FitResult:
+    """Reconstruct a FitResult from a previously-completed step's on-disk
+    outputs, for resuming a run without refitting. Requires curModel.model
+    and fit_summary.json to already exist in step_dir.
+    """
+    step_dir = Path(step_dir)
+    model_file = step_dir / 'curModel.model'
+    summary_file = step_dir / 'fit_summary.json'
+
+    if not model_file.exists():
+        raise FileNotFoundError(f'Cannot resume: {model_file} not found')
+    if not summary_file.exists():
+        raise FileNotFoundError(f'Cannot resume: {summary_file} not found')
+
+    import threeML
+    namespace = {'threeML': threeML}
+    exec(open(model_file).read(), namespace)
+    if 'model' not in namespace:
+        raise ValueError(f"{model_file} did not define 'model'")
+    model = namespace['model']
+
+    with open(summary_file) as f:
+        summary = json.load(f)
+
+    model_map_path = step_dir / 'model_fit.hd5'
+    residual_map_path = step_dir / 'residual_fit.hd5'
+
+    result = FitResult(
+        model=model,
+        log_like=summary['log_like'],
+        aic=summary['aic'],
+        ts=summary.get('ts'),
+        model_map_path=model_map_path if model_map_path.exists() else None,
+        residual_map_path=residual_map_path if residual_map_path.exists() else None,
+        step_dir=step_dir,
+        fitter=None,
+    )
+    logger.info(f'Resumed FitResult from {step_dir}: -logL={result.log_like:.3f}, AIC={result.aic:.3f}, {len(model.sources)} sources')
+    return result
+
+
+def find_resume_point(directory_manager, logger):
+    """Scan the Results tree for the most recently completed step with a
+    fit_summary.json, and derive which sources' extension/spectrum tests
+    already ran, for resuming an interrupted run.
+
+    Returns (resume_step_dir, completed_extension_sources, completed_spectrum_sources).
+    """
+    import re
+    results_root = directory_manager.get_step_results_dir('Step1-JointFit').parent
+
+    ext_pattern = re.compile(r'^Step2-(?P<source>.+?)-Extension-(?P<shape>.+?)(?:-Pruned_.*)?$')
+    spec_pattern = re.compile(r'^Step3-(?P<source>.+?)-Spectrum-(?P<spectrum>.+?)(?:-Pruned_.*)?$')
+
+    completed = []
+    for step_dir in results_root.iterdir():
+        if not step_dir.is_dir():
+            continue
+        summary_file = step_dir / 'fit_summary.json'
+        if not summary_file.exists():
+            continue
+        mtime = summary_file.stat().st_mtime
+
+        m = ext_pattern.match(step_dir.name)
+        if m:
+            completed.append((mtime, step_dir, 'extension', m.group('source')))
+            continue
+        m = spec_pattern.match(step_dir.name)
+        if m:
+            completed.append((mtime, step_dir, 'spectrum', m.group('source')))
+            continue
+        if step_dir.name in ('Step1-JointFit', 'Step4-FinalRefit'):
+            completed.append((mtime, step_dir, step_dir.name, None))
+
+    if not completed:
+        logger.info('No completed steps found; nothing to resume from')
+        return None, [], []
+
+    completed.sort(key=lambda t: t[0])
+    for mtime, step_dir, kind, source in completed:
+        logger.info(f'Found completed step: {step_dir.name} (kind={kind}, source={source})')
+
+    resume_step_dir = completed[-1][1]
+    completed_extension_sources = sorted({s for _, _, k, s in completed if k == 'extension' and s})
+    completed_spectrum_sources = sorted({s for _, _, k, s in completed if k == 'spectrum' and s})
+
+    logger.info(f'Resume point: {resume_step_dir}')
+    logger.info(f'Extension test already done for: {completed_extension_sources}')
+    logger.info(f'Spectrum test already done for: {completed_spectrum_sources}')
+    return resume_step_dir, completed_extension_sources, completed_spectrum_sources
